@@ -86,6 +86,10 @@ public:
     libvlc_media_player_t *_mp10;
     libvlc_media_t *_m10;
 
+    // For CCTV view on incoming Call from ETB
+    libvlc_media_player_t *_mp11;
+    libvlc_media_t *_m11;
+
 
 public slots:
     void statusDateTime();

@@ -89,6 +89,8 @@ MainWindow::MainWindow(QWidget *parent)
     _mp8 = libvlc_media_player_new (_vlcinstance);
     _mp9 = libvlc_media_player_new (_vlcinstance);
     _mp10 = libvlc_media_player_new (_vlcinstance);
+    _mp11 = libvlc_media_player_new (_vlcinstance);
+
 
     //Function for getting RTSP streams using libvlc
     playStream();
@@ -105,9 +107,30 @@ MainWindow::~MainWindow()
 
     /* Stop playing */
     libvlc_media_player_stop (_mp);
+    libvlc_media_player_stop (_mp2);
+    libvlc_media_player_stop (_mp3);
+    libvlc_media_player_stop (_mp4);
+    libvlc_media_player_stop (_mp5);
+    libvlc_media_player_stop (_mp6);
+    libvlc_media_player_stop (_mp7);
+    libvlc_media_player_stop (_mp8);
+    libvlc_media_player_stop (_mp9);
+    libvlc_media_player_stop (_mp10);
+    libvlc_media_player_stop (_mp11);
+
 
     /* Free the media_player */
     libvlc_media_player_release (_mp);
+    libvlc_media_player_release (_mp2);
+    libvlc_media_player_release (_mp3);
+    libvlc_media_player_release (_mp4);
+    libvlc_media_player_release (_mp5);
+    libvlc_media_player_release (_mp6);
+    libvlc_media_player_release (_mp7);
+    libvlc_media_player_release (_mp8);
+    libvlc_media_player_release (_mp9);
+    libvlc_media_player_release (_mp10);
+    libvlc_media_player_release (_mp11);
 
     libvlc_release (_vlcinstance);
 }
@@ -139,10 +162,72 @@ void MainWindow::etb_ready_read()
 {
     QByteArray block = etbLocalConnection->readAll();
 
-    if(block.contains("IP:"))
+    block.resize(16);
+
+    if(block.contains("ST:")) //Starting of Call to ETB
     {
-        QString msg = "IP received";
+        QString msg = "192.168.1.221";
         etbLocalConnection->write(msg.toLocal8Bit());
+        qDebug() << msg.toLocal8Bit();
+
+        /*Stop Stream on Different View*/
+        libvlc_media_player_stop (_mp);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp2);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp3);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp4);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp5);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp6);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp7);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp8);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp9);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp10);
+        _isPlaying=true;
+
+        //Shifting to CCTV View when ETB call starts
+        ui->stackedWidget_Dynamic->setCurrentIndex(5);
+
+        //Starting respective CCTV feed (Hardcoded for now)
+        const char* url_cctv =  "rtsp://192.168.1.221/video1.sdp";
+
+        _m11 = libvlc_media_new_location(_vlcinstance, url_cctv);
+        libvlc_media_player_set_media (_mp11, _m11);
+
+        int windid11 = ui->frame_11->winId();
+        libvlc_media_player_set_xwindow (_mp11, windid11);
+
+        libvlc_media_player_play (_mp11);
+        _isPlaying=true;
+    }
+
+    else if(block.contains("EN:")) //End of Call to ETB
+    {
+        //Stops CCTV feed
+        libvlc_media_player_stop (_mp11);
+        _isPlaying=true;
+
+        //Returns to Default Camera View
+        ui->stackedWidget_Dynamic->setCurrentIndex(2);
+
+        libvlc_media_player_play (_mp);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp2);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp3);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp4);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp5);
+        _isPlaying=true;
+
     }
 }
 
