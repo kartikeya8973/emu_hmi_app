@@ -17,12 +17,14 @@ SOURCES += \
     audioplayer.cpp \
     devicewindow.cpp \
     etbarchivewindow.cpp \
+    httpdownloader.cpp \
     infowindow.cpp \
     logindialog.cpp \
     logswindow.cpp \
     main.cpp \
     mainwindow.cpp \
     nvrwindow.cpp \
+    qjsontablemodel.cpp \
     settingswindow.cpp \
     videoarchivewindow.cpp \
     videoplayer.cpp
@@ -31,11 +33,13 @@ HEADERS += \
     audioplayer.h \
     devicewindow.h \
     etbarchivewindow.h \
+    httpdownloader.h \
     infowindow.h \
     logindialog.h \
     logswindow.h \
     mainwindow.h \
     nvrwindow.h \
+    qjsontablemodel.h \
     settingswindow.h \
     videoarchivewindow.h \
     videoplayer.h

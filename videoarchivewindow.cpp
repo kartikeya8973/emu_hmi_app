@@ -25,7 +25,7 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
     //Path of the root directory
-    QString SourcePath = "/home/hmi/VideoArchives/";
+    QString SourcePath = "/home/hmi/VidArchives/";
 //    QString SourcePath = "/home/csemi/VidArchives/";
     dirmodel = new QFileSystemModel(this);
     //Displays only directories
@@ -78,6 +78,11 @@ void VideoArchiveWindow::on_treeView_pressed(const QModelIndex &index)
     ui->pushButton_delete->setEnabled(true);
     ui->pushButton_copy->setEnabled(true);
     ui->pushButton_move->setEnabled(true);
+
+    QByteArray ba = filepathmp4.toLocal8Bit();
+    const char *file = ba.data();
+
+    qDebug() << file;
 }
 
 

@@ -60,5 +60,6 @@
         <file>testing.png</file>
         <file>warning.png</file>
         <file>sound.gif</file>
+        <file>document.png</file>
     </qresource>
 </RCC>

@@ -4,8 +4,11 @@
 #include <QDialog>
 #include <QMediaPlayer>
 #include <QVideoWidget>
-
+#include <QSlider>
 #include <vlc/vlc.h>
+
+#define POSITION_RESOLUTION 10000
+
 namespace Ui {
 class videoplayer;
 }
@@ -17,9 +20,11 @@ class videoplayer : public QDialog
 #ifdef Q_WS_X11
     QX11EmbedContainer *_videoWidget;
 #else
-//    QFrame *_videoWidget;
+    //    QFrame *_videoWidget;
 #endif
     // [20101215 JG] If KDE is used like unique desktop environment, only use QFrame *_videoWidget;
+
+    QTimer *poller;
     bool _isPlaying;
     //libvlc_exception_t _vlcexcep; // [20101215 JG] Used for versions prior to VLC 1.2.0.
     libvlc_instance_t *_vlcinstance;
@@ -46,14 +51,20 @@ private slots:
     void positionChanged(qint64 progress);
     void seek(int seconds);
 
+    //for vlc mediaplayer
+    void playStream();
+    void changePosition(int newPosition);
+    void updateInterface();
+    void updateTime(int currentTime);
+
     //For setting time
-//    void SetTimeLabel();
+    //    void SetTimeLabel();
 
 private:
     Ui::videoplayer *ui;
     QMediaPlayer *player;
     QVideoWidget *vw ;
-//    QSlider *slider;
+    QSlider *slider;
 
     //Duration of the video
     qint64 m_duration;

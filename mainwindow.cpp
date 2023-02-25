@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget_Dynamic->setCurrentIndex(2);
 
     //For playing udp videos in labels
-    playVideo();
+//    playVideo();
 
     //return counter set initially to 0
     returncounter_main = 0;
@@ -154,7 +154,7 @@ void MainWindow::etb_connected()
 {
     etbLocalConnection = etbListner->nextPendingConnection();
     connect(etbLocalConnection, &QAbstractSocket::disconnected,
-             etbLocalConnection, &QObject::deleteLater);
+            etbLocalConnection, &QObject::deleteLater);
     connect(etbLocalConnection, SIGNAL(readyRead()), this, SLOT(etb_ready_read()));
 }
 
@@ -408,6 +408,8 @@ void MainWindow::on_pushButton_nvr_clicked()
     nvrwindow->setWindowFlag(Qt::FramelessWindowHint);
     //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
     QObject::connect(nvrwindow, SIGNAL(homebuttonPressedNVR()), this, SLOT(openHomePage()));
+    //This connect logic connects the return button press with the second page ( index 1) of stackWidget_Dynamic
+    QObject::connect(nvrwindow, SIGNAL(returnbuttonPressedNVR()), this, SLOT(openMenuPagereturn()));
     nvrwindow->showFullScreen();
 
     //opens login dialog if main menu is inactive for a minute
@@ -751,14 +753,14 @@ void MainWindow::on_pushButton_camView_2_clicked()
     //    qDebug() << player->state();
 
     /*Play Stream*/
-   libvlc_media_player_play (_mp6);
-   _isPlaying=true;
-   libvlc_media_player_play (_mp7);
-   _isPlaying=true;
-   libvlc_media_player_play (_mp8);
-   _isPlaying=true;
-   libvlc_media_player_play (_mp9);
-   _isPlaying=true;
+    libvlc_media_player_play (_mp6);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp7);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp8);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp9);
+    _isPlaying=true;
 
     /*Stop Stream on Different View*/
     libvlc_media_player_stop (_mp);
