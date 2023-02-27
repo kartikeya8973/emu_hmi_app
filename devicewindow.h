@@ -19,13 +19,21 @@ signals:
     // signal for home button(present in the device window) press
     void homebuttonPressedDevice();
 
+    // signal for return button(present in the NVR window) press
+    void returnbuttonPressedDevice();
+
 public slots:
     void statusDateTimeDevice();
+
+    //Function to get the status of all the IPCAMs
+    void camStatus();
 
 private slots:
     void on_pushButton_home_button_clicked();
 
     void on_pushButton_return_clicked();
+
+    void on_pushButton_camStatus_clicked();
 
 private:
     Ui::DeviceWindow *ui;

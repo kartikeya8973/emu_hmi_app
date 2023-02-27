@@ -346,6 +346,8 @@ void MainWindow::on_pushButton_deviceStatus_clicked()
     devicewindow->setWindowFlag(Qt::FramelessWindowHint);
     //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
     QObject::connect(devicewindow, SIGNAL(homebuttonPressedDevice()), this, SLOT(openHomePage()));
+    //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the Device Status window
+    QObject::connect(devicewindow, SIGNAL(returnbuttonPressedDevice()), this, SLOT(openMenuPagereturn()));
     devicewindow->showFullScreen();
 
     //opens login dialog if main menu is inactive for a minute
@@ -408,7 +410,7 @@ void MainWindow::on_pushButton_nvr_clicked()
     nvrwindow->setWindowFlag(Qt::FramelessWindowHint);
     //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
     QObject::connect(nvrwindow, SIGNAL(homebuttonPressedNVR()), this, SLOT(openHomePage()));
-    //This connect logic connects the return button press with the second page ( index 1) of stackWidget_Dynamic
+    //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the NVR window
     QObject::connect(nvrwindow, SIGNAL(returnbuttonPressedNVR()), this, SLOT(openMenuPagereturn()));
     nvrwindow->showFullScreen();
 
@@ -430,6 +432,8 @@ void MainWindow::on_pushButton_settings_clicked()
     settingswindow->setWindowFlag(Qt::FramelessWindowHint);
     //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
     QObject::connect(settingswindow, SIGNAL(homebuttonPressedSettings()), this, SLOT(openHomePage()));
+    //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the Settings window
+    QObject::connect(settingswindow, SIGNAL(returnbuttonPressedSettings()), this, SLOT(openMenuPagereturn()));
     settingswindow->showFullScreen();
 
     //opens login dialog if main menu is inactive for a minute

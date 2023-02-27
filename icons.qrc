@@ -60,6 +60,9 @@
         <file>testing.png</file>
         <file>warning.png</file>
         <file>sound.gif</file>
+        <file>cctv_status.png</file>
         <file>document.png</file>
+        <file>cctv_red.png</file>
+        <file>password.png</file>
     </qresource>
 </RCC>

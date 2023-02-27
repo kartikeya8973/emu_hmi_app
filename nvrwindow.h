@@ -35,6 +35,7 @@ public:
     //Function to read json of record list and display in tableview
     void readJson();
 
+
 signals:
     // signal for home button(present in the NVR window) press
     void homebuttonPressedNVR();
@@ -59,7 +60,6 @@ private slots:
     void on_pushButton_streamList_clicked();
 
     void on_pushButton_downloadReloadList_clicked();
-
 
     void on_pushButton_downloadVideo_clicked();
 

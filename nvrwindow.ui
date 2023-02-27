@@ -155,7 +155,7 @@
        </size>
       </property>
      </widget>
-     <widget class="QLabel" name="label_info">
+     <widget class="QLabel" name="label_streamList">
       <property name="geometry">
        <rect>
         <x>45</x>
@@ -171,27 +171,6 @@
       </property>
       <property name="text">
        <string>VIDEO LIST</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_nvrStatus">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>70</y>
-        <width>131</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

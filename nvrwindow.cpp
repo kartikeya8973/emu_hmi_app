@@ -27,18 +27,20 @@ NVRWindow::NVRWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Date);
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
-    int ping_for_button= system("ping -c 3 192.168.1.2 > /dev/null 2>&1");
-    if ( ping_for_button == 0) //Pinging NVR to check if it active
-    {
-        ui->label_nvrStatus->setText("NVR ONLINE");
-        ui->label_nvrStatus->setStyleSheet("QLabel { color : green; }");
-    }
+//    int ping_for_button= system("ping -c 3 192.168.1.2 > /dev/null 2>&1");
+//    if ( ping_for_button == 0) //Pinging NVR to check if it active
+//    {
+//        ui->label_nvrStatus->setText("NVR ONLINE");
+//        ui->label_nvrStatus->setStyleSheet("QLabel { color : green; }");
+//    }
 
-    else
-    {
-        ui->label_nvrStatus->setText("NVR OFFLINE");
-        ui->label_nvrStatus->setStyleSheet("QLabel { color : red; }");
-    }
+//    else
+//    {
+//        ui->label_nvrStatus->setText("NVR OFFLINE");
+//        ui->label_nvrStatus->setStyleSheet("QLabel { color : red; }");
+//    }
+
+
 }
 
 NVRWindow::~NVRWindow()
@@ -74,6 +76,7 @@ void NVRWindow::on_pushButton_return_clicked()
     //Going to the main page on NVR window
     if (returncounter_nvr == 1){
         ui->stackedWidget->setCurrentIndex(0);
+        ui->label_heading->setText("NVR INTERFACE");
         returncounter_nvr --;
     }
     //returns to menu page of the Mainwindow
@@ -88,6 +91,8 @@ void NVRWindow::on_pushButton_streamList_clicked()
 {
     //Switch to the first page
     ui->stackedWidget->setCurrentIndex(1);
+
+    ui->label_heading->setText("VIDEO LIST");
 
     returncounter_nvr = 1; //signifies we are going to page 2 of stackwidget
 
@@ -126,8 +131,8 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         qDebug() << replyList->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << replyList->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
 
-                QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
-//        QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
+        QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
+        //        QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
         if(file->open(QFile::Append))
         {
             file->write(replyList->readAll());
@@ -147,9 +152,9 @@ void NVRWindow::on_pushButton_downloadReloadList_clicked()
 {
     //Deleting previous json
     //For HMI
-        system("rm /home/hmi/Downloads/streamList.json");
+    system("rm /home/hmi/Downloads/streamList.json");
     //For Host PC
-//    system("rm /home/csemi/Downloads/streamList.json");
+    //    system("rm /home/csemi/Downloads/streamList.json");
 
     // Calling fucntion to download record list from NVR
     downloadJson();
@@ -194,8 +199,8 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
         QString date_string ="";
         date_string = date.toString("dd.MM.yyyy");
 
-                QFile *file = new QFile("/home/hmi/VidArchives/"+ date_string +"_recordings/video.mp4");
-//        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
+        QFile *file = new QFile("/home/hmi/VidArchives/"+ date_string +"_recordings/video.mp4");
+        //        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
         if(file->open(QFile::Append))
         {
             file->write(replyStream->readAll());
@@ -228,9 +233,9 @@ void NVRWindow::readJson()
     QFile file;
 
     //for hmi
-        file.setFileName("/home/hmi/Downloads/streamList.json");
+    file.setFileName("/home/hmi/Downloads/streamList.json");
     //for host PC
-//    file.setFileName("/home/csemi/Downloads/streamList.json");
+    //    file.setFileName("/home/csemi/Downloads/streamList.json");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray saveData = file.readAll();
@@ -292,3 +297,5 @@ void NVRWindow::on_pushButton_viewList_clicked()
 }
 
 //##########################################################################################
+
+

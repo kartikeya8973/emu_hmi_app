@@ -1,4 +1,4 @@
-QT       += core gui multimedia multimediawidgets
+QT       += core gui multimedia multimediawidgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,10 +15,12 @@ INCLUDEPATH += /usr/include/gstreamer-1.0/ /usr/include/glib-2.0/ /usr/lib/x86_6
 
 SOURCES += \
     audioplayer.cpp \
+    customle.cpp \
     devicewindow.cpp \
     etbarchivewindow.cpp \
     httpdownloader.cpp \
     infowindow.cpp \
+    keyboarddialog.cpp \
     logindialog.cpp \
     logswindow.cpp \
     main.cpp \
@@ -31,10 +33,12 @@ SOURCES += \
 
 HEADERS += \
     audioplayer.h \
+    customle.h \
     devicewindow.h \
     etbarchivewindow.h \
     httpdownloader.h \
     infowindow.h \
+    keyboarddialog.h \
     logindialog.h \
     logswindow.h \
     mainwindow.h \
@@ -49,6 +53,7 @@ FORMS += \
     devicewindow.ui \
     etbarchivewindow.ui \
     infowindow.ui \
+    keyboarddialog.ui \
     logindialog.ui \
     logswindow.ui \
     mainwindow.ui \
@@ -64,3 +69,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     icons.qrc
+
+DISTFILES += \
+    4-black-squares.png
