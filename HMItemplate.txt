@@ -1,0 +1,45 @@
+Paths for HMI and Host PC that are needed to be modified for the respective compilation.
+
+
+In logindialog.cpp
+//For HMI
+passdb.setDatabaseName("/home/hmi/HMI/password.db");
+//For Host PC
+//passdb.setDatabaseName("/home/csemi/qtworkspace_new/HMItemplate/password.db");
+
+In etbarchiveswindow.cpp
+//Path of the root directory
+QString SourcePath = "/home/hmi/ETBArchives/";
+//QString SourcePath = "/home/csemi/EtbArchives/";
+
+In videoarchivewindow.cpp
+//Path of the root directory
+QString SourcePath = "/home/hmi/VidArchives/";
+//QString SourcePath = "/home/csemi/VidArchives/";
+
+ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
+//ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
+
+In nvrwindow.cpp
+
+	In replyList function
+
+	QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
+	//QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
+
+	In on_pushButton_downloadReloadList_clicked()
+	//Deleting previous json
+    	//For HMI
+    	system("rm /home/hmi/Downloads/streamList.json");
+    	//For Host PC
+    	//system("rm /home/csemi/Downloads/streamList.json");
+
+	In replyStream function
+	QFile *file = new QFile("/home/hmi/VidArchives/"+ date_string +"_recordings/video.mp4");
+        //QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
+        
+	In readJson function
+	//for hmi
+    	file.setFileName("/home/hmi/Downloads/streamList.json");
+    	//for host PC
+    	//file.setFileName("/home/csemi/Downloads/streamList.json");
