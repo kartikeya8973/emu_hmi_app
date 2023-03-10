@@ -278,3 +278,9 @@ void videoplayer::updateTime(int currentTime)
     ui->label_time->setText(tStr);
 }
 //###########################################################################
+
+void videoplayer::on_pushButton_screenshot_clicked()
+{
+    system("gnome-screenshot -i");
+}
+

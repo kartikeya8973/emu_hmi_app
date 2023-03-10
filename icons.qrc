@@ -64,5 +64,7 @@
         <file>document.png</file>
         <file>cctv_red.png</file>
         <file>password.png</file>
+        <file>screenshot.png</file>
+        <file>usb-drive.png</file>
     </qresource>
 </RCC>

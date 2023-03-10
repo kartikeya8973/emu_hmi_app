@@ -181,10 +181,10 @@
      <widget class="QTableView" name="tableView_streamList">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>821</width>
-        <height>551</height>
+        <x>30</x>
+        <y>28</y>
+        <width>801</width>
+        <height>533</height>
        </rect>
       </property>
      </widget>
@@ -192,8 +192,8 @@
       <property name="geometry">
        <rect>
         <x>850</x>
-        <y>10</y>
-        <width>161</width>
+        <y>28</y>
+        <width>135</width>
         <height>101</height>
        </rect>
       </property>
@@ -213,8 +213,8 @@ VIDEO LIST</string>
       <property name="geometry">
        <rect>
         <x>850</x>
-        <y>160</y>
-        <width>161</width>
+        <y>170</y>
+        <width>135</width>
         <height>101</height>
        </rect>
       </property>
@@ -233,8 +233,8 @@ LIST</string>
       <property name="geometry">
        <rect>
         <x>850</x>
-        <y>310</y>
-        <width>161</width>
+        <y>320</y>
+        <width>135</width>
         <height>101</height>
        </rect>
       </property>
@@ -254,7 +254,7 @@ VIDEO STREAM</string>
        <rect>
         <x>850</x>
         <y>460</y>
-        <width>161</width>
+        <width>135</width>
         <height>101</height>
        </rect>
       </property>
@@ -272,9 +272,9 @@ STREAM</string>
      <widget class="QLabel" name="label_status">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>580</y>
-        <width>821</width>
+        <width>801</width>
         <height>40</height>
        </rect>
       </property>
@@ -284,12 +284,43 @@ STREAM</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
       </property>
       <property name="text">
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="label_info">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>8</y>
+        <width>984</width>
+        <height>630</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_info</zorder>
+     <zorder>tableView_streamList</zorder>
+     <zorder>pushButton_downloadReloadList</zorder>
+     <zorder>pushButton_viewList</zorder>
+     <zorder>pushButton_downloadVideo</zorder>
+     <zorder>pushButton_playVideo</zorder>
+     <zorder>label_status</zorder>
     </widget>
    </widget>
   </widget>

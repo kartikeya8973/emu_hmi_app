@@ -60,6 +60,8 @@ private slots:
     //For setting time
     //    void SetTimeLabel();
 
+    void on_pushButton_screenshot_clicked();
+
 private:
     Ui::videoplayer *ui;
     QMediaPlayer *player;

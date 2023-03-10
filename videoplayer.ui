@@ -105,10 +105,10 @@ QSlider::handle:horizontal {
   <widget class="QPushButton" name="pushButton_play">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>640</y>
-     <width>40</width>
-     <height>40</height>
+     <x>367</x>
+     <y>635</y>
+     <width>50</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -134,10 +134,10 @@ QSlider::handle:horizontal {
   <widget class="QPushButton" name="pushButton_pause">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>640</y>
-     <width>40</width>
-     <height>40</height>
+     <x>437</x>
+     <y>635</y>
+     <width>50</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -197,6 +197,35 @@ QSlider::handle:horizontal {
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_screenshot">
+   <property name="geometry">
+    <rect>
+     <x>507</x>
+     <y>635</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/new/icons/screenshot.png</normaloff>:/new/icons/screenshot.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>label_videoplayer</zorder>
   <zorder>slider</zorder>
   <zorder>pushButton_play</zorder>
@@ -204,6 +233,7 @@ QSlider::handle:horizontal {
   <zorder>label_time</zorder>
   <zorder>frame</zorder>
   <zorder>pushButton_close</zorder>
+  <zorder>pushButton_screenshot</zorder>
  </widget>
  <resources>
   <include location="icons.qrc"/>
