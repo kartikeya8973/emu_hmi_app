@@ -119,7 +119,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -128,457 +128,516 @@
       <height>686</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(211, 215, 207);</string>
     </property>
-    <widget class="QWidget" name="page">
-     <widget class="QLabel" name="label_info">
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="movable">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="tab1">
+     <attribute name="title">
+      <string>INFO</string>
+     </attribute>
+     <widget class="QStackedWidget" name="stackedWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>25</y>
-        <width>984</width>
-        <height>600</height>
+        <x>0</x>
+        <y>0</y>
+        <width>1024</width>
+        <height>666</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
+       <string notr="true">background-color: rgb(211, 215, 207);</string>
+      </property>
+      <widget class="QWidget" name="page">
+       <widget class="QLabel" name="label_info">
+        <property name="geometry">
+         <rect>
+          <x>8</x>
+          <y>10</y>
+          <width>1004</width>
+          <height>590</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_process">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> PROCESSOR</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_hardware_version">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>90</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> HARDWARE VERSION</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_software_version">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>150</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> SOFTWARE VERSION</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_os_version">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>210</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> OS VERSION</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_ram">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>270</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> RAM</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_disk">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>330</y>
+          <width>250</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> DISK</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_last_main_date">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>560</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> LAST MAINTENANCE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_install_date">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>510</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> INSTALLATION DATE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_mfrdate">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>460</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> MFR DATE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_mfr">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>400</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string> MANUFACTURER</string>
+        </property>
+       </widget>
+       <widget class="Line" name="line">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>395</y>
+          <width>800</width>
+          <height>3</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_process_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>30</y>
+          <width>521</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>Intel® Atom™ and Celeron® Processor SoC</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_hardware_version_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>90</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>1.0.0</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_software_version_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>150</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>1.0.0</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_os_version_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>210</y>
+          <width>270</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>UBUNTU 16.04 LTS</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_ram_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>270</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>4 GB</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_disk_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>330</y>
+          <width>200</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>29.6 GB</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_mfr_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>400</y>
+          <width>330</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>RT-VISION TECHNOLOGIES</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_mfrdate_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>450</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>30-04-2022</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_install_date_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>510</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>05-05-2022</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_last_main_date_2">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>560</y>
+          <width>300</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>19</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>05-05-2022</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_8">
+     <attribute name="title">
+      <string>LOCATION</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1004</width>
+        <height>591</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/new/icons/location_gps.png);</string>
       </property>
       <property name="text">
        <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_process">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>35</y>
-        <width>250</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> PROCESSOR</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_hardware_version">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>95</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> HARDWARE VERSION</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_software_version">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>155</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> SOFTWARE VERSION</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_os_version">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>215</y>
-        <width>250</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> OS VERSION</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_ram">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>275</y>
-        <width>250</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> RAM</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_disk">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>335</y>
-        <width>250</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> DISK</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_last_main_date">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>585</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> LAST MAINTENANCE</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_install_date">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>525</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> INSTALLATION DATE</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_mfrdate">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>465</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> MFR DATE</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_mfr">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>405</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string> MANUFACTURER</string>
-      </property>
-     </widget>
-     <widget class="Line" name="line">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>400</y>
-        <width>800</width>
-        <height>3</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_process_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>35</y>
-        <width>521</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>Intel® Atom™ and Celeron® Processor SoC</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_hardware_version_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>95</y>
-        <width>200</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>1.0.0</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_software_version_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>155</y>
-        <width>200</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>1.0.0</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_os_version_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>215</y>
-        <width>270</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>UBUNTU 16.04 LTS</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_ram_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>275</y>
-        <width>200</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>4 GB</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_disk_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>335</y>
-        <width>200</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>29.6 GB</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_mfr_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>405</y>
-        <width>330</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>RT-VISION TECHNOLOGIES</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_mfrdate_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>455</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>30-04-2022</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_install_date_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>525</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>05-05-2022</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_last_main_date_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>585</y>
-        <width>300</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>19</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>05-05-2022</string>
       </property>
      </widget>
     </widget>

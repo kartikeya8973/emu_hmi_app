@@ -13,7 +13,10 @@
 extern QElapsedTimer timeractive;
 
 //counter for return button for NVR window
-int returncounter_nvr;
+int returncounter_nvr=0;
+
+extern int ping_for_nvr1;
+extern int ping_for_nvr2;
 
 NVRWindow::NVRWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -76,7 +79,7 @@ void NVRWindow::on_pushButton_return_clicked()
     //Going to the main page on NVR window
     if (returncounter_nvr == 1){
         ui->stackedWidget->setCurrentIndex(0);
-        ui->label_heading->setText("NVR INTERFACE");
+        ui->label_heading->setText(" NVR INTERFACE");
         returncounter_nvr --;
     }
     //returns to menu page of the Mainwindow
@@ -86,15 +89,27 @@ void NVRWindow::on_pushButton_return_clicked()
     }
 }
 
+void NVRWindow::on_pushButton_diagnostics_clicked()
+{
+    //Switch to the second page
+    ui->stackedWidget->setCurrentIndex(1);
+
+    ui->label_heading->setText(" SELF DIAGNOSTICS");
+
+    returncounter_nvr = 1; //signifies we are going to page 2 of stackwidget
+
+    nvrStatus();
+}
+
 
 void NVRWindow::on_pushButton_streamList_clicked()
 {
-    //Switch to the first page
-    ui->stackedWidget->setCurrentIndex(1);
+    //Switch to the third page
+    ui->stackedWidget->setCurrentIndex(2);
 
-    ui->label_heading->setText("VIDEO LIST");
+    ui->label_heading->setText(" VIDEO LIST");
 
-    returncounter_nvr = 1; //signifies we are going to page 2 of stackwidget
+    returncounter_nvr = 1; //signifies we are going to page 3 of stackwidget
 
 }
 
@@ -235,7 +250,7 @@ void NVRWindow::readJson()
     //for hmi
     file.setFileName("/home/hmi/Downloads/streamList.json");
     //for host PC
-    //    file.setFileName("/home/csemi/Downloads/streamList.json");
+//        file.setFileName("/home/csemi/Downloads/streamList.json");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray saveData = file.readAll();
@@ -248,7 +263,7 @@ void NVRWindow::readJson()
 
         QByteArray streamJson;
 
-        for (int i = 14; i <= saveData.count() - 2 ; i++)
+        for (int i = 14; i <= saveData.count() - 3 ; i++)
         {
             streamJson.append(saveData.at(i));
         }
@@ -297,5 +312,40 @@ void NVRWindow::on_pushButton_viewList_clicked()
 }
 
 //##########################################################################################
+
+//##########################################################################################
+
+//Function for getting status of NVR
+void NVRWindow::nvrStatus()
+{
+    //NVR1
+    if ( ping_for_nvr1 == 0) //Pinging NVR to check if it active
+    {
+        ui->label_StatusNvr1->setText("IP : 192.168.1.2");
+        ui->label_StatusNvr1->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconNvr1->setStyleSheet("image: url(:/new/icons/nvr_green.png);");
+    }
+    else
+    {
+        ui->label_StatusNvr1->setText("NVR 1 is OFFLINE");
+        ui->label_StatusNvr1->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconNvr1->setStyleSheet("image: url(:/new/icons/nvr_red.png);");
+    }
+
+    //NVR2
+    if ( ping_for_nvr2 == 0) //Pinging NVR to check if it active
+    {
+        ui->label_StatusNvr2->setText("IP : 192.168.1.232");
+        ui->label_StatusNvr2->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconNvr2->setStyleSheet("image: url(:/new/icons/nvr_green.png);");
+    }
+    else
+    {
+        ui->label_StatusNvr2->setText("NVR 2 is OFFLINE");
+        ui->label_StatusNvr2->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconNvr2->setStyleSheet("image: url(:/new/icons/nvr_red.png);");
+    }
+}
+
 
 

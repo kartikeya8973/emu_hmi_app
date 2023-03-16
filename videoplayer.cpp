@@ -54,14 +54,14 @@ videoplayer::videoplayer(QWidget *parent) :
 
     ui->slider->setMaximum(POSITION_RESOLUTION);
 
-    _isPlaying=false;
+    _isPlaying_player=false;
     poller=new QTimer(this);
 
     //create a new libvlc instance
     _vlcinstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);  //tricky calculation of the char space used
 
     // Create a media player playing environement
-    _mp = libvlc_media_player_new (_vlcinstance);
+    _mp_player = libvlc_media_player_new (_vlcinstance);
 
     playStream();
 
@@ -79,8 +79,8 @@ videoplayer::~videoplayer()
 {
     delete ui;
 
-    libvlc_media_player_stop (_mp);
-    libvlc_media_player_release (_mp);
+    libvlc_media_player_stop (_mp_player);
+    libvlc_media_player_release (_mp_player);
     libvlc_release (_vlcinstance);
 
 }
@@ -93,8 +93,8 @@ void videoplayer::on_pushButton_close_clicked()
     //    player->stop();
 
     //For vlc mediaplayer
-    libvlc_media_player_stop (_mp);
-    _isPlaying=true;
+    libvlc_media_player_stop (_mp_player);
+    _isPlaying_player=true;
 }
 
 
@@ -105,8 +105,8 @@ void videoplayer::on_pushButton_play_clicked()
     //    player->play();
 
     //For vlc mediaplayer
-    libvlc_media_player_play (_mp);
-    _isPlaying=true;
+    libvlc_media_player_play (_mp_player);
+    _isPlaying_player=true;
 }
 
 void videoplayer::on_pushButton_pause_clicked()
@@ -116,8 +116,8 @@ void videoplayer::on_pushButton_pause_clicked()
     //    player->pause();
 
     //For vlc mediaplayer
-    libvlc_media_player_pause (_mp);
-    _isPlaying=true;
+    libvlc_media_player_pause (_mp_player);
+    _isPlaying_player=true;
 }
 
 //Functions used when using qmediaplayer
@@ -171,7 +171,7 @@ void videoplayer::playStream(){
 
     //    _m = libvlc_media_new_path(_vlcinstance, file.toLatin1());
     _m = libvlc_media_new_path(_vlcinstance, file);
-    libvlc_media_player_set_media (_mp, _m);
+    libvlc_media_player_set_media (_mp_player, _m);
 
     /* Get our media instance to use our window */
 #if defined(Q_OS_WIN)
@@ -191,12 +191,12 @@ void videoplayer::playStream(){
         winID() returns X11 handle when QX11EmbedContainer us used */
 
     int windid = ui->frame->winId();
-    libvlc_media_player_set_xwindow (_mp, windid );
+    libvlc_media_player_set_xwindow (_mp_player, windid );
 
 #endif
 
-    libvlc_media_player_play (_mp);
-    _isPlaying=true;
+    libvlc_media_player_play (_mp_player);
+    _isPlaying_player=true;
 
 }
 
@@ -205,14 +205,14 @@ void videoplayer::changePosition(int newPosition)
     //libvlc_exception_clear(&_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     // It's possible that the vlc doesn't play anything
     // so check before
-    libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp);
+    libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp_player);
     //libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp, &_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     //libvlc_exception_clear(&_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     if (curMedia == NULL)
         return;
 
     float pos=(float)(newPosition)/(float)POSITION_RESOLUTION;
-    libvlc_media_player_set_position (_mp, pos);
+    libvlc_media_player_set_position (_mp_player, pos);
     //libvlc_media_player_set_position (_mp, pos, &_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     //raise(&_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
 
@@ -223,18 +223,18 @@ void videoplayer::changePosition(int newPosition)
 
 void videoplayer::updateInterface()
 {
-    if(!_isPlaying)
+    if(!_isPlaying_player)
         return;
 
     // It's possible that the vlc doesn't play anything
     // so check before
-    libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp);
+    libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp_player);
     //libvlc_media_t *curMedia = libvlc_media_player_get_media (_mp, &_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     //libvlc_exception_clear(&_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     if (curMedia == NULL)
         return;
 
-    float pos=libvlc_media_player_get_position (_mp);
+    float pos=libvlc_media_player_get_position (_mp_player);
     //float pos=libvlc_media_player_get_position (_mp, &_vlcexcep); // [20101215 JG] Used for versions prior to VLC 1.2.0.
     int siderPos=(int)(pos*(float)(POSITION_RESOLUTION));
     ui->slider->setValue(siderPos);
@@ -247,7 +247,7 @@ void videoplayer::updateInterface()
     //    ui->label_time->setText(timeStr);
 
     //For updating the time stamp when slider in not moved manually
-    int position = libvlc_media_player_get_position (_mp);
+    int position = libvlc_media_player_get_position (_mp_player);
     updateTime(position);
 
 }
@@ -257,10 +257,10 @@ void videoplayer::updateTime(int currentTime)
     QString tStr;
 
     //Storing current time in seconds
-    currentTime = libvlc_media_player_get_time(_mp)/1000;
+    currentTime = libvlc_media_player_get_time(_mp_player)/1000;
 
     //Storing total time in seconds
-    int totolTime = libvlc_media_player_get_length(_mp)/1000;
+    int totolTime = libvlc_media_player_get_length(_mp_player)/1000;
 
     //Conversion of seconds to hh:mm:ss format
     if (currentTime || totolTime) {

@@ -17,6 +17,8 @@ InfoWindow::InfoWindow(QWidget *parent) :
     //Adding data and time widgets to the status bar
     ui->statusbar->addPermanentWidget(ui->label_Date);
     ui->statusbar->addPermanentWidget(ui->label_Time);
+
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 InfoWindow::~InfoWindow()

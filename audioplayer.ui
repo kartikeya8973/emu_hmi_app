@@ -183,7 +183,8 @@ QSlider::handle:horizontal {
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(0, 0, 0);
-image: url(:/new/icons/sound.png);</string>
+image: url(:/new/icons/sound.png);
+</string>
    </property>
    <property name="text">
     <string/>

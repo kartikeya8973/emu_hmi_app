@@ -25,11 +25,11 @@ class videoplayer : public QDialog
     // [20101215 JG] If KDE is used like unique desktop environment, only use QFrame *_videoWidget;
 
     QTimer *poller;
-    bool _isPlaying;
+    bool _isPlaying_player;
     //libvlc_exception_t _vlcexcep; // [20101215 JG] Used for versions prior to VLC 1.2.0.
     libvlc_instance_t *_vlcinstance;
-    // For Camview1 - 1st Frame
-    libvlc_media_player_t *_mp;
+    // For Frame in Video Player
+    libvlc_media_player_t *_mp_player;
     libvlc_media_t *_m;
 
 public:

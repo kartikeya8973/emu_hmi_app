@@ -19,6 +19,8 @@
 #include <QVBoxLayout>
 #include <vlc/vlc.h>
 #include <QWidget>
+#include <QList>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,7 +42,7 @@ public:
 #ifdef Q_WS_X11
     QX11EmbedContainer *_videoWidget;
 #else
-//    QFrame *_videoWidget;
+    //    QFrame *_videoWidget;
 #endif
     // [20101215 JG] If KDE is used like unique desktop environment, only use QFrame *_videoWidget;
     bool _isPlaying;
@@ -90,6 +92,18 @@ public:
     libvlc_media_player_t *_mp11;
     libvlc_media_t *_m11;
 
+    // For IPCAM view on pushing frame's button
+    libvlc_media_player_t *_mp12;
+    libvlc_media_t *_m12;    
+
+    // When train stops and/or goes in reverse
+    libvlc_media_player_t *_mp13;
+    libvlc_media_t *_m13;
+
+signals:
+    // signal emitted when left button of Full Cam View window is pressed
+    void left_full_clicked();
+
 
 public slots:
     void statusDateTime();
@@ -109,14 +123,27 @@ public slots:
     //For getting rtsp streams
     void playStream();
 
-//    //Stop streams in CamView1
-//    void stopStreamCamView1();
+    //    //Stop streams in CamView1
+    //    void stopStreamCamView1();
 
-//    //Stop streams in CamViewMosaic
-//    void stopStreamCamViewMosaic();
+    //    //Stop streams in CamViewMosaic
+    //    void stopStreamCamViewMosaic();
 
-//     //Stop streams in CamViewFull
-//    void stopStreamCamViewFull();
+    //     //Stop streams in CamViewFull
+    //    void stopStreamCamViewFull();
+
+    //Iterate Full Cam view
+    void iterateFullCamView();
+
+    //Iterate Mosiac Cam view
+    void iterateMosiacCamView();
+
+    //Iterate the top row of cameras on the first view
+    void iterateExternalCams();
+
+    //Iterate the saloon cameras on the first view
+    void iterateSaloonCams();
+
 
 private slots:
     void on_pushButton_Menu_clicked();
@@ -162,7 +189,36 @@ private slots:
     void on_pushButton_right_full_clicked();
 
     void etb_connected();
+
     void etb_ready_read();
+
+    void on_pushButton_frame_1_clicked();
+
+    void on_pushButton_frame_2_clicked();
+
+    void on_pushButton_frame_3_clicked();
+
+    void on_pushButton_frame_4_clicked();
+
+    void on_pushButton_frame_5_clicked();
+
+    void on_pushButton_frame_6_clicked();
+
+    void on_pushButton_frame_7_clicked();
+
+    void on_pushButton_frame_8_clicked();
+
+    void on_pushButton_frame_9_clicked();
+
+    void on_pushButton_record_clicked();
+
+    void on_pushButton_stop_clicked();
+
+    void on_pushButton_frame_10_clicked();
+
+    void train_stops_connected();
+
+    void train_stops_readyRead();
 
 private:
     Ui::MainWindow *ui;
@@ -178,9 +234,18 @@ private:
     QTcpSocket *etbLocalConnection =  nullptr;
     QTcpSocket *etbSocket =  nullptr;
 
+    //When train train stops
+    QTcpServer *trainStopLister =  nullptr;
+    QTcpSocket *trainStopConnection =  nullptr;
+    QTcpSocket *trainStopSocket =  nullptr;
 
-//    QTimer *timeractive;
-;
+    QList<int> integerList;
+
+    QTimer* recordTimer;
+    int recordTimeCtr;
+
+    //    QTimer *timeractive;
+    ;
 
 };
 #endif // MAINWINDOW_H

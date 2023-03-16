@@ -41,6 +41,8 @@ private:
 
     //Duration of the video
     qint64 m_duration;
+
+    QMovie *movie;
 };
 
 #endif // AUDIOPLAYER_H

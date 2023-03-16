@@ -26,6 +26,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     nvrwindow.cpp \
+    pingthread.cpp \
     qjsontablemodel.cpp \
     settingswindow.cpp \
     videoarchivewindow.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     logswindow.h \
     mainwindow.h \
     nvrwindow.h \
+    pingthread.h \
     qjsontablemodel.h \
     settingswindow.h \
     videoarchivewindow.h \

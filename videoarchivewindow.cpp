@@ -21,7 +21,7 @@ QString usbpath = "";
 //Global variable for filename selected from USB
 QString usbfilename = "";
 
-//counter for return button for logs window
+//counter for return button for video archives window
 int returncounter_vid;
 
 VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
@@ -46,9 +46,9 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     dirmodel->setRootPath(SourcePath);
     ui->treeView->setModel(dirmodel);
     ui->treeView->setRootIndex(dirmodel->setRootPath(SourcePath));
-    ui->treeView->setColumnWidth(0,400);
-    ui->treeView->setColumnWidth(1,200);
-    ui->treeView->setColumnWidth(2,200);
+    ui->treeView->setColumnWidth(0,500);
+    ui->treeView->setColumnWidth(1,120);
+    ui->treeView->setColumnWidth(2,120);
     //    ui->treeView->setAlternatingRowColors(true);
 
     //    filemodel = new QFileSystemModel(this);
@@ -67,11 +67,11 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     ui->treeView_2->setModel(model2);
     ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
 //    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
-    ui->treeView_2->setColumnWidth(0,400);
-    ui->treeView_2->setColumnWidth(1,200);
-    ui->treeView_2->setColumnWidth(2,200);
+    ui->treeView_2->setColumnWidth(0,500);
+    ui->treeView_2->setColumnWidth(1,120);
+    ui->treeView_2->setColumnWidth(2,120);
 
-    ui->label_copy->setWordWrap(true);
+    ui->label_status->setWordWrap(true);
 
 }
 
@@ -109,15 +109,12 @@ void VideoArchiveWindow::on_treeView_pressed(const QModelIndex &index)
     qDebug() << file;
 }
 
-
-//buttons in the etb window (8 buttons - home ,return ,play, upload, rename, delete, copy, move)
-
+//buttons in the vidarchive window (7 buttons - home ,return ,play, upload, rename, delete, copy/move)
 void VideoArchiveWindow::on_pushButton_home_button_clicked()
 {
     emit homebuttonPressedVid();
     //close this window
     close();
-
     //timer to keep the window active
     timeractive.start();
 }
@@ -135,8 +132,7 @@ void VideoArchiveWindow::on_pushButton_return_clicked()
         close();
     }
 
-    ui->label_heading->setText("Video Archives");
-
+    ui->label_heading->setText(" Video Archives");
     //timer to keep the window active
     timeractive.start();
 }
@@ -172,6 +168,10 @@ void VideoArchiveWindow::on_pushButton_delete_clicked()
 {
     //timer to keep the window active
     timeractive.start();
+
+    QString delete_file = " rm " + filepathmp4;
+
+    system(qPrintable(delete_file));
 }
 
 void VideoArchiveWindow::on_pushButton_copy_move_clicked()
@@ -183,8 +183,8 @@ void VideoArchiveWindow::on_pushButton_copy_move_clicked()
     ui->stackedWidget->setCurrentIndex(1);
     returncounter_vid = 1;
 
-    ui->label_heading->setText("USB / External Storage List");
-    ui->label_copy->setText("Select the USB or Harddisk");
+    ui->label_heading->setText(" USB / External Storage List");
+    ui->label_status->setText("Select the USB or Harddisk");
 }
 
 void VideoArchiveWindow::on_treeView_2_pressed(const QModelIndex &index)
@@ -193,8 +193,7 @@ void VideoArchiveWindow::on_treeView_2_pressed(const QModelIndex &index)
     usbpath = model2->fileInfo(index).absoluteFilePath();
     usbfilename = model2->fileInfo(index).fileName();
 
-    ui->label_copy->setText(usbpath);
-
+    ui->label_status->setText(usbpath);
 }
 
 void VideoArchiveWindow::on_pushButton_copy_clicked()
@@ -205,8 +204,8 @@ void VideoArchiveWindow::on_pushButton_copy_clicked()
 
     system(qPrintable(copy_file_to_usb));
 
-    ui->label_copy->setText(filenamemp4 + " copied to " + usbpath );
-    QTimer::singleShot(5000, this, [this] () { ui->label_copy->setText(""); });
+    ui->label_status->setText(filenamemp4 + " copied to " + usbpath );
+    QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
 
 void VideoArchiveWindow::on_pushButton_move_clicked()
@@ -217,10 +216,9 @@ void VideoArchiveWindow::on_pushButton_move_clicked()
 
     system(qPrintable(move_file_to_usb));
 
-    ui->label_copy->setText(filenamemp4 + " moved to " + usbpath );
-    QTimer::singleShot(5000, this, [this] () { ui->label_copy->setText(""); });
+    ui->label_status->setText(filenamemp4 + " moved to " + usbpath );
+    QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
-
 
 void VideoArchiveWindow::on_pushButton_delete_2_clicked()
 {
@@ -230,7 +228,7 @@ void VideoArchiveWindow::on_pushButton_delete_2_clicked()
 
     system(qPrintable(delete_file_on_usb));
 
-    ui->label_copy->setText( usbfilename + " deleted ");
-    QTimer::singleShot(5000, this, [this] () { ui->label_copy->setText(""); });
+    ui->label_status->setText( usbfilename + " deleted ");
+    QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
 

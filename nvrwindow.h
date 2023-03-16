@@ -52,6 +52,9 @@ public slots:
     // for video stream
     void replyStream (QNetworkReply *replyStream);
 
+    //Function to get the status of all the NVRs
+    void nvrStatus();
+
 private slots:
     void on_pushButton_home_button_clicked();
 
@@ -64,6 +67,8 @@ private slots:
     void on_pushButton_downloadVideo_clicked();
 
     void on_pushButton_viewList_clicked();
+
+    void on_pushButton_diagnostics_clicked();
 
 private:
     Ui::NVRWindow *ui;

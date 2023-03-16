@@ -12,22 +12,22 @@ audioplayer::audioplayer(QWidget *parent) :
 {
     ui->setupUi(this);
     //Using the global variable filepath defined in videoarchivewindow.cpp
-//    qDebug("%s", qUtf8Printable(filepathmp4));
+    //    qDebug("%s", qUtf8Printable(filepathmp4));
 
 
     player = new QMediaPlayer(this);
     vw = new QVideoWidget(ui->label_videoplayer);
     player->setVideoOutput(vw);
-//    player->setMedia(QUrl("gst-pipeline: udpsrc port=9000 caps=\"application/x-rtp, media=(string)video, clock-rate=(int)90000, payload=(int)96, encoding-name=(string)H264\" ! rtph264depay ! identity silent=0 ! avdec_h264 ! videoconvert ! xvimagesink name=\"qtvideosink\""));
+    //    player->setMedia(QUrl("gst-pipeline: udpsrc port=9000 caps=\"application/x-rtp, media=(string)video, clock-rate=(int)90000, payload=(int)96, encoding-name=(string)H264\" ! rtph264depay ! identity silent=0 ! avdec_h264 ! videoconvert ! xvimagesink name=\"qtvideosink\""));
     player->setMedia(QUrl::fromLocalFile(filepathmp3));
     vw->setGeometry(0,0,ui->label_videoplayer->width(),ui->label_videoplayer->height());
     vw->show();
     vw->setAspectRatioMode(Qt::IgnoreAspectRatio);
     player->play();
 
-//    connect(player, &QMediaPlayer::durationChanged, ui->slider, &QSlider::setMaximum);
-//    connect(player, &QMediaPlayer::positionChanged, ui->slider, &QSlider::setValue);
-//    connect(ui->slider, &QSlider::sliderMoved,player, &QMediaPlayer::setPosition);
+    //    connect(player, &QMediaPlayer::durationChanged, ui->slider, &QSlider::setMaximum);
+    //    connect(player, &QMediaPlayer::positionChanged, ui->slider, &QSlider::setValue);
+    //    connect(ui->slider, &QSlider::sliderMoved,player, &QMediaPlayer::setPosition);
 
     //Setting the range of the slider
     ui->slider->setRange(0, player->duration() / 1000);
@@ -35,6 +35,7 @@ audioplayer::audioplayer(QWidget *parent) :
     connect(player, &QMediaPlayer::positionChanged, this, &audioplayer::positionChanged);
     connect(player, &QMediaPlayer::durationChanged, this, &audioplayer::durationChanged);
     connect(ui->slider, &QSlider::sliderMoved, this, &audioplayer::seek);
+
 }
 
 audioplayer::~audioplayer()
@@ -88,9 +89,9 @@ void audioplayer::updateDurationInfo(qint64 currentInfo)
     QString tStr;
     if (currentInfo || m_duration) {
         QTime currentTime((currentInfo / 3600) % 60, (currentInfo / 60) % 60,
-            currentInfo % 60, (currentInfo * 1000) % 1000);
+                          currentInfo % 60, (currentInfo * 1000) % 1000);
         QTime totalTime((m_duration / 3600) % 60, (m_duration / 60) % 60,
-            m_duration % 60, (m_duration * 1000) % 1000);
+                        m_duration % 60, (m_duration * 1000) % 1000);
         QString format = "mm:ss";
         if (m_duration > 3600)
             format = "hh:mm:ss";

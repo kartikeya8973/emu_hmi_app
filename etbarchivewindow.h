@@ -52,6 +52,12 @@ private slots:
 
     void on_pushButton_move_clicked();
 
+    void on_pushButton_copy_move_clicked();
+
+    void on_treeView_2_pressed(const QModelIndex &index);
+
+    void on_pushButton_delete_2_clicked();
+
 private:
     Ui::etbarchivewindow *ui;
     QTimer *timer;
@@ -59,6 +65,10 @@ private:
     QFileSystemModel *dirmodel;
     QMediaPlayer *player;
     QVideoWidget *vw ;
+
+    //For USB copy page
+    QFileSystemModel *model2;
+
 };
 
 #endif // ETBARCHIVEWINDOW_H

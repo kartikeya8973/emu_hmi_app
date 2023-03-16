@@ -65,7 +65,7 @@ void SettingsWindow::on_pushButton_return_clicked()
     //Going to the main page on NVR window
     if (returncounter_settings == 1){
         ui->stackedWidget->setCurrentIndex(0);
-        ui->label_heading->setText("SETTINGS");
+        ui->label_heading->setText(" SETTINGS");
         returncounter_settings --;
     }
     //returns to menu page of the Mainwindow
@@ -81,7 +81,7 @@ void SettingsWindow::on_pushButton_passwordSettings_clicked()
     //Switch to the first page
     ui->stackedWidget->setCurrentIndex(1);
 
-    ui->label_heading->setText("PASSWORD SETTINGS");
+    ui->label_heading->setText(" PASSWORD SETTINGS");
 
     returncounter_settings = 1; //signifies we are going to page 2 of stackwidget
 }
