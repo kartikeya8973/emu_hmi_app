@@ -15,8 +15,8 @@ bool customle::eventFilter(QObject* object, QEvent* event)
         connect(kd,SIGNAL(entered(QString)),this,SLOT(entered(QString)));
         kd->setText(this->text());
         #ifndef LAPTOP
-//        kd->show();
-        kd->showFullScreen();
+        kd->show();
+//        kd->showFullScreen();
         #else
         kd->showFullScreen();
         #endif

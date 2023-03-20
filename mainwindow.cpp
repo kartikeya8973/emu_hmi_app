@@ -9,6 +9,7 @@
 #include "nvrwindow.h"
 #include "settingswindow.h"
 #include "logswindow.h"
+#include "renamewindow.h"
 
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -17,6 +18,7 @@
 #include <QFrame>
 #include <vlc/libvlc.h>
 #include "pingthread.h"
+#include "screenshot.h"
 
 extern QString filepath;
 
@@ -90,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_frame_3->setEnabled(false);
     ui->pushButton_frame_4->setEnabled(false);
     ui->pushButton_frame_5->setEnabled(false);
-
+    ui->pushButton_car1->setEnabled(false);
 
     //    timeractive = new QTimer(this);
     //    connect(timer, SIGNAL(timeout()),this,SLOT(openlogindialog()));
@@ -460,7 +462,7 @@ void MainWindow::openMenuPage()
     ui->pushButton_frame_3->setEnabled(true);
     ui->pushButton_frame_4->setEnabled(true);
     ui->pushButton_frame_5->setEnabled(true);
-
+    ui->pushButton_car1->setEnabled(true);
 }
 
 //=======================================================================
@@ -683,16 +685,15 @@ QList<const char*> listAllCams = { "rtsp://192.168.1.221/video1.sdp", "rtsp://19
 QList<const char*> listExternalCams = { "rtsp://192.168.1.221/video1.sdp", "rtsp://192.168.1.224/video1.sdp", "rtsp://192.168.1.232/video1.sdp",
                                         "rtsp://192.168.1.233/video1.sdp", "rtsp://192.168.1.234/video1.sdp", "rtsp://192.168.1.235/video1.sdp" };
 
-QList<const char*> listSaloonCams = { "rtsp://192.168.1.222/video1.sdp", "rtsp://192.168.1.223/video1.sdp", "rtsp://192.168.1.224/video1.sdp",
-                                      "rtsp://192.168.1.225/video1.sdp", "rtsp://192.168.1.226/video1.sdp", "rtsp://192.168.1.227/video1.sdp",
-                                      "rtsp://192.168.1.228/video1.sdp", "rtsp://192.168.1.229/video1.sdp", "rtsp://192.168.1.230/video1.sdp",
-                                      "rtsp://192.168.1.231/video1.sdp", "rtsp://192.168.1.232/video1.sdp", "rtsp://192.168.1.233/video1.sdp",
-                                      "rtsp://192.168.1.234/video1.sdp"};
+QList<const char*> listSaloonCams = { "rtsp://192.168.1.222/video1.sdp", "rtsp://192.168.1.223/video1.sdp", "rtsp://192.168.1.225/video1.sdp",
+                                      "rtsp://192.168.1.226/video1.sdp", "rtsp://192.168.1.227/video1.sdp", "rtsp://192.168.1.228/video1.sdp",
+                                      "rtsp://192.168.1.229/video1.sdp", "rtsp://192.168.1.230/video1.sdp", "rtsp://192.168.1.231/video1.sdp",
+                                      "rtsp://192.168.1.232/video1.sdp", "rtsp://192.168.1.233/video1.sdp", "rtsp://192.168.1.234/video1.sdp"};
 
 void MainWindow::playStream(){
     /* Create a new LibVLC media descriptor */
 
-    //    const char* url =  "rtsp://192.168.1.221/video1.sdp";
+    //    const char* url = "rtsp://192.168.1.221/video1.sdp";
     //    const char* url2 = "rtsp://192.168.1.223/video1.sdp";
     //    const char* url3 = "rtsp://192.168.1.224/video1.sdp";
     //    const char* url4 = "rtsp://192.168.1.225/video1.sdp";
@@ -735,7 +736,7 @@ void MainWindow::playStream(){
     libvlc_media_player_set_media (_mp9, _m9);
 
     //Frame for viewing all cameras
-    _m10 = libvlc_media_new_location(_vlcinstance, listAllCams[9]);
+    _m10 = libvlc_media_new_location(_vlcinstance, listAllCams[0]);
     libvlc_media_player_set_media (_mp10, _m10);
 
     /* Get our media instance to use our window */
@@ -938,6 +939,14 @@ void MainWindow::on_pushButton_camView_full_clicked()
 
 void MainWindow::on_pushButton_return_clicked()
 {
+    if (timeractive.elapsed() >= 60000){
+        openlogindialog();
+    }
+    else{
+        //timer to keep the window active
+        timeractive.start();
+    }
+
     if(returncounter_main == 0){
         ui->stackedWidget_Dynamic->setCurrentIndex(2);
     }
@@ -946,11 +955,6 @@ void MainWindow::on_pushButton_return_clicked()
         ui->stackedWidget_Dynamic->setCurrentIndex(2);
         returncounter_main --;
     }
-
-    //timer to keep the window active
-    timeractive.start();
-    //    player->stop();
-    //    video->close();
 
     //    qDebug() << player->state();
 
@@ -1568,6 +1572,92 @@ void MainWindow::on_pushButton_stop_clicked()
     //    recordTimeCtr = 0;
     //    ui->label_timer->setText("");
 }
+
+//Screenshot
+void MainWindow::openscreenshotdialog()
+{
+    Screenshot *screenshot = new Screenshot();
+    screenshot->setModal(true);
+    screenshot->setWindowFlag(Qt::FramelessWindowHint);
+    screenshot->exec();
+    timeractive.start();
+}
+
+
+void MainWindow::on_pushButton_screenshot_clicked()
+{
+    //    system("gnome-screenshot -i");
+    openscreenshotdialog();
+    //timer to keep the window active
+    timeractive.start();
+}
+
+
+void MainWindow::on_pushButton_car1_clicked()
+{
+    if (loginfail == 1 || timeractive.elapsed() >= 1000){
+        openlogindialog();
+
+        if(success == 1){
+
+            DeviceWindow *devicewindow = new DeviceWindow();
+            devicewindow->setWindowFlag(Qt::FramelessWindowHint);
+            //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
+            QObject::connect(devicewindow, SIGNAL(homebuttonPressedDevice()), this, SLOT(openHomePage()));
+            //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the Device Status window
+            QObject::connect(devicewindow, SIGNAL(returnbuttonPressedDevice()), this, SLOT(openMenuPagereturn()));
+            devicewindow->showFullScreen();
+
+            //timer to keep the window active
+            timeractive.start();
+        }
+    }
+
+}
+
+void MainWindow::on_pushButton_car1_Mosiac_clicked()
+{
+    if (loginfail == 1 || timeractive.elapsed() >= 1000){
+        openlogindialog();
+
+        if(success == 1){
+
+            DeviceWindow *devicewindow = new DeviceWindow();
+            devicewindow->setWindowFlag(Qt::FramelessWindowHint);
+            //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
+            QObject::connect(devicewindow, SIGNAL(homebuttonPressedDevice()), this, SLOT(openHomePage()));
+            //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the Device Status window
+            QObject::connect(devicewindow, SIGNAL(returnbuttonPressedDevice()), this, SLOT(openMenuPagereturn()));
+            devicewindow->showFullScreen();
+
+            //timer to keep the window active
+            timeractive.start();
+        }
+    }
+}
+
+void MainWindow::on_pushButton_car1_Full_clicked()
+{
+    if (loginfail == 1 || timeractive.elapsed() >= 1000){
+        openlogindialog();
+
+        if(success == 1){
+
+            DeviceWindow *devicewindow = new DeviceWindow();
+            devicewindow->setWindowFlag(Qt::FramelessWindowHint);
+            //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
+            QObject::connect(devicewindow, SIGNAL(homebuttonPressedDevice()), this, SLOT(openHomePage()));
+            //This connect logic connects the return button press with the first page ( index 0) of stackWidget in the Device Status window
+            QObject::connect(devicewindow, SIGNAL(returnbuttonPressedDevice()), this, SLOT(openMenuPagereturn()));
+            devicewindow->showFullScreen();
+
+            //timer to keep the window active
+            timeractive.start();
+        }
+    }
+}
+
+
 
 
 

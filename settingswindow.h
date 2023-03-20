@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "customle.h"
 #include <QtSql>
+#include <QFileSystemModel>
 
 namespace Ui {
 class SettingsWindow;
@@ -30,6 +31,9 @@ public slots:
 
     void on_pushButton_updatePass_clicked();
 
+    //open rename window
+    void openrenamedialog();
+
 private slots:
     void on_pushButton_home_button_clicked();
 
@@ -38,9 +42,37 @@ private slots:
     void on_pushButton_passwordSettings_clicked();
 
 
+    void on_pushButton_externalStorage_clicked();
+
+    void on_treeView_pressed(const QModelIndex &index);
+
+    void on_pushButton_play_clicked();
+
+    void on_pushButton_upload_clicked();
+
+    void on_pushButton_rename_clicked();
+
+    void on_pushButton_delete_clicked();
+
+    void on_treeView_2_pressed(const QModelIndex &index);
+
+    void on_pushButton_copy_clicked();
+
+    void on_pushButton_move_clicked();
+
+    void on_pushButton_delete_2_clicked();
+
+    void on_pushButton_copy_move_clicked();
+
 private:
     Ui::SettingsWindow *ui;
     QTimer *timer;
+
+    //This model will display the directories
+    QFileSystemModel *dirmodel;
+
+    //This model will display the directories to which we can copy/move files
+    QFileSystemModel *model2;
 
     //For adding new password
     customle *le;

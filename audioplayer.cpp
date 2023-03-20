@@ -4,7 +4,7 @@
 #include "ui_mainwindow.h"
 #include "etbarchiveswindow.h"
 
-extern QString filepathmp3;
+extern QString fileabspathmp3;
 
 audioplayer::audioplayer(QWidget *parent) :
     QDialog(parent),
@@ -19,7 +19,7 @@ audioplayer::audioplayer(QWidget *parent) :
     vw = new QVideoWidget(ui->label_videoplayer);
     player->setVideoOutput(vw);
     //    player->setMedia(QUrl("gst-pipeline: udpsrc port=9000 caps=\"application/x-rtp, media=(string)video, clock-rate=(int)90000, payload=(int)96, encoding-name=(string)H264\" ! rtph264depay ! identity silent=0 ! avdec_h264 ! videoconvert ! xvimagesink name=\"qtvideosink\""));
-    player->setMedia(QUrl::fromLocalFile(filepathmp3));
+    player->setMedia(QUrl::fromLocalFile(fileabspathmp3));
     vw->setGeometry(0,0,ui->label_videoplayer->width(),ui->label_videoplayer->height());
     vw->show();
     vw->setAspectRatioMode(Qt::IgnoreAspectRatio);

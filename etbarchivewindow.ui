@@ -72,7 +72,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <attribute name="headerDefaultSectionSize">
@@ -264,7 +264,7 @@ TO USB </string>
       </property>
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
      </widget>
@@ -469,6 +469,13 @@ TO USB </string>
      <string/>
     </property>
    </widget>
+   <zorder>label_Date</zorder>
+   <zorder>stackedWidget</zorder>
+   <zorder>label_button</zorder>
+   <zorder>label_Time</zorder>
+   <zorder>label_heading</zorder>
+   <zorder>pushButton_return</zorder>
+   <zorder>pushButton_home_button</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

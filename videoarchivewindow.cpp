@@ -3,11 +3,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "videoplayer.h"
+#include "renamewindow.h"
 #include <QDateTime>
 #include <QRect>
 #include <QGuiApplication>
 
 extern QElapsedTimer timeractive;
+extern QString new_name;
+
+//Global variable for absolute filepath of video files (this path is taken on pressing event)
+QString fileabspathmp4 = "";
 
 //Global variable for filepath of video files (this path is taken on pressing event)
 QString filepathmp4 = "";
@@ -21,8 +26,22 @@ QString usbpath = "";
 //Global variable for filename selected from USB
 QString usbfilename = "";
 
+
+//Global variable for screenshot's path of USB
+QString screenshotpath = "";
+
+//Global variable for screenshot's filename selected
+QString screenshotname = "";
+
+
 //counter for return button for video archives window
 int returncounter_vid;
+
+//for videoplayer - tell that videoarchivewindow is accessing it
+int vidarchiveplayer;
+
+//for rename dialog - tells that videarchivewindow is accessing it
+int renameVid;
 
 VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,9 +65,11 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     dirmodel->setRootPath(SourcePath);
     ui->treeView->setModel(dirmodel);
     ui->treeView->setRootIndex(dirmodel->setRootPath(SourcePath));
-    ui->treeView->setColumnWidth(0,500);
-    ui->treeView->setColumnWidth(1,120);
-    ui->treeView->setColumnWidth(2,120);
+    ui->treeView->setColumnWidth(0,600);
+    ui->treeView->setColumnWidth(1,140);
+    ui->treeView->setColumnWidth(2,100);
+    ui->treeView->setColumnWidth(3,300);
+
     //    ui->treeView->setAlternatingRowColors(true);
 
     //    filemodel = new QFileSystemModel(this);
@@ -67,9 +88,11 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     ui->treeView_2->setModel(model2);
     ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
 //    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
-    ui->treeView_2->setColumnWidth(0,500);
-    ui->treeView_2->setColumnWidth(1,120);
-    ui->treeView_2->setColumnWidth(2,120);
+    ui->treeView_2->setColumnWidth(0,600);
+    ui->treeView_2->setColumnWidth(1,140);
+    ui->treeView_2->setColumnWidth(2,100);
+    ui->treeView_2->setColumnWidth(3,300);
+
 
     ui->label_status->setWordWrap(true);
 
@@ -90,11 +113,23 @@ void VideoArchiveWindow::statusDateTimeVid()
     ui->label_Date->setText(date_text);
 }
 
+//Function for opening the rename dialog
+void VideoArchiveWindow::openrenamedialog(){
+
+    renamewindow *renamedialog = new renamewindow(this);
+    renamedialog->setModal(true);
+    renamedialog->setWindowFlag(Qt::FramelessWindowHint);
+
+    renamedialog->exec();
+    timeractive.elapsed();
+}
+
 void VideoArchiveWindow::on_treeView_pressed(const QModelIndex &index)
 {
     //Enable the buttons on press
-    filepathmp4 = dirmodel->fileInfo(index).absoluteFilePath();
-    qDebug("%s", qUtf8Printable(filepathmp4));
+    fileabspathmp4 = dirmodel->fileInfo(index).absoluteFilePath();
+    qDebug("%s", qUtf8Printable(fileabspathmp4));
+    filepathmp4 = dirmodel->fileInfo(index).path();
     filenamemp4 = dirmodel->fileInfo(index).fileName();
 
     ui->pushButton_play->setEnabled(true);
@@ -103,7 +138,7 @@ void VideoArchiveWindow::on_treeView_pressed(const QModelIndex &index)
     ui->pushButton_delete->setEnabled(true);
     ui->pushButton_copy_move->setEnabled(true);
 
-    QByteArray ba = filepathmp4.toLocal8Bit();
+    QByteArray ba = fileabspathmp4.toLocal8Bit();
     const char *file = ba.data();
 
     qDebug() << file;
@@ -140,13 +175,12 @@ void VideoArchiveWindow::on_pushButton_return_clicked()
 //Dialog window for playing videos in file system
 void VideoArchiveWindow::on_pushButton_play_clicked()
 {
+    vidarchiveplayer = 1;
     videoplayer *videoplayer = new class videoplayer(this);
     videoplayer->setModal(true);
     videoplayer->setWindowFlag(Qt::FramelessWindowHint);
     videoplayer->setGeometry(50,50,924,686);
     videoplayer->exec();
-    //    QString command="vlc " + filepathmp4;
-    //    system(command.toStdString().c_str());
 
     //timer to keep the window active
     timeractive.start();
@@ -162,6 +196,17 @@ void VideoArchiveWindow::on_pushButton_rename_clicked()
 {
     //timer to keep the window active
     timeractive.start();
+
+    openrenamedialog();
+
+    QString newName_mp4 = filepathmp4 +"/"+  new_name;
+    QString rename_file = " mv " + fileabspathmp4 + " " + newName_mp4  ;
+
+    qDebug() << rename_file;
+
+    system(qPrintable(rename_file));
+
+    renameVid = 1;
 }
 
 void VideoArchiveWindow::on_pushButton_delete_clicked()
@@ -169,7 +214,7 @@ void VideoArchiveWindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm " + filepathmp4;
+    QString delete_file = " rm " + fileabspathmp4;
 
     system(qPrintable(delete_file));
 }
@@ -190,15 +235,23 @@ void VideoArchiveWindow::on_pushButton_copy_move_clicked()
 void VideoArchiveWindow::on_treeView_2_pressed(const QModelIndex &index)
 {
 
+    //timer to keep the window active
+    timeractive.start();
+
     usbpath = model2->fileInfo(index).absoluteFilePath();
     usbfilename = model2->fileInfo(index).fileName();
 
     ui->label_status->setText(usbpath);
 }
 
+
+
 void VideoArchiveWindow::on_pushButton_copy_clicked()
 {
-    QString copy_file_to_usb = " cp " + filepathmp4 + " " + usbpath;
+    //timer to keep the window active
+    timeractive.start();
+
+    QString copy_file_to_usb = " cp " + fileabspathmp4 + " " + usbpath;
 
     qDebug() << copy_file_to_usb;
 
@@ -210,7 +263,10 @@ void VideoArchiveWindow::on_pushButton_copy_clicked()
 
 void VideoArchiveWindow::on_pushButton_move_clicked()
 {
-    QString move_file_to_usb = " mv " + filepathmp4 + " " + usbpath;
+    //timer to keep the window active
+    timeractive.start();
+
+    QString move_file_to_usb = " mv " + fileabspathmp4 + " " + usbpath;
 
     qDebug() << move_file_to_usb;
 
@@ -222,6 +278,9 @@ void VideoArchiveWindow::on_pushButton_move_clicked()
 
 void VideoArchiveWindow::on_pushButton_delete_2_clicked()
 {
+    //timer to keep the window active
+    timeractive.start();
+
     QString delete_file_on_usb = " rm " + usbpath;
 
     qDebug() << delete_file_on_usb;
@@ -231,4 +290,7 @@ void VideoArchiveWindow::on_pushButton_delete_2_clicked()
     ui->label_status->setText( usbfilename + " deleted ");
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
+
+
+
 

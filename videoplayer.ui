@@ -214,7 +214,7 @@ QSlider::handle:horizontal {
    </property>
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/new/icons/screenshot.png</normaloff>:/new/icons/screenshot.png</iconset>
+     <normaloff>:/new/icons/capture.png</normaloff>:/new/icons/capture.png</iconset>
    </property>
    <property name="iconSize">
     <size>

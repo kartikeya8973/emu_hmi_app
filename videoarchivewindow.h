@@ -33,6 +33,9 @@ signals:
 public slots:
     void statusDateTimeVid();
 
+    //open rename window
+    void openrenamedialog();
+
 private slots:
     void on_pushButton_home_button_clicked();
 
@@ -66,6 +69,9 @@ private:
 
     //For USB copy page
     QFileSystemModel *model2;
+
+    //For screenshot page
+    QFileSystemModel *model3;
 
 
 

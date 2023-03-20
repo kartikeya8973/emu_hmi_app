@@ -51,7 +51,7 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>100</y>
       <width>1024</width>
       <height>686</height>
@@ -149,6 +149,41 @@
       </property>
       <property name="text">
        <string>NVR STATUS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_sendDeviceStatus">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>550</y>
+        <width>180</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SEND DEVICE STATUS TO
+ DDC</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_sendDeviceStatus">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>610</y>
+        <width>180</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -257,14 +292,19 @@
      <widget class="QLabel" name="label_cam7">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>250</y>
-        <width>100</width>
+        <x>370</x>
+        <y>340</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 7</string>
+       <string>SALOON CAM - 6</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -273,11 +313,16 @@
      <widget class="QLabel" name="label_StatusCam8">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>390</y>
-        <width>180</width>
+        <x>520</x>
+        <y>300</y>
+        <width>140</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -289,14 +334,19 @@
      <widget class="QLabel" name="label_cam2">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>30</y>
-        <width>100</width>
+        <x>220</x>
+        <y>180</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 2</string>
+       <string>SALOON CAM - 1</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -305,9 +355,9 @@
      <widget class="QLabel" name="label_StatusCam9">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>610</y>
-        <width>180</width>
+        <x>60</x>
+        <y>590</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
@@ -321,30 +371,19 @@
      <widget class="QLabel" name="label_cam6">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>250</y>
-        <width>100</width>
+        <x>220</x>
+        <y>340</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
-      <property name="text">
-       <string>CAM 6</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam1">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>60</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
-       <string/>
+       <string>SALOON CAM - 5</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -353,11 +392,16 @@
      <widget class="QLabel" name="label_StatusCam12">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>610</y>
-        <width>180</width>
+        <x>670</x>
+        <y>460</y>
+        <width>140</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -369,62 +413,14 @@
      <widget class="QLabel" name="label_cam9">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>60</x>
         <y>470</y>
-        <width>100</width>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>CAM 9</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam12">
-      <property name="geometry">
-       <rect>
-        <x>730</x>
-        <y>500</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam2">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>60</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam3">
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>60</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
+       <string>FRONT RIGHT</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -433,14 +429,19 @@
      <widget class="QLabel" name="label_cam11">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>470</y>
-        <width>100</width>
+        <x>670</x>
+        <y>180</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 11</string>
+       <string>SALOON CAM - 4</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -449,11 +450,16 @@
      <widget class="QLabel" name="label_StatusCam3">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>170</y>
-        <width>180</width>
+        <x>370</x>
+        <y>300</y>
+        <width>140</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -465,14 +471,14 @@
      <widget class="QLabel" name="label_cam5">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>250</y>
-        <width>100</width>
+        <x>60</x>
+        <y>30</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>CAM 5</string>
+       <string>FRONT LEFT</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -481,14 +487,19 @@
      <widget class="QLabel" name="label_cam8">
       <property name="geometry">
        <rect>
-        <x>730</x>
-        <y>250</y>
-        <width>100</width>
+        <x>520</x>
+        <y>180</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 8</string>
+       <string>SALOON CAM - 3</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -497,9 +508,9 @@
      <widget class="QLabel" name="label_StatusCam5">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>390</y>
-        <width>180</width>
+        <x>60</x>
+        <y>150</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
@@ -513,14 +524,19 @@
      <widget class="QLabel" name="label_cam10">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>470</y>
-        <width>100</width>
+        <x>520</x>
+        <y>340</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 10</string>
+       <string>SALOON CAM - 7</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -529,14 +545,19 @@
      <widget class="QLabel" name="label_cam3">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>30</y>
-        <width>100</width>
+        <x>370</x>
+        <y>180</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 3</string>
+       <string>SALOON CAM - 2</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -545,30 +566,16 @@
      <widget class="QLabel" name="label_StatusCam10">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>610</y>
-        <width>180</width>
+        <x>520</x>
+        <y>460</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam5">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>280</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -580,42 +587,10 @@
      <widget class="QLabel" name="label_StatusCam1">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>170</y>
-        <width>180</width>
+        <x>20</x>
+        <y>370</y>
+        <width>140</width>
         <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam8">
-      <property name="geometry">
-       <rect>
-        <x>730</x>
-        <y>280</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam7">
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>280</y>
-        <width>100</width>
-        <height>100</height>
        </rect>
       </property>
       <property name="text">
@@ -628,27 +603,16 @@
      <widget class="QLabel" name="label_StatusCam7">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>390</y>
-        <width>180</width>
+        <x>370</x>
+        <y>460</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam6">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>280</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -660,14 +624,19 @@
      <widget class="QLabel" name="label_cam12">
       <property name="geometry">
        <rect>
-        <x>730</x>
-        <y>470</y>
-        <width>100</width>
+        <x>670</x>
+        <y>340</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>CAM 12</string>
+       <string>SALOON CAM - 8</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -676,11 +645,16 @@
      <widget class="QLabel" name="label_StatusCam6">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>390</y>
-        <width>180</width>
+        <x>220</x>
+        <y>460</y>
+        <width>140</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -692,30 +666,14 @@
      <widget class="QLabel" name="label_cam1">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>30</y>
-        <width>100</width>
+        <x>20</x>
+        <y>250</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>CAM 1</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam10">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>500</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
+       <string>FRONT</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -724,9 +682,9 @@
      <widget class="QLabel" name="label_StatusCam4">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>170</y>
-        <width>180</width>
+        <x>860</x>
+        <y>370</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
@@ -740,43 +698,16 @@
      <widget class="QLabel" name="label_StatusCam11">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>610</y>
-        <width>180</width>
+        <x>670</x>
+        <y>300</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam4">
-      <property name="geometry">
-       <rect>
-        <x>730</x>
-        <y>60</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_StatusIconCam11">
-      <property name="geometry">
-       <rect>
-        <x>510</x>
-        <y>500</y>
-        <width>100</width>
-        <height>100</height>
-       </rect>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>
@@ -788,26 +719,63 @@
      <widget class="QLabel" name="label_cam4">
       <property name="geometry">
        <rect>
-        <x>730</x>
-        <y>30</y>
-        <width>100</width>
+        <x>870</x>
+        <y>250</y>
+        <width>140</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>CAM 4</string>
+       <string>REAR CAM</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_StatusIconCam9">
+     <widget class="QLabel" name="label_StatusCam2">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>500</y>
-        <width>100</width>
-        <height>100</height>
+        <x>220</x>
+        <y>300</y>
+        <width>140</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_cam13">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>30</y>
+        <width>140</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REAR LEFT</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_StatusCam14">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>590</y>
+        <width>140</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
@@ -817,14 +785,299 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_StatusCam2">
+     <widget class="QLabel" name="label_cam14">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>470</y>
+        <width>140</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REAR RIGHT</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_StatusCam13">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>150</y>
+        <width>140</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam1">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>280</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam5">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>60</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam13">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>60</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam2">
       <property name="geometry">
        <rect>
         <x>250</x>
-        <y>170</y>
-        <width>180</width>
-        <height>20</height>
+        <y>210</y>
+        <width>80</width>
+        <height>80</height>
        </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam3">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>210</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam8">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>210</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam11">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>210</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam6">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>370</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam7">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>370</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam10">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>370</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam12">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>370</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam4">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>280</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam9">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>500</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_cam14">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>500</y>
+        <width>80</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <widget class="QFrame" name="frame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>1000</width>
+        <height>581</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/new/icons/no-video.png);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_cam_info">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>590</y>
+        <width>400</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
       </property>
       <property name="text">
        <string/>

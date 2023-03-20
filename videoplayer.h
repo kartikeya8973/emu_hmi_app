@@ -39,6 +39,9 @@ public:
     //Updating time of the video
     void updateDurationInfo(qint64 currentInfo);
 
+    //open screenshot window
+    void openscreenshotdialog();
+
 
 private slots:
     void on_pushButton_close_clicked();

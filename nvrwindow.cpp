@@ -17,6 +17,18 @@ int returncounter_nvr=0;
 
 extern int ping_for_nvr1;
 extern int ping_for_nvr2;
+extern int ping_for_cam1;
+extern int ping_for_cam2;
+extern int ping_for_cam3;
+extern int ping_for_cam4;
+extern int ping_for_cam5;
+extern int ping_for_cam6;
+extern int ping_for_cam7;
+extern int ping_for_cam8;
+extern int ping_for_cam9;
+extern int ping_for_cam10;
+extern int ping_for_cam11;
+extern int ping_for_cam12;
 
 NVRWindow::NVRWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -136,7 +148,7 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         qDebug() << replyList->errorString();
 
         ui->label_status->setText("Error in downloading Video List !!! Can not establish connection to NVR");
-        ui->label_status->setStyleSheet("QLabel { color : red; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
     }
     else
     {
@@ -157,7 +169,7 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         delete file;
 
         ui->label_status->setText("Video List downloaded successfully, click on VIEW VIDEO LIST button to get list view");
-        ui->label_status->setStyleSheet("QLabel { color : green; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
     }
 
     replyList->deleteLater();
@@ -199,7 +211,7 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
         qDebug() << replyStream->errorString();
 
         ui->label_status->setText("Error in downloading Video stream !!! Can not establish connection to NVR");
-        ui->label_status->setStyleSheet("QLabel { color : red; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
     }
     else
     {
@@ -211,10 +223,15 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
 
 
         QDate date = QDate::currentDate();
+        QTime time = QTime::currentTime();
         QString date_string ="";
-        date_string = date.toString("dd.MM.yyyy");
+        QString time_string ="";
+        date_string = date.toString("yyyy.MM.dd");
+        time_string = time.toString("hh.mm.ss");
 
-        QFile *file = new QFile("/home/hmi/VidArchives/"+ date_string +"_recordings/video.mp4");
+        QString filename = date_string + time_string;
+
+        QFile *file = new QFile("/home/hmi/VidArchives/"+filename+"_recordings/video.mp4");
         //        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
         if(file->open(QFile::Append))
         {
@@ -224,7 +241,7 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
         }
         delete file;
         ui->label_status->setText("Video stream downloaded successfully");
-        ui->label_status->setStyleSheet("QLabel { color : green; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
     }
 
 
@@ -287,7 +304,7 @@ void NVRWindow::readJson()
         streamList->setJson( jsonDocument );
 
         ui->label_status->setText("Video List successfully loaded");
-        ui->label_status->setStyleSheet("QLabel { color : green; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
 
         ui->tableView_streamList->setColumnWidth(0,20);
         ui->tableView_streamList->setColumnWidth(1,350);
@@ -299,7 +316,7 @@ void NVRWindow::readJson()
     else
     {
         ui->label_status->setText("Video list file not found");
-        ui->label_status->setStyleSheet("QLabel { color : red; }");
+        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
     }
 
 
@@ -346,6 +363,4 @@ void NVRWindow::nvrStatus()
         ui->label_StatusIconNvr2->setStyleSheet("image: url(:/new/icons/nvr_red.png);");
     }
 }
-
-
 

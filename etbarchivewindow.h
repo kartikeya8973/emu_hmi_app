@@ -32,6 +32,9 @@ signals:
 public slots:
     void statusDateTimeETB();
 
+    //open rename window
+    void openrenamedialog();
+
 private slots:
 
     void on_pushButton_play_clicked();

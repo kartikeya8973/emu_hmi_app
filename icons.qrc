@@ -64,7 +64,6 @@
         <file>document.png</file>
         <file>cctv_red.png</file>
         <file>password.png</file>
-        <file>screenshot.png</file>
         <file>usb-drive.png</file>
         <file>no-video.png</file>
         <file>location_gps.png</file>
@@ -74,5 +73,7 @@
         <file>nvr_diagnostics.png</file>
         <file>rec-button.png</file>
         <file>recordIcon.png</file>
+        <file>externaStorage.png</file>
+        <file>capture.png</file>
     </qresource>
 </RCC>

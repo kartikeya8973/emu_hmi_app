@@ -19,6 +19,8 @@ int ping_for_cam9;
 int ping_for_cam10;
 int ping_for_cam11;
 int ping_for_cam12;
+int ping_for_cam13;
+int ping_for_cam14;
 
 int ping_for_nvr1;
 int ping_for_nvr2;
@@ -39,6 +41,8 @@ void PingThread::run()
     ping_for_cam10 = system("ping -c 1 192.168.1.230 > /dev/null 2>&1");
     ping_for_cam11 = system("ping -c 1 192.168.1.231 > /dev/null 2>&1");
     ping_for_cam12 = system("ping -c 1 192.168.1.232 > /dev/null 2>&1");
+    ping_for_cam13 = system("ping -c 1 192.168.1.233 > /dev/null 2>&1");
+    ping_for_cam14 = system("ping -c 1 192.168.1.234 > /dev/null 2>&1");
 
     ping_for_nvr1 = system("ping -c 1 192.168.1.2 > /dev/null 2>&1");
     ping_for_nvr2 = system("ping -c 1 192.168.1.232 > /dev/null 2>&1");

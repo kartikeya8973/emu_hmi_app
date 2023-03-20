@@ -144,6 +144,8 @@ public slots:
     //Iterate the saloon cameras on the first view
     void iterateSaloonCams();
 
+    //open screenshot window
+    void openscreenshotdialog();
 
 private slots:
     void on_pushButton_Menu_clicked();
@@ -219,6 +221,14 @@ private slots:
     void train_stops_connected();
 
     void train_stops_readyRead();
+
+    void on_pushButton_car1_clicked();
+
+    void on_pushButton_car1_Full_clicked();
+
+    void on_pushButton_car1_Mosiac_clicked();
+
+    void on_pushButton_screenshot_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -4,12 +4,20 @@
 #include "ui_mainwindow.h"
 #include "videoarchivewindow.h"
 #include <vlc/libvlc.h>
-
+#include "screenshot.h"
 
 //using std::to_string;
 //using std::string;
 
-extern QString filepathmp4;
+extern QElapsedTimer timeractive;
+
+//from vidarchives window
+extern QString fileabspathmp4;
+extern int vidarchiveplayer;
+
+//for settings window
+extern QString fileabspath;
+extern int settingvidplayer;
 
 videoplayer::videoplayer(QWidget *parent) :
     QDialog(parent),
@@ -166,38 +174,79 @@ void videoplayer::updateDurationInfo(qint64 currentInfo)
 void videoplayer::playStream(){
     /* Create a new LibVLC media descriptor */
 
-    QByteArray filePath = filepathmp4.toLocal8Bit();
-    const char* file = filePath.data();
+    if(vidarchiveplayer == 1)
+    {
+        QByteArray filePath = fileabspathmp4.toLocal8Bit();
+        const char* file = filePath.data();
 
-    //    _m = libvlc_media_new_path(_vlcinstance, file.toLatin1());
-    _m = libvlc_media_new_path(_vlcinstance, file);
-    libvlc_media_player_set_media (_mp_player, _m);
+        //    _m = libvlc_media_new_path(_vlcinstance, file.toLatin1());
+        _m = libvlc_media_new_path(_vlcinstance, file);
+        libvlc_media_player_set_media (_mp_player, _m);
 
-    /* Get our media instance to use our window */
+        /* Get our media instance to use our window */
 #if defined(Q_OS_WIN)
-    libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()));
-    //libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
-    //libvlc_media_player_set_hwnd(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
+        libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()));
+        //libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
+        //libvlc_media_player_set_hwnd(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 #elif defined(Q_OS_MAC)
-    libvlc_media_player_set_drawable(_mp, _videoWidget->winId());
-    //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
-    //libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
+        libvlc_media_player_set_drawable(_mp, _videoWidget->winId());
+        //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
+        //libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
 #else //Linux
-    //[20101201 Ondrej Spilka] obsolete call on libVLC >=1.1.5
-    //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep );
-    //libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
+        //[20101201 Ondrej Spilka] obsolete call on libVLC >=1.1.5
+        //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep );
+        //libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 
-    /* again note X11 handle on Linux is needed
+        /* again note X11 handle on Linux is needed
         winID() returns X11 handle when QX11EmbedContainer us used */
 
-    int windid = ui->frame->winId();
-    libvlc_media_player_set_xwindow (_mp_player, windid );
+        int windid = ui->frame->winId();
+        libvlc_media_player_set_xwindow (_mp_player, windid );
 
 #endif
 
-    libvlc_media_player_play (_mp_player);
-    _isPlaying_player=true;
+        libvlc_media_player_play (_mp_player);
+        _isPlaying_player=true;
 
+        vidarchiveplayer = 0;
+    }
+
+    else if(settingvidplayer == 1)
+    {
+        QByteArray filePath = fileabspath.toLocal8Bit();
+        const char* file = filePath.data();
+
+        //    _m = libvlc_media_new_path(_vlcinstance, file.toLatin1());
+        _m = libvlc_media_new_path(_vlcinstance, file);
+        libvlc_media_player_set_media (_mp_player, _m);
+
+        /* Get our media instance to use our window */
+#if defined(Q_OS_WIN)
+        libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()));
+        //libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(_videoWidget->winId()), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
+        //libvlc_media_player_set_hwnd(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
+#elif defined(Q_OS_MAC)
+        libvlc_media_player_set_drawable(_mp, _videoWidget->winId());
+        //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep ); // [20101215 JG] Used for versions prior to VLC 1.2.0.
+        //libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
+#else //Linux
+        //[20101201 Ondrej Spilka] obsolete call on libVLC >=1.1.5
+        //libvlc_media_player_set_drawable(_mp, _videoWidget->winId(), &_vlcexcep );
+        //libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
+
+        /* again note X11 handle on Linux is needed
+        winID() returns X11 handle when QX11EmbedContainer us used */
+
+        int windid = ui->frame->winId();
+        libvlc_media_player_set_xwindow (_mp_player, windid );
+
+#endif
+
+        libvlc_media_player_play (_mp_player);
+        _isPlaying_player=true;
+
+        settingvidplayer = 0;
+    }
 }
 
 void videoplayer::changePosition(int newPosition)
@@ -279,8 +328,19 @@ void videoplayer::updateTime(int currentTime)
 }
 //###########################################################################
 
-void videoplayer::on_pushButton_screenshot_clicked()
+void videoplayer::openscreenshotdialog()
 {
-    system("gnome-screenshot -i");
+    Screenshot *screenshot = new Screenshot();
+    screenshot->setModal(true);
+    screenshot->setWindowFlag(Qt::FramelessWindowHint);
+    screenshot->exec();
+    timeractive.start();
 }
 
+void videoplayer::on_pushButton_screenshot_clicked()
+{
+    //    system("gnome-screenshot -i");
+    openscreenshotdialog();
+    //timer to keep the window active
+    timeractive.start();
+}

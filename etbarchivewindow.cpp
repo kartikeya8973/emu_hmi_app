@@ -3,11 +3,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "audioplayer.h"
+#include "renamewindow.h"
 #include <QDateTime>
 #include <QRect>
 #include <QGuiApplication>
 
 extern QElapsedTimer timeractive;
+extern QString new_name;
+
+//Global variable for absolute filepath of audio files (this path is taken on pressing event)
+QString fileabspathmp3 = "";
 
 //Global variable for filepath of audio files (this path is taken on pressing event)
 QString filepathmp3 = "";
@@ -23,6 +28,9 @@ QString usbfilename_mp3 = "";
 
 //counter for return button for etb (audio) archives window
 int returncounter_etb;
+
+//for rename dialog - tells that ETBarchivewindow is accessing it
+int renameEtb;
 
 etbarchivewindow::etbarchivewindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,9 +54,10 @@ etbarchivewindow::etbarchivewindow(QWidget *parent) :
     dirmodel->setRootPath(SourcePath);
     ui->treeView->setModel(dirmodel);
     ui->treeView->setRootIndex(dirmodel->setRootPath(SourcePath));
-    ui->treeView->setColumnWidth(0,500);
-    ui->treeView->setColumnWidth(1,120);
-    ui->treeView->setColumnWidth(2,120);
+    ui->treeView->setColumnWidth(0,600);
+    ui->treeView->setColumnWidth(1,140);
+    ui->treeView->setColumnWidth(2,100);
+    ui->treeView->setColumnWidth(3,300);
 //    ui->treeView->setAlternatingRowColors(true);
 
 //    filemodel = new QFileSystemModel(this);
@@ -67,9 +76,10 @@ etbarchivewindow::etbarchivewindow(QWidget *parent) :
     ui->treeView_2->setModel(model2);
     ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
 //    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
-    ui->treeView_2->setColumnWidth(0,500);
-    ui->treeView_2->setColumnWidth(1,120);
-    ui->treeView_2->setColumnWidth(2,120);
+    ui->treeView_2->setColumnWidth(0,600);
+    ui->treeView_2->setColumnWidth(1,140);
+    ui->treeView_2->setColumnWidth(2,100);
+    ui->treeView_2->setColumnWidth(3,300);
 
     ui->label_status->setWordWrap(true);
 }
@@ -89,12 +99,23 @@ void etbarchivewindow::statusDateTimeETB()
     ui->label_Date->setText(date_text);
 }
 
+//Function for opening the rename dialog
+void etbarchivewindow::openrenamedialog(){
+
+    renamewindow *renamedialog = new renamewindow(this);
+    renamedialog->setModal(true);
+    renamedialog->setWindowFlag(Qt::FramelessWindowHint);
+
+    renamedialog->exec();
+    timeractive.elapsed();
+}
 
 void etbarchivewindow::on_treeView_pressed(const QModelIndex &index)
 {
     //Enable the buttons on press
-    filepathmp3 = dirmodel->fileInfo(index).absoluteFilePath();
+    fileabspathmp3 = dirmodel->fileInfo(index).absoluteFilePath();
 //    qDebug("%s", qUtf8Printable(filepath));
+    filepathmp3 = dirmodel->fileInfo(index).path();
     filenamemp3 = dirmodel->fileInfo(index).fileName();
     ui->pushButton_play->setEnabled(true);
     ui->pushButton_upload->setEnabled(true);
@@ -102,7 +123,7 @@ void etbarchivewindow::on_treeView_pressed(const QModelIndex &index)
     ui->pushButton_delete->setEnabled(true);
     ui->pushButton_copy_move->setEnabled(true);
 
-    QByteArray ba = filepathmp3.toLocal8Bit();
+    QByteArray ba = fileabspathmp3.toLocal8Bit();
     const char *file = ba.data();
 
     qDebug() << file;
@@ -162,6 +183,17 @@ void etbarchivewindow::on_pushButton_rename_clicked()
 {
     //timer to keep the window active
     timeractive.start();
+
+    openrenamedialog();
+
+    QString newName_mp3 = filepathmp3 +"/"+  new_name;
+    QString rename_file = " mv " + fileabspathmp3 + " " + newName_mp3  ;
+
+    qDebug() << rename_file;
+
+    system(qPrintable(rename_file));
+
+    renameEtb = 1;
 }
 
 void etbarchivewindow::on_pushButton_delete_clicked()
@@ -169,13 +201,16 @@ void etbarchivewindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm " + filepathmp3;
+    QString delete_file = " rm " + fileabspathmp3;
 
     system(qPrintable(delete_file));
 }
 
 void etbarchivewindow::on_pushButton_copy_move_clicked()
 {
+    //timer to keep the window active
+    timeractive.start();
+
     //Opens the USB copy and move page
     ui->stackedWidget->setCurrentIndex(1);
     returncounter_etb = 1;
@@ -186,6 +221,9 @@ void etbarchivewindow::on_pushButton_copy_move_clicked()
 
 void etbarchivewindow::on_treeView_2_pressed(const QModelIndex &index)
 {
+    //timer to keep the window active
+    timeractive.start();
+
     usbpath_mp3 = model2->fileInfo(index).absoluteFilePath();
     usbfilename_mp3 = model2->fileInfo(index).fileName();
 
@@ -196,7 +234,7 @@ void etbarchivewindow::on_pushButton_copy_clicked()
 {
     //timer to keep the window active
     timeractive.start();
-    QString copy_file_to_usb = " cp " + filepathmp3 + " " + usbpath_mp3;
+    QString copy_file_to_usb = " cp " + fileabspathmp3 + " " + usbpath_mp3;
 
     qDebug() << copy_file_to_usb;
 
@@ -210,11 +248,12 @@ void etbarchivewindow::on_pushButton_move_clicked()
 {
     //timer to keep the window active
     timeractive.start();
-    QString move_file_to_usb = " mv " + filepathmp3 + " " + usbpath_mp3;
+    QString move_file_to_usb = " mv " + fileabspathmp3 + " " + usbpath_mp3;
 
     qDebug() << move_file_to_usb;
 
     system(qPrintable(move_file_to_usb));
+
 
     ui->label_status->setText(filenamemp3 + " moved to " + usbpath_mp3 );
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
@@ -222,6 +261,9 @@ void etbarchivewindow::on_pushButton_move_clicked()
 
 void etbarchivewindow::on_pushButton_delete_2_clicked()
 {
+    //timer to keep the window active
+    timeractive.start();
+
     QString delete_file_on_usb = " rm " + usbpath_mp3;
 
     qDebug() << delete_file_on_usb;

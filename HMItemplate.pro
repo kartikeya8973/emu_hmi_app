@@ -28,6 +28,8 @@ SOURCES += \
     nvrwindow.cpp \
     pingthread.cpp \
     qjsontablemodel.cpp \
+    renamewindow.cpp \
+    screenshot.cpp \
     settingswindow.cpp \
     videoarchivewindow.cpp \
     videoplayer.cpp
@@ -46,6 +48,8 @@ HEADERS += \
     nvrwindow.h \
     pingthread.h \
     qjsontablemodel.h \
+    renamewindow.h \
+    screenshot.h \
     settingswindow.h \
     videoarchivewindow.h \
     videoplayer.h
@@ -60,6 +64,8 @@ FORMS += \
     logswindow.ui \
     mainwindow.ui \
     nvrwindow.ui \
+    renamewindow.ui \
+    screenshot.ui \
     settingswindow.ui \
     videoarchivewindow.ui \
     videoplayer.ui

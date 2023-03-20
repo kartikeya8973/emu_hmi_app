@@ -127,7 +127,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <attribute name="headerDefaultSectionSize">
@@ -298,7 +298,7 @@ TO USB </string>
       </property>
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
      </widget>
