@@ -30,6 +30,11 @@ extern int ping_for_cam10;
 extern int ping_for_cam11;
 extern int ping_for_cam12;
 
+QString dateListStart;
+QString timeListStart;
+QString dateListEnd;
+QString timeListEnd;
+
 NVRWindow::NVRWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NVRWindow)
@@ -42,20 +47,18 @@ NVRWindow::NVRWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Date);
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
-//    int ping_for_button= system("ping -c 3 192.168.1.2 > /dev/null 2>&1");
-//    if ( ping_for_button == 0) //Pinging NVR to check if it active
-//    {
-//        ui->label_nvrStatus->setText("NVR ONLINE");
-//        ui->label_nvrStatus->setStyleSheet("QLabel { color : green; }");
-//    }
+    //    int ping_for_button= system("ping -c 3 192.168.1.2 > /dev/null 2>&1");
+    //    if ( ping_for_button == 0) //Pinging NVR to check if it active
+    //    {
+    //        ui->label_nvrStatus->setText("NVR ONLINE");
+    //        ui->label_nvrStatus->setStyleSheet("QLabel { color : green; }");
+    //    }
 
-//    else
-//    {
-//        ui->label_nvrStatus->setText("NVR OFFLINE");
-//        ui->label_nvrStatus->setStyleSheet("QLabel { color : red; }");
-//    }
-
-
+    //    else
+    //    {
+    //        ui->label_nvrStatus->setText("NVR OFFLINE");
+    //        ui->label_nvrStatus->setStyleSheet("QLabel { color : red; }");
+    //    }
 }
 
 NVRWindow::~NVRWindow()
@@ -71,6 +74,18 @@ void NVRWindow::statusDateTimeNVR()
     QString date_text = date.toString("dd-MM-yyyy");
     ui->label_Time->setText(time_text);
     ui->label_Date->setText(date_text);
+}
+
+//Function for opening the VidArchives window
+void NVRWindow::openvidArvives(){
+
+    VideoArchiveWindow *videoarcwindow = new VideoArchiveWindow(this);
+    videoarcwindow->setWindowFlag(Qt::FramelessWindowHint);
+    //This connect logic connects the home button press with the first page ( index 0) of stackWidget_Dynamic
+    QObject::connect(videoarcwindow, SIGNAL(homebuttonPressedVid()), this, SLOT(openHomePage()));
+    //This connect logic connects the return button press with the second page ( index 1) of stackWidget_Dynamic
+    QObject::connect(videoarcwindow, SIGNAL(returnbuttonPressedVid()), this, SLOT(openMenuPagereturn()));
+    videoarcwindow->showFullScreen();
 }
 
 void NVRWindow::on_pushButton_home_button_clicked()
@@ -89,7 +104,14 @@ void NVRWindow::on_pushButton_return_clicked()
     timeractive.start();
 
     //Going to the main page on NVR window
-    if (returncounter_nvr == 1){
+    if(returncounter_nvr == 2)
+    {
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->label_heading->setText(" VIDEO LIST");
+        returncounter_nvr --;
+    }
+
+    else if (returncounter_nvr == 1){
         ui->stackedWidget->setCurrentIndex(0);
         ui->label_heading->setText(" NVR INTERFACE");
         returncounter_nvr --;
@@ -113,7 +135,6 @@ void NVRWindow::on_pushButton_diagnostics_clicked()
     nvrStatus();
 }
 
-
 void NVRWindow::on_pushButton_streamList_clicked()
 {
     //Switch to the third page
@@ -124,6 +145,36 @@ void NVRWindow::on_pushButton_streamList_clicked()
     returncounter_nvr = 1; //signifies we are going to page 3 of stackwidget
 
 }
+
+void NVRWindow::on_pushButton_videoList_clicked()
+{
+    //Switch to the third page
+
+
+    QDate selectedDateStart = ui->dateEditStart->date();
+    dateListStart = selectedDateStart.toString("yyyy-MM-dd");
+
+    QDate selectedDateEnd = ui->dateEditEnd->date();
+    dateListEnd = selectedDateEnd.toString("yyyy-MM-dd");
+
+    QTime selectedTimeStart = ui->timeEditStart->time();
+    timeListStart = selectedTimeStart.toString("hh:mm:ss");
+
+    QTime selectedTimeEnd = ui->timeEditEnd->time();
+    timeListEnd = selectedTimeEnd.toString("hh:mm:ss");
+
+
+//    ui->label_3->setText(dateListStart+" " +dateListEnd);
+//    ui->label_4->setText(timeListStart+" " +timeListEnd);
+
+    ui->stackedWidget->setCurrentIndex(3);
+
+    ui->label_heading->setText(" VIDEO LIST");
+
+    returncounter_nvr = 2; //signifies we are going to page 3 of stackwidget
+}
+
+
 
 //Http download for record list
 //##########################################################################################
@@ -137,7 +188,11 @@ void NVRWindow::downloadJson()
             this,
             &NVRWindow::replyList);
 
-    managerList->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/recordlist.cgi?starttime=2010-01-01T00:00:00Z&endtime=2010-12-31T23:59:59Z&maxcount=999")));
+    QString downloadUrlList = "http://admin:admin@192.168.1.2/recordlist.cgi?starttime="+dateListStart+"T"+timeListStart+"Z&endtime="+dateListEnd+"T"+timeListEnd+"&maxcount=999";
+
+//        managerList->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/recordlist.cgi?starttime=2010-01-01T00:00:00Z&endtime=2010-12-31T23:59:59Z&maxcount=999")));
+    managerList->get(QNetworkRequest(QUrl(downloadUrlList)));
+
 }
 
 void NVRWindow::replyList (QNetworkReply *replyList)
@@ -159,7 +214,7 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         qDebug() << replyList->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
 
         QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
-        //        QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
+        //QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
         if(file->open(QFile::Append))
         {
             file->write(replyList->readAll());
@@ -200,6 +255,8 @@ void NVRWindow::downloadStream()
             this,
             &NVRWindow::replyStream);
 
+    QString downloadUrlStream = "";
+
     managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?id=147&starttime=2010-02-13T23:09:06Z&endtime=2010-02-13T23:10:22Z")));
 }
 
@@ -231,7 +288,7 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
 
         QString filename = date_string + time_string;
 
-        QFile *file = new QFile("/home/hmi/VidArchives/"+filename+"_recordings/video.mp4");
+        QFile *file = new QFile("/home/hmi/VidArchives/"+date_string+"_recordings/"+filename+"_NVR.mp4");
         //        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
         if(file->open(QFile::Append))
         {
@@ -267,7 +324,7 @@ void NVRWindow::readJson()
     //for hmi
     file.setFileName("/home/hmi/Downloads/streamList.json");
     //for host PC
-//        file.setFileName("/home/csemi/Downloads/streamList.json");
+    //        file.setFileName("/home/csemi/Downloads/streamList.json");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray saveData = file.readAll();
@@ -280,7 +337,7 @@ void NVRWindow::readJson()
 
         QByteArray streamJson;
 
-        for (int i = 14; i <= saveData.count() - 3 ; i++)
+        for (int i = 14; i <= saveData.count() - 2 ; i++)
         {
             streamJson.append(saveData.at(i));
         }
@@ -362,5 +419,11 @@ void NVRWindow::nvrStatus()
         ui->label_StatusNvr2->setStyleSheet("QLabel { color : red; }");
         ui->label_StatusIconNvr2->setStyleSheet("image: url(:/new/icons/nvr_red.png);");
     }
+}
+
+
+void NVRWindow::on_pushButton_openDownloadedList_clicked()
+{
+    openvidArvives();
 }
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>786</height>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -125,7 +125,7 @@
       <x>0</x>
       <y>100</y>
       <width>1024</width>
-      <height>686</height>
+      <height>666</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -320,13 +320,218 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_3">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>40</y>
+        <width>490</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string>SELECT START DATE &amp; TIME</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>230</y>
+        <width>490</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string>SELECT END DATE &amp; TIME</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_videoList">
+      <property name="geometry">
+       <rect>
+        <x>788</x>
+        <y>510</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NEXT</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEditStart">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>110</y>
+        <width>230</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QDateEdit::up-button {
+    width:45px; 
+	height:40px;
+}
+
+QDateEdit::down-button {
+    width:45px; 
+	height:40px;
+}</string>
+      </property>
+      <property name="displayFormat">
+       <string>yyyy/MM/dd</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEditEnd">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>310</y>
+        <width>230</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QDateEdit::up-button {
+    width:45px; 
+	height:40px;
+}
+
+QDateEdit::down-button {
+    width:45px; 
+	height:40px;
+}</string>
+      </property>
+      <property name="displayFormat">
+       <string>yyyy/MM/dd</string>
+      </property>
+     </widget>
+     <widget class="QTimeEdit" name="timeEditStart">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>110</y>
+        <width>230</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTimeEdit::up-button {
+    width:45px; 
+	height:40px;
+}
+
+QTimeEdit::down-button {
+    width:45px; 
+	height:40px;
+}</string>
+      </property>
+      <property name="displayFormat">
+       <string>HH:mm:ss</string>
+      </property>
+     </widget>
+     <widget class="QTimeEdit" name="timeEditEnd">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>310</y>
+        <width>230</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTimeEdit::up-button {
+    width:45px; 
+	height:40px;
+}
+
+QTimeEdit::down-button {
+    width:45px; 
+	height:40px;
+}</string>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::UpDownArrows</enum>
+      </property>
+      <property name="displayFormat">
+       <string>HH:mm:ss</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_info_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>984</width>
+        <height>630</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_info_2</zorder>
+     <zorder>label</zorder>
+     <zorder>label_2</zorder>
+     <zorder>pushButton_videoList</zorder>
+     <zorder>dateEditStart</zorder>
+     <zorder>dateEditEnd</zorder>
+     <zorder>timeEditStart</zorder>
+     <zorder>timeEditEnd</zorder>
+    </widget>
+    <widget class="QWidget" name="page_4">
      <widget class="QTableView" name="tableView_streamList">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>28</y>
         <width>801</width>
-        <height>533</height>
+        <height>531</height>
        </rect>
       </property>
      </widget>
@@ -388,14 +593,15 @@ LIST</string>
       </property>
       <property name="text">
        <string>DOWNLOAD 
-VIDEO STREAM</string>
+VIDEO 
+STREAM</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_playVideo">
+     <widget class="QPushButton" name="pushButton_openDownloadedList">
       <property name="geometry">
        <rect>
         <x>850</x>
-        <y>460</y>
+        <y>457</y>
         <width>135</width>
         <height>101</height>
        </rect>
@@ -407,8 +613,9 @@ VIDEO STREAM</string>
        </font>
       </property>
       <property name="text">
-       <string>PLAY VIDEO 
-STREAM</string>
+       <string>LIST OF 
+ DOWNLOAD
+-ED VIDEO</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_status">
@@ -461,7 +668,7 @@ STREAM</string>
      <zorder>pushButton_downloadReloadList</zorder>
      <zorder>pushButton_viewList</zorder>
      <zorder>pushButton_downloadVideo</zorder>
-     <zorder>pushButton_playVideo</zorder>
+     <zorder>pushButton_openDownloadedList</zorder>
      <zorder>label_status</zorder>
     </widget>
    </widget>

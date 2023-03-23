@@ -16,7 +16,9 @@ INCLUDEPATH += /usr/include/gstreamer-1.0/ /usr/include/glib-2.0/ /usr/lib/x86_6
 SOURCES += \
     audioplayer.cpp \
     customle.cpp \
+    defaults.cpp \
     devicewindow.cpp \
+    driverlogin.cpp \
     etbarchivewindow.cpp \
     httpdownloader.cpp \
     infowindow.cpp \
@@ -37,7 +39,9 @@ SOURCES += \
 HEADERS += \
     audioplayer.h \
     customle.h \
+    defaults.h \
     devicewindow.h \
+    driverlogin.h \
     etbarchivewindow.h \
     httpdownloader.h \
     infowindow.h \
@@ -56,7 +60,9 @@ HEADERS += \
 
 FORMS += \
     audioplayer.ui \
+    defaults.ui \
     devicewindow.ui \
+    driverlogin.ui \
     etbarchivewindow.ui \
     infowindow.ui \
     keyboarddialog.ui \

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include "logindialog.h"
+#include "driverlogin.h"
 #include "infowindow.h"
 #include "devicewindow.h"
 #include "videoarchivewindow.h"
@@ -19,6 +20,7 @@
 #include <vlc/libvlc.h>
 #include "pingthread.h"
 #include "screenshot.h"
+#include "defaults.h"
 
 extern QString filepath;
 
@@ -70,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
     //    Setting page 2 as default
-    ui->stackedWidget_Dynamic->setCurrentIndex(2);
+    ui->stackedWidget_Dynamic->setCurrentIndex(0);
 
     //For playing udp videos in labels
     //    playVideo();
@@ -93,6 +95,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_frame_4->setEnabled(false);
     ui->pushButton_frame_5->setEnabled(false);
     ui->pushButton_car1->setEnabled(false);
+    ui->pushButton_Menu->setEnabled(false);
+
+    ui->pushButton_Menu->setStyleSheet("image:url(:/new/icons/menu_disable_2.png);");
+
 
     //    timeractive = new QTimer(this);
     //    connect(timer, SIGNAL(timeout()),this,SLOT(openlogindialog()));
@@ -131,6 +137,9 @@ MainWindow::MainWindow(QWidget *parent)
     _mp11 = libvlc_media_player_new (_vlcinstance);
     _mp12 = libvlc_media_player_new (_vlcinstance);
     _mp13 = libvlc_media_player_new (_vlcinstance);
+    _mp14 = libvlc_media_player_new (_vlcinstance);
+    _mp15 = libvlc_media_player_new (_vlcinstance);
+    _mp16 = libvlc_media_player_new (_vlcinstance);
 
     //Function for getting RTSP streams using libvlc
     playStream();
@@ -160,6 +169,12 @@ MainWindow::MainWindow(QWidget *parent)
     pingthread = new PingThread();
     pingthread->setObjectName("first thread");
     pingthread->start(QThread::HighestPriority);
+
+
+    //opens default screen
+    opendefaultScreen();
+
+
 }
 
 
@@ -282,16 +297,16 @@ void MainWindow::etb_ready_read()
         //Returns to Default Camera View
         ui->stackedWidget_Dynamic->setCurrentIndex(2);
 
-        libvlc_media_player_play (_mp);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp2);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp3);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp4);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp5);
-        _isPlaying=true;
+        //        libvlc_media_player_play (_mp);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp2);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp3);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp4);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp5);
+        //        _isPlaying=true;
 
     }
 }
@@ -340,15 +355,45 @@ void MainWindow::train_stops_readyRead()
         ui->stackedWidget_Dynamic->setCurrentIndex(7);
 
         //Starting feed of reverse view IPCAM (Hardcoded for now)
-        const char* url_reverse =  "rtsp://192.168.1.224/video1.sdp";
+        const char* url_reverse1 =  "rtsp://192.168.1.224/video1.sdp";
+        const char* url_reverse2 =  "rtsp://192.168.1.233/video1.sdp";
+        const char* url_reverse3 =  "rtsp://192.168.1.234/video1.sdp";
+        const char* url_reverse4 =  "rtsp://192.168.1.235/video1.sdp";
 
-        _m13 = libvlc_media_new_location(_vlcinstance, url_reverse);
+        _m13 = libvlc_media_new_location(_vlcinstance, url_reverse1);
         libvlc_media_player_set_media (_mp13, _m13);
 
         int windid13 = ui->frame_13->winId();
         libvlc_media_player_set_xwindow (_mp13, windid13);
 
         libvlc_media_player_play (_mp13);
+        _isPlaying=true;
+
+        _m14 = libvlc_media_new_location(_vlcinstance, url_reverse2);
+        libvlc_media_player_set_media (_mp14, _m14);
+
+        int windid14 = ui->frame_14->winId();
+        libvlc_media_player_set_xwindow (_mp14, windid14);
+
+        libvlc_media_player_play (_mp14);
+        _isPlaying=true;
+
+        _m15 = libvlc_media_new_location(_vlcinstance, url_reverse3);
+        libvlc_media_player_set_media (_mp15, _m15);
+
+        int windid15 = ui->frame_15->winId();
+        libvlc_media_player_set_xwindow (_mp15, windid15);
+
+        libvlc_media_player_play (_mp15);
+        _isPlaying=true;
+
+        _m16 = libvlc_media_new_location(_vlcinstance, url_reverse4);
+        libvlc_media_player_set_media (_mp16, _m16);
+
+        int windid16 = ui->frame_16->winId();
+        libvlc_media_player_set_xwindow (_mp16, windid16);
+
+        libvlc_media_player_play (_mp16);
         _isPlaying=true;
     }
 
@@ -357,29 +402,178 @@ void MainWindow::train_stops_readyRead()
         //Stops reverse IPCAM feed
         libvlc_media_player_stop (_mp13);
         _isPlaying=true;
+        //Stops reverse IPCAM feed
+        libvlc_media_player_stop (_mp14);
+        _isPlaying=true;
+        //Stops reverse IPCAM feed
+        libvlc_media_player_stop (_mp15);
+        _isPlaying=true;
+        //Stops reverse IPCAM feed
+        libvlc_media_player_stop (_mp16);
+        _isPlaying=true;
 
         //Returns to Default Camera View
         ui->stackedWidget_Dynamic->setCurrentIndex(2);
 
-        libvlc_media_player_play (_mp);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp2);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp3);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp4);
-        _isPlaying=true;
-        libvlc_media_player_play (_mp5);
-        _isPlaying=true;
-
+        //        libvlc_media_player_play (_mp);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp2);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp3);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp4);
+        //        _isPlaying=true;
+        //        libvlc_media_player_play (_mp5);
+        //        _isPlaying=true;
     }
 
 }
 
 //=======================================================================
-//Menu Button
+
 extern int success;
 extern int loginfail;
+
+void MainWindow::on_pushButton_DriverAccess_clicked()
+{
+    ui->stackedWidget_Dynamic->setCurrentIndex(2);
+
+    ui->pushButton_camView_1->setEnabled(true);
+    ui->pushButton_camView_2->setEnabled(true);
+    ui->pushButton_camView_full->setEnabled(true);
+    ui->pushButton_return->setEnabled(true);
+    ui->pushButton_left_up->setEnabled(true);
+    ui->pushButton_right_up->setEnabled(true);
+    ui->pushButton_left_down->setEnabled(true);
+    ui->pushButton_right_down->setEnabled(true);
+    ui->pushButton_frame_1->setEnabled(true);
+    ui->pushButton_frame_2->setEnabled(true);
+    ui->pushButton_frame_3->setEnabled(true);
+    ui->pushButton_frame_4->setEnabled(true);
+    ui->pushButton_frame_5->setEnabled(true);
+    ui->pushButton_car1->setEnabled(true);
+    ui->pushButton_Menu->setEnabled(true);
+    ui->pushButton_Menu->setStyleSheet("image:url(:/new/icons/menu_2.png);");
+
+
+    libvlc_media_player_play (_mp);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp2);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp3);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp4);
+    _isPlaying=true;
+    libvlc_media_player_play (_mp5);
+    _isPlaying=true;
+}
+
+
+void MainWindow::on_pushButton_MainAccess_clicked()
+{
+    //For the first click on menu button
+    buttonpress++;
+    if (buttonpress == 1){
+        openlogindialog();
+    }
+
+    /*this opens the login window again(on pressing the menu button)
+    if window remains inactive for a minute or if login window is closed*/
+    else if (loginfail == 1 || timeractive.elapsed() >= 60000){
+        openlogindialog();
+    }
+    else if(success == 1){
+        openMenuPage();
+
+        /*Stop Stream on Different View*/
+        libvlc_media_player_stop (_mp);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp2);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp3);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp4);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp5);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp6);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp7);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp8);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp9);
+        _isPlaying=true;
+        libvlc_media_player_stop (_mp10);
+        _isPlaying=true;
+    }
+
+    //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
+    ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
+    ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
+    ui->label_recording_status->setText("");
+}
+
+
+void MainWindow::on_pushButton_Lock_clicked()
+{
+    ui->stackedWidget_Dynamic->setCurrentIndex(0);
+
+    ui->pushButton_camView_1->setEnabled(false);
+    ui->pushButton_camView_2->setEnabled(false);
+    ui->pushButton_camView_full->setEnabled(false);
+    ui->pushButton_return->setEnabled(false);
+    ui->pushButton_left_up->setEnabled(false);
+    ui->pushButton_right_up->setEnabled(false);
+    ui->pushButton_left_down->setEnabled(false);
+    ui->pushButton_right_down->setEnabled(false);
+    ui->pushButton_frame_1->setEnabled(false);
+    ui->pushButton_frame_2->setEnabled(false);
+    ui->pushButton_frame_3->setEnabled(false);
+    ui->pushButton_frame_4->setEnabled(false);
+    ui->pushButton_frame_5->setEnabled(false);
+    ui->pushButton_car1->setEnabled(false);
+    ui->pushButton_Menu->setEnabled(false);
+
+    opendefaultScreen();
+    libvlc_media_player_stop (_mp);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp2);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp3);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp4);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp5);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp6);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp7);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp8);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp9);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp10);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp11);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp12);
+    _isPlaying=true;
+    libvlc_media_player_stop (_mp13);
+    _isPlaying=true;
+
+    //opens login dialog if main menu is inactive for a minute
+    if (timeractive.elapsed() >= 60000){
+        openlogindialog();
+    }
+    else{
+        //timer to keep the window active
+        timeractive.start();
+    }
+}
+
+//Menu Button
 void MainWindow::on_pushButton_Menu_clicked()
 {
     //For the first click on menu button
@@ -425,6 +619,28 @@ void MainWindow::on_pushButton_Menu_clicked()
     ui->label_recording_status->setText("");
 }
 
+void MainWindow::opendefaultScreen()
+{
+    DefaultS *defaultS = new DefaultS(this);
+    defaultS->setWindowFlag(Qt::FramelessWindowHint);
+    defaultS->showFullScreen();
+    timeractive.elapsed();
+}
+
+
+//Function for opening the driver login dialog
+//void MainWindow::opendriverlogindialog(){
+
+//    DriverLogin *driverDialog = new DriverLogin(this);
+//    driverDialog->setModal(true);
+//    driverDialog->setWindowFlag(Qt::FramelessWindowHint);
+
+//    //This connect logic connects the ok button press (with right password) with the menu page of the stack widget
+//    QObject::connect(driverDialog, SIGNAL(okbuttonPressed_driver()), this, SLOT(openDefaultCam()));
+//    driverDialog->exec();
+//    timeractive.elapsed();
+//}
+
 //Function for opening the login dialog
 void MainWindow::openlogindialog(){
     //    LoginDialog *loginDialog = new LoginDialog();
@@ -444,25 +660,36 @@ void MainWindow::openlogindialog(){
     timeractive.elapsed();
 }
 
+//void MainWindow::openDefaultCam()
+//{
+//    ui->stackedWidget_Dynamic->setCurrentIndex(2);
+//    ui->pushButton_camView_1->setEnabled(true);
+//    ui->pushButton_camView_2->setEnabled(true);
+//    ui->pushButton_camView_full->setEnabled(true);
+//    ui->pushButton_return->setEnabled(true);
+//    ui->pushButton_car1->setEnabled(true);
+//    ui->pushButton_Menu->setEnabled(true);
+//}
+
 //public slot which opens the second page (index 1) of the stackWidget_Dynamic that is menu .
 //menu page opened via login window
 void MainWindow::openMenuPage()
 {
     ui->stackedWidget_Dynamic->setCurrentIndex(1);
-    ui->pushButton_camView_1->setEnabled(true);
-    ui->pushButton_camView_2->setEnabled(true);
-    ui->pushButton_camView_full->setEnabled(true);
-    ui->pushButton_return->setEnabled(true);
-    ui->pushButton_left_up->setEnabled(true);
-    ui->pushButton_right_up->setEnabled(true);
-    ui->pushButton_left_down->setEnabled(true);
-    ui->pushButton_right_down->setEnabled(true);
-    ui->pushButton_frame_1->setEnabled(true);
-    ui->pushButton_frame_2->setEnabled(true);
-    ui->pushButton_frame_3->setEnabled(true);
-    ui->pushButton_frame_4->setEnabled(true);
-    ui->pushButton_frame_5->setEnabled(true);
-    ui->pushButton_car1->setEnabled(true);
+    //    ui->pushButton_camView_1->setEnabled(true);
+    //    ui->pushButton_camView_2->setEnabled(true);
+    //    ui->pushButton_camView_full->setEnabled(true);
+    //    ui->pushButton_return->setEnabled(true);
+    //    ui->pushButton_left_up->setEnabled(true);
+    //    ui->pushButton_right_up->setEnabled(true);
+    //    ui->pushButton_left_down->setEnabled(true);
+    //    ui->pushButton_right_down->setEnabled(true);
+    //    ui->pushButton_frame_1->setEnabled(true);
+    //    ui->pushButton_frame_2->setEnabled(true);
+    //    ui->pushButton_frame_3->setEnabled(true);
+    //    ui->pushButton_frame_4->setEnabled(true);
+    //    ui->pushButton_frame_5->setEnabled(true);
+    //    ui->pushButton_car1->setEnabled(true);
 }
 
 //=======================================================================
@@ -786,16 +1013,16 @@ void MainWindow::playStream(){
     int windid10 = ui->frame_10->winId();
     libvlc_media_player_set_xwindow (_mp10, windid10 );
 
-    libvlc_media_player_play (_mp);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp2);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp3);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp4);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp5);
-    _isPlaying=true;
+    //    libvlc_media_player_play (_mp);
+    //    _isPlaying=true;
+    //    libvlc_media_player_play (_mp2);
+    //    _isPlaying=true;
+    //    libvlc_media_player_play (_mp3);
+    //    _isPlaying=true;
+    //    libvlc_media_player_play (_mp4);
+    //    _isPlaying=true;
+    //    libvlc_media_player_play (_mp5);
+    //    _isPlaying=true;
 
 #endif
 }
@@ -939,21 +1166,33 @@ void MainWindow::on_pushButton_camView_full_clicked()
 
 void MainWindow::on_pushButton_return_clicked()
 {
-    if (timeractive.elapsed() >= 60000){
-        openlogindialog();
-    }
-    else{
-        //timer to keep the window active
-        timeractive.start();
-    }
 
     if(returncounter_main == 0){
-        ui->stackedWidget_Dynamic->setCurrentIndex(2);
+        ui->stackedWidget_Dynamic->setCurrentIndex(0);
     }
 
     else if(returncounter_main == 1){
         ui->stackedWidget_Dynamic->setCurrentIndex(2);
         returncounter_main --;
+        /*Play Stream*/
+        libvlc_media_player_play (_mp);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp2);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp3);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp4);
+        _isPlaying=true;
+        libvlc_media_player_play (_mp5);
+        _isPlaying=true;
+
+        if (timeractive.elapsed() >= 60000){
+            openlogindialog();
+        }
+        else{
+            //timer to keep the window active
+            timeractive.start();
+        }
     }
 
     //    qDebug() << player->state();
@@ -961,17 +1200,6 @@ void MainWindow::on_pushButton_return_clicked()
     libvlc_media_player_stop (_mp12);
     _isPlaying=true;
 
-    /*Play Stream*/
-    libvlc_media_player_play (_mp);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp2);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp3);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp4);
-    _isPlaying=true;
-    libvlc_media_player_play (_mp5);
-    _isPlaying=true;
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
     ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
@@ -1656,6 +1884,19 @@ void MainWindow::on_pushButton_car1_Full_clicked()
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

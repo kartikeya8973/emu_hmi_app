@@ -54,6 +54,7 @@ void renamewindow::on_pushButton_cancel_clicked()
         new_name = fileabspath;
         renameSet = 0;
     }
+
 }
 
 void renamewindow::on_pushButton_rename_clicked()

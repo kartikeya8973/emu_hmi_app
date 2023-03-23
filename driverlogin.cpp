@@ -1,36 +1,36 @@
-#include "logindialog.h"
-#include "ui_logindialog.h"
+#include "driverlogin.h"
+#include "ui_driverlogin.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 extern QElapsedTimer timeractive;
 
-//flag for menu button
-int success;
-//flag for reopening login window if the window is closed by user using close button
-int loginfail;
-
 //Sqlite server for storing password
-QSqlDatabase passdb;
+QSqlDatabase passdb_driver;
 
-LoginDialog::LoginDialog(QWidget *parent) :
+//flag for access button
+int success_driver;
+//flag for reopening driver login window if the window is closed by user using close button
+int loginfail_driver;
+
+DriverLogin::DriverLogin(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LoginDialog)
+    ui(new Ui::DriverLogin)
 {
     ui->setupUi(this);
 
-    success = 0;
-    loginfail = 0;
+    success_driver = 0;
+    loginfail_driver = 0;
 
     //Creating Database
-    passdb = QSqlDatabase::addDatabase("QSQLITE");
+    passdb_driver = QSqlDatabase::addDatabase("QSQLITE");
 
     //For HMI
-    passdb.setDatabaseName("/home/hmi/HMI/password.db");
+    passdb_driver.setDatabaseName("/home/hmi/HMI/password_driver.db");
     //For Host PC
-//        passdb.setDatabaseName("/home/csemi/qtworkspace_new/HMItemplate/password.db");
+//        passdb_driver.setDatabaseName("/home/csemi/qtworkspace_new/HMItemplate/password_driver.db");
 
-    if(!passdb.open()){
+    if(!passdb_driver.open()){
         qDebug() << "Failed to open Database";
     }
     else{
@@ -55,22 +55,22 @@ LoginDialog::LoginDialog(QWidget *parent) :
             }
         }
     }
+
 }
 
-LoginDialog::~LoginDialog()
+DriverLogin::~DriverLogin()
 {
     delete ui;
 }
 
-void LoginDialog::on_pushButton_close_clicked()
+void DriverLogin::on_pushButton_close_clicked()
 {
     close(); //closes the login dialog window
     //opens login window again
-    loginfail = 1;
+    loginfail_driver=1;
 }
 
-
-void LoginDialog::on_pushButton_1_clicked()
+void DriverLogin::on_pushButton_1_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "1";
@@ -88,7 +88,7 @@ void LoginDialog::on_pushButton_1_clicked()
 }
 
 
-void LoginDialog::on_pushButton_2_clicked()
+void DriverLogin::on_pushButton_2_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "2";
@@ -106,7 +106,7 @@ void LoginDialog::on_pushButton_2_clicked()
 }
 
 
-void LoginDialog::on_pushButton_3_clicked()
+void DriverLogin::on_pushButton_3_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "3";
@@ -124,7 +124,7 @@ void LoginDialog::on_pushButton_3_clicked()
 }
 
 
-void LoginDialog::on_pushButton_4_clicked()
+void DriverLogin::on_pushButton_4_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "4";
@@ -142,7 +142,7 @@ void LoginDialog::on_pushButton_4_clicked()
 }
 
 
-void LoginDialog::on_pushButton_5_clicked()
+void DriverLogin::on_pushButton_5_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "5";
@@ -160,7 +160,7 @@ void LoginDialog::on_pushButton_5_clicked()
 }
 
 
-void LoginDialog::on_pushButton_6_clicked()
+void DriverLogin::on_pushButton_6_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "6";
@@ -178,7 +178,7 @@ void LoginDialog::on_pushButton_6_clicked()
 }
 
 
-void LoginDialog::on_pushButton_7_clicked()
+void DriverLogin::on_pushButton_7_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "7";
@@ -196,7 +196,7 @@ void LoginDialog::on_pushButton_7_clicked()
 }
 
 
-void LoginDialog::on_pushButton_8_clicked()
+void DriverLogin::on_pushButton_8_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "8";
@@ -214,7 +214,7 @@ void LoginDialog::on_pushButton_8_clicked()
 }
 
 
-void LoginDialog::on_pushButton_9_clicked()
+void DriverLogin::on_pushButton_9_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "9";
@@ -231,7 +231,7 @@ void LoginDialog::on_pushButton_9_clicked()
     }
 }
 
-void LoginDialog::on_pushButton_0_clicked()
+void DriverLogin::on_pushButton_0_clicked()
 {
     if(accessKey.length() < 6){
         accessKey = accessKey + "0";
@@ -248,7 +248,7 @@ void LoginDialog::on_pushButton_0_clicked()
     }
 }
 
-void LoginDialog::on_pushButton_clear_clicked()
+void DriverLogin::on_pushButton_clear_clicked()
 {
     accessKey = "";
     ui->label_password->setText("");
@@ -259,8 +259,7 @@ void LoginDialog::on_pushButton_clear_clicked()
                                       "}");
 }
 
-
-void LoginDialog::on_pushButton_ok_clicked()
+void DriverLogin::on_pushButton_ok_clicked()
 {
     //        if (accessKey == "123456"){
     //            emit okbuttonPressed();
@@ -274,7 +273,7 @@ void LoginDialog::on_pushButton_ok_clicked()
     QString password;
     password = ui->label_password->text();
 
-    if(!passdb.isOpen()){
+    if(!passdb_driver.isOpen()){
         qDebug() << "Failed to Open Database";
         return;
     }
@@ -289,13 +288,14 @@ void LoginDialog::on_pushButton_ok_clicked()
     }
 
     if (count == 1 && accessKey == password && accessKey.size()==6){
-        emit okbuttonPressed();
+        emit okbuttonPressed_driver();
         close();
 
         //timer for keeping window active
         timeractive.start();
         //flag for using menu button for opening menu page after succesful login
-        success = 1;
+        success_driver = 1;
+
     }
 
     else{

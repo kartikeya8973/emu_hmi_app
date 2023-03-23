@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDateTime>
+#include "pingthread.h"
+
 
 extern QElapsedTimer timeractive;
 
@@ -59,6 +61,11 @@ DeviceWindow::DeviceWindow(QWidget *parent) :
 
     // Create a media player playing environement
     _mp_deviceplayer = libvlc_media_player_new (_vlcinstance_deviceplayer);
+
+    PingThread *pingthread;
+    pingthread = new PingThread();
+    pingthread->setObjectName("first thread");
+    pingthread->start(QThread::HighestPriority);
 }
 
 DeviceWindow::~DeviceWindow()

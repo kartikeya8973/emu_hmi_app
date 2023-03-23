@@ -96,9 +96,21 @@ public:
     libvlc_media_player_t *_mp12;
     libvlc_media_t *_m12;    
 
-    // When train stops and/or goes in reverse
+    // When train stops REAR CAM
     libvlc_media_player_t *_mp13;
     libvlc_media_t *_m13;
+
+    // When train stops REAR LEFT
+    libvlc_media_player_t *_mp14;
+    libvlc_media_t *_m14;
+
+    // When train stops REAR RIGHT
+    libvlc_media_player_t *_mp15;
+    libvlc_media_t *_m15;
+
+    // When train stops REAR CAM 2
+    libvlc_media_player_t *_mp16;
+    libvlc_media_t *_m16;
 
 signals:
     // signal emitted when left button of Full Cam View window is pressed
@@ -107,6 +119,9 @@ signals:
 
 public slots:
     void statusDateTime();
+
+    //opens 5 frame Cam View
+//    void openDefaultCam();
 
     //opens the menu page present in stackWidget_Dynamic via login window
     void openMenuPage();
@@ -122,6 +137,12 @@ public slots:
 
     //For getting rtsp streams
     void playStream();
+
+    //open driver login dialog
+//    void opendriverlogindialog();
+
+    //open the default screen
+    void opendefaultScreen();
 
     //    //Stop streams in CamView1
     //    void stopStreamCamView1();
@@ -229,6 +250,12 @@ private slots:
     void on_pushButton_car1_Mosiac_clicked();
 
     void on_pushButton_screenshot_clicked();
+
+    void on_pushButton_Lock_clicked();
+
+    void on_pushButton_DriverAccess_clicked();
+
+    void on_pushButton_MainAccess_clicked();
 
 private:
     Ui::MainWindow *ui;

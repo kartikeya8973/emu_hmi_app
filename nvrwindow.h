@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QTableView>
 #include "qjsontablemodel.h"
+#include <QFileSystemModel>
+
 
 namespace Ui {
 class NVRWindow;
@@ -34,6 +36,8 @@ public:
 
     //Function to read json of record list and display in tableview
     void readJson();
+
+    void openvidArvives();
 
 
 signals:
@@ -70,6 +74,10 @@ private slots:
 
     void on_pushButton_diagnostics_clicked();
 
+    void on_pushButton_videoList_clicked();
+
+    void on_pushButton_openDownloadedList_clicked();
+
 private:
     Ui::NVRWindow *ui;
     QTimer *timer;
@@ -82,6 +90,12 @@ private:
 
     // for Table View
     QJsonTableModel *streamList;
+
+    //For Download Video on NVR list
+    QFileSystemModel *model;
+
+    //For USB copy page
+    QFileSystemModel *model2;
 };
 
 #endif // NVRWINDOW_H

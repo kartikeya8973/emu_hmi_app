@@ -75,5 +75,9 @@
         <file>recordIcon.png</file>
         <file>externaStorage.png</file>
         <file>capture.png</file>
+        <file>rtvision.png</file>
+        <file>lock.png</file>
+        <file>menu_2.png</file>
+        <file>menu_disable_2.png</file>
     </qresource>
 </RCC>

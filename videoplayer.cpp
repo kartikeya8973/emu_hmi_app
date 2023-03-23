@@ -247,6 +247,7 @@ void videoplayer::playStream(){
 
         settingvidplayer = 0;
     }
+
 }
 
 void videoplayer::changePosition(int newPosition)
