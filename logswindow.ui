@@ -242,10 +242,10 @@ alternate-background-color: rgb(186, 189, 182);</string>
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_openfile">
+     <widget class="QPushButton" name="pushButton_copylogs2USB">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>810</x>
         <y>533</y>
         <width>175</width>
         <height>90</height>
@@ -262,12 +262,17 @@ alternate-background-color: rgb(186, 189, 182);</string>
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>OPEN FILE</string>
+       <string>COPY TO 
+USB</string>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/new/icons/usb-drive.png</normaloff>:/new/icons/usb-drive.png</iconset>
       </property>
       <property name="iconSize">
        <size>
-        <width>45</width>
-        <height>45</height>
+        <width>40</width>
+        <height>40</height>
        </size>
       </property>
      </widget>
@@ -317,10 +322,10 @@ alternate-background-color: rgb(186, 189, 182);</string>
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_openfile_2">
+     <widget class="QPushButton" name="pushButton_copyfault2USB">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>810</x>
         <y>533</y>
         <width>175</width>
         <height>90</height>
@@ -337,12 +342,101 @@ alternate-background-color: rgb(186, 189, 182);</string>
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>OPEN FILE</string>
+       <string>COPY TO 
+USB</string>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/new/icons/usb-drive.png</normaloff>:/new/icons/usb-drive.png</iconset>
       </property>
       <property name="iconSize">
        <size>
-        <width>45</width>
-        <height>45</height>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <widget class="QLabel" name="label_info_4">
+      <property name="geometry">
+       <rect>
+        <x>17</x>
+        <y>7</y>
+        <width>984</width>
+        <height>630</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_status">
+      <property name="geometry">
+       <rect>
+        <x>37</x>
+        <y>527</y>
+        <width>371</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QTreeView" name="treeView_2">
+      <property name="geometry">
+       <rect>
+        <x>37</x>
+        <y>25</y>
+        <width>944</width>
+        <height>480</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_copy">
+      <property name="geometry">
+       <rect>
+        <x>840</x>
+        <y>530</y>
+        <width>141</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>COPY</string>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/new/icons/copy.png</normaloff>:/new/icons/copy.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
        </size>
       </property>
      </widget>
@@ -379,7 +473,7 @@ alternate-background-color: rgb(186, 189, 182);</string>
      </font>
     </property>
     <property name="text">
-     <string> LOGS/FAULTS</string>
+     <string> LOGS / FAULTS</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_button">

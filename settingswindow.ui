@@ -222,66 +222,13 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">
-     <widget class="QPushButton" name="pushButton_updatePass">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>740</x>
-        <y>530</y>
-        <width>220</width>
-        <height>70</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>30</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(211, 215, 207);</string>
-      </property>
-      <property name="text">
-       <string>UPDATE</string>
-      </property>
-     </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget_7">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>50</y>
-        <width>611</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_Password"/>
-     </widget>
-     <widget class="QLabel" name="label_addNew">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>50</y>
-        <width>270</width>
-        <height>40</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string>Enter New Password</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_message">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>530</y>
-        <width>611</width>
-        <height>71</height>
+        <x>0</x>
+        <y>0</y>
+        <width>1024</width>
+        <height>666</height>
        </rect>
       </property>
       <property name="font">
@@ -289,37 +236,218 @@
         <pointsize>15</pointsize>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>DRIVER PASSWORD</string>
+       </attribute>
+       <widget class="QLabel" name="label_bg">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>8</y>
+          <width>984</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_updatePass">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>510</y>
+          <width>220</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(211, 215, 207);</string>
+        </property>
+        <property name="text">
+         <string>UPDATE</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_addNew">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>300</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>Enter New Password for
+Driver Access</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_message">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>510</y>
+          <width>611</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_7">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>40</y>
+          <width>611</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_Password"/>
+       </widget>
+       <zorder>label_bg</zorder>
+       <zorder>pushButton_updatePass</zorder>
+       <zorder>label_addNew</zorder>
+       <zorder>horizontalLayoutWidget_7</zorder>
+       <zorder>label_message</zorder>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>MAINTENANCE PASSWORD</string>
+       </attribute>
+       <widget class="QLabel" name="label_bg_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>8</y>
+          <width>984</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_message_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>510</y>
+          <width>611</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_updatePass_2">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>510</y>
+          <width>220</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>30</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(211, 215, 207);</string>
+        </property>
+        <property name="text">
+         <string>UPDATE</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_8">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>40</y>
+          <width>611</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_Password_2"/>
+       </widget>
+       <widget class="QLabel" name="label_addNew_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>300</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(114, 159, 207);</string>
+        </property>
+        <property name="text">
+         <string>Enter New Password for
+Maintenance Access</string>
+        </property>
+       </widget>
+       <zorder>label_bg_2</zorder>
+       <zorder>pushButton_updatePass_2</zorder>
+       <zorder>horizontalLayoutWidget_8</zorder>
+       <zorder>label_addNew_2</zorder>
+       <zorder>label_message_2</zorder>
+      </widget>
      </widget>
-     <widget class="QLabel" name="label1">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>28</y>
-        <width>984</width>
-        <height>600</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(114, 159, 207);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <zorder>label1</zorder>
-     <zorder>pushButton_updatePass</zorder>
-     <zorder>horizontalLayoutWidget_7</zorder>
-     <zorder>label_addNew</zorder>
-     <zorder>label_message</zorder>
     </widget>
     <widget class="QWidget" name="page_3">
      <widget class="QLabel" name="label_info">

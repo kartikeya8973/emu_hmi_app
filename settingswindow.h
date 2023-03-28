@@ -41,7 +41,6 @@ private slots:
 
     void on_pushButton_passwordSettings_clicked();
 
-
     void on_pushButton_externalStorage_clicked();
 
     void on_treeView_pressed(const QModelIndex &index);
@@ -64,6 +63,8 @@ private slots:
 
     void on_pushButton_copy_move_clicked();
 
+    void on_pushButton_updatePass_2_clicked();
+
 private:
     Ui::SettingsWindow *ui;
     QTimer *timer;
@@ -74,8 +75,11 @@ private:
     //This model will display the directories to which we can copy/move files
     QFileSystemModel *model2;
 
-    //For adding new password
+    //For adding new driver password
     customle *le;
+
+    //For adding new maintenance password
+    customle *le2;
 };
 
 #endif // SETTINGSWINDOW_H

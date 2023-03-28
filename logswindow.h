@@ -62,6 +62,12 @@ private slots:
 
     void on_pushButton_openfaults_clicked();
 
+    void on_treeView_2_pressed(const QModelIndex &index);
+
+    void on_pushButton_copy_clicked();
+
+    void on_pushButton_copylogs2USB_clicked();
+
 private:
     Ui::LogsWindow *ui;
     QTimer *timer;
@@ -72,6 +78,9 @@ private:
 
     //Model for showing faults in listview
     QStringListModel *filemodelfaults;
+
+    //For USB copy page
+    QFileSystemModel *model2;
 
 };
 

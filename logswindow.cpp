@@ -19,6 +19,15 @@ QStringList stringListlogs;
 //counter for return button for logs window
 int returncounter_log;
 
+//Global variable for filepath of USB
+QString usbpath_logs = "";
+
+//Global variable for filename selected from USB
+QString usbfilename_logs = "";
+
+//absolute path of logs file
+QString SourcePath_logs ="";
+
 LogsWindow::LogsWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LogsWindow)
@@ -51,6 +60,15 @@ LogsWindow::LogsWindow(QWidget *parent) :
     connect(ui->dateEdit, &QDateEdit::dateChanged,ui->calendar, &QCalendarWidget::setSelectedDate);
     connect(ui->calendar, &QCalendarWidget::selectionChanged,this, &LogsWindow::selectedDateChanged);
 
+
+    model2 = new QFileSystemModel(this);
+    ui->treeView_2->setModel(model2);
+    ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
+//    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
+    ui->treeView_2->setColumnWidth(0,600);
+    ui->treeView_2->setColumnWidth(1,140);
+    ui->treeView_2->setColumnWidth(2,100);
+    ui->treeView_2->setColumnWidth(3,300);
 
     //Disable the buttons except home and return button
 //    ui->pushButton_openfile->setEnabled(false);
@@ -95,7 +113,7 @@ void LogsWindow::selectedDateChanged()
     ui->dateEdit->setDate(ui->calendar->selectedDate());
 
     //Saving selected date in a string
-    date_string = ui->dateEdit->date().toString("dd.MM.yyyy");
+    date_string = ui->dateEdit->date().toString("yyyy.MM.dd");
     qDebug("%s", qUtf8Printable(date_string));
 }
 
@@ -108,8 +126,8 @@ void LogsWindow::on_pushButton_openLogs_clicked()
     //setting page 2 on pushbutton
 
     //log file source path
-    QString SourcePath_logs = "/home/hmi/logs/" + date_string + "/log";
-//    QString SourcePath_logs = "/home/csemi/logs/" + date_string + "/log";
+    SourcePath_logs = "/home/hmi/logs/" + date_string + "/"+date_string+"_logs";
+//    QString SourcePath_logs = "/home/csemi/logs/" + date_string + "/"+date_string+"_logs";
 
     QFile filelogs(SourcePath_logs);
     if(!filelogs.open(QIODevice::ReadOnly))
@@ -189,6 +207,13 @@ void LogsWindow::on_pushButton_openfaults_clicked()
 void LogsWindow::on_pushButton_return_clicked()
 {
     //returns to the first page (index 0) of the logswindow
+    if(returncounter_log == 2)
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->label_heading->setText(" LOGS");
+        returncounter_log --;
+    }
+
     if (returncounter_log == 1){
         ui->stackedWidget->setCurrentIndex(0);
         returncounter_log --;
@@ -218,10 +243,40 @@ void LogsWindow::on_calendar_clicked(const QDate &date)
 }
 
 
+void LogsWindow::on_pushButton_copylogs2USB_clicked()
+{
+    //timer to keep the window active
+    timeractive.start();
+
+    //Opens the USB copy and move page
+    ui->stackedWidget->setCurrentIndex(3);
+    returncounter_log = 2;
+
+    ui->label_heading->setText(" USB / External Storage List");
+    ui->label_status->setText("Select the USB or Harddisk");
+}
 
 
+void LogsWindow::on_treeView_2_pressed(const QModelIndex &index)
+{
+    usbpath_logs = model2->fileInfo(index).absoluteFilePath();
+    usbfilename_logs = model2->fileInfo(index).fileName();
 
+    ui->label_status->setText(usbpath_logs);
+}
 
+void LogsWindow::on_pushButton_copy_clicked()
+{
+    //timer to keep the window active
+    timeractive.start();
 
+    QString copy_file_to_usb = " cp " + SourcePath_logs + " " + usbpath_logs;
 
+    qDebug() << copy_file_to_usb;
+
+    system(qPrintable(copy_file_to_usb));
+
+    ui->label_status->setText("LOGS for "+date_string+" copied to " + usbpath_logs );
+    QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
+}
 

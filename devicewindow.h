@@ -48,6 +48,9 @@ public slots:
     //Function to get the status of all the NVRs
     void nvrStatus();
 
+    //open screenshot window
+    void openscreenshotdialog();
+
 private slots:
     void on_pushButton_home_button_clicked();
 
@@ -86,6 +89,12 @@ private slots:
     void on_pushButton_cam13_clicked();
 
     void on_pushButton_cam14_clicked();
+
+    void on_pushButton_record_clicked();
+
+    void on_pushButton_stop_clicked();
+
+    void on_pushButton_screenshot_clicked();
 
 private:
     Ui::DeviceWindow *ui;

@@ -11,6 +11,7 @@
 #include "nvrwindow.h"
 #include "settingswindow.h"
 #include "logswindow.h"
+#include "etbcallwindow.h"
 
 #include <QMediaPlayer>
 #include <QVideoWidget>
@@ -116,6 +117,8 @@ signals:
     // signal emitted when left button of Full Cam View window is pressed
     void left_full_clicked();
 
+    void closeetbcallwindow();
+
 
 public slots:
     void statusDateTime();
@@ -138,20 +141,14 @@ public slots:
     //For getting rtsp streams
     void playStream();
 
+    //For opening etbcallwindow
+    void openetbcallwindow();
+
     //open driver login dialog
 //    void opendriverlogindialog();
 
     //open the default screen
     void opendefaultScreen();
-
-    //    //Stop streams in CamView1
-    //    void stopStreamCamView1();
-
-    //    //Stop streams in CamViewMosaic
-    //    void stopStreamCamViewMosaic();
-
-    //     //Stop streams in CamViewFull
-    //    void stopStreamCamViewFull();
 
     //Iterate Full Cam view
     void iterateFullCamView();
@@ -167,6 +164,13 @@ public slots:
 
     //open screenshot window
     void openscreenshotdialog();
+
+    //for downloading logs from NVR
+    void replyNVR (QNetworkReply *replyStream);
+
+    //Function to download logs from NVR
+    void downloadLogs();
+
 
 private slots:
     void on_pushButton_Menu_clicked();
@@ -280,6 +284,12 @@ private:
 
     QTimer* recordTimer;
     int recordTimeCtr;
+
+    // for logs from NVR
+    QNetworkAccessManager *managerLogs;
+
+    EtbCallWindow *etbWindow = new EtbCallWindow(this);
+
 
     //    QTimer *timeractive;
     ;

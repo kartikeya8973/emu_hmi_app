@@ -6,7 +6,7 @@
 extern QElapsedTimer timeractive;
 
 //Sqlite server for storing password
-QSqlDatabase passdb_driver;
+extern QSqlDatabase passdb_driver;
 
 //flag for access button
 int success_driver;
@@ -280,6 +280,7 @@ void DriverLogin::on_pushButton_ok_clicked()
 
     QSqlQuery qry;
     int count = 0;
+    //SELECT * FROM Password LIMIT 1 OFFSET 0
     if(qry.exec(("SELECT * FROM Password WHERE Pass='"+password+"'"))){
         while(qry.next())
         {

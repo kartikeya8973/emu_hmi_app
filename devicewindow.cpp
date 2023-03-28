@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include "pingthread.h"
+#include "screenshot.h"
 
 
 extern QElapsedTimer timeractive;
@@ -30,6 +31,17 @@ extern int ping_for_cam14;
 extern int ping_for_nvr1;
 extern int ping_for_nvr2;
 
+//Name by which stream recorded through Device Window is saved in VideoArhives
+QString recordedFileNameDevice = "";
+
+//String for recording stream through Device Window
+QString recordStringDevice = "";
+
+//Cam no in Device Window
+QString camNoFileNameDevice = "";
+
+QString time_text_device_recording = "";
+QString date_text_device_recording = "";
 
 DeviceWindow::DeviceWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -81,6 +93,9 @@ void DeviceWindow::statusDateTimeDevice()
     QString date_text = date.toString("dd-MM-yyyy");
     ui->label_Time->setText(time_text);
     ui->label_Date->setText(date_text);
+
+    time_text_device_recording = time.toString("hh.mm.ss");
+    date_text_device_recording = date.toString("yyyy.MM.dd");
 }
 
 void DeviceWindow::on_pushButton_home_button_clicked()
@@ -118,6 +133,7 @@ void DeviceWindow::on_pushButton_return_clicked()
         emit returnbuttonPressedDevice();
         close();
     }
+
 }
 
 void DeviceWindow::on_pushButton_nvrStatus_clicked()
@@ -464,6 +480,8 @@ void DeviceWindow::on_pushButton_cam1_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.221");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.221/video1.sdp";
+    camNoFileNameDevice = "CAM_1";
 
 }
 
@@ -487,6 +505,8 @@ void DeviceWindow::on_pushButton_cam2_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.222");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.222/video1.sdp";
+    camNoFileNameDevice = "CAM_2";
 
 }
 
@@ -510,6 +530,8 @@ void DeviceWindow::on_pushButton_cam3_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.223");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.223/video1.sdp";
+    camNoFileNameDevice = "CAM_3";
 
 }
 
@@ -533,6 +555,8 @@ void DeviceWindow::on_pushButton_cam4_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.224");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.224/video1.sdp";
+    camNoFileNameDevice = "CAM_4";
 
 }
 
@@ -556,6 +580,8 @@ void DeviceWindow::on_pushButton_cam5_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.225");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.225/video1.sdp";
+    camNoFileNameDevice = "CAM_5";
 
 }
 
@@ -579,6 +605,8 @@ void DeviceWindow::on_pushButton_cam6_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.226");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.226/video1.sdp";
+    camNoFileNameDevice = "CAM_6";
 
 }
 
@@ -602,7 +630,8 @@ void DeviceWindow::on_pushButton_cam7_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.227");
 
     returncounter_deviceStatus = 2;
-
+    recordStringDevice = "rtsp://192.168.1.227/video1.sdp";
+    camNoFileNameDevice = "CAM_7";
 }
 
 
@@ -625,6 +654,8 @@ void DeviceWindow::on_pushButton_cam8_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.228");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.228/video1.sdp";
+    camNoFileNameDevice = "CAM_8";
 
 }
 
@@ -648,6 +679,8 @@ void DeviceWindow::on_pushButton_cam9_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.229");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.229/video1.sdp";
+    camNoFileNameDevice = "CAM_9";
 
 }
 
@@ -671,6 +704,8 @@ void DeviceWindow::on_pushButton_cam10_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.230");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.230/video1.sdp";
+    camNoFileNameDevice = "CAM_10";
 
 }
 
@@ -694,6 +729,8 @@ void DeviceWindow::on_pushButton_cam11_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.231");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.231/video1.sdp";
+    camNoFileNameDevice = "CAM_11";
 
 }
 
@@ -717,6 +754,8 @@ void DeviceWindow::on_pushButton_cam12_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.232");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.232/video1.sdp";
+    camNoFileNameDevice = "CAM_12";
 }
 
 
@@ -739,6 +778,8 @@ void DeviceWindow::on_pushButton_cam13_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.233");
 
     returncounter_deviceStatus = 2;
+    recordStringDevice = "rtsp://192.168.1.233/video1.sdp";
+    camNoFileNameDevice = "CAM_13";
 }
 
 
@@ -761,5 +802,57 @@ void DeviceWindow::on_pushButton_cam14_clicked()
     ui->label_cam_info->setText("IP - 192.168.1.234");
 
     returncounter_deviceStatus = 2;
+
+    recordStringDevice = "rtsp://192.168.1.234/video1.sdp";
+    camNoFileNameDevice = "CAM_14";
+}
+
+void DeviceWindow::on_pushButton_record_clicked()
+{
+    recordedFileNameDevice = date_text_device_recording + "_" +time_text_device_recording;
+
+    QString forRecordingStream = "gst-launch-1.0 -ev  rtspsrc location=" + recordStringDevice + " ! application/x-rtp, media=video, encoding-name=H264 ! queue ! rtph264depay "
+                                                                                                "! h264parse ! matroskamux ! filesink location=/home/hmi/VidArchives/"+date_text_device_recording+"_recordings/"+camNoFileNameDevice+"_"+recordedFileNameDevice+".mp4 &";
+    //    QString forRecordingStream = "cvlc -vvv "+ recordString + " --sout=\"#transcode{vcodec=mp4v,vfilter=canvas{width=800,height=600}}:std{access=file,mux=mp4,dst=/home/hmi/VidArchives/24.02.2023_recordings/123.mp4}\" &";
+    system(qPrintable(forRecordingStream));
+
+    ui->label_recordingIcon->setStyleSheet("image: url(:/new/icons/recordIcon.png);");
+    ui->label_recording_status->setText("RECORDING STARTED");
+    ui->pushButton_record->setStyleSheet("background-color: rgb(138, 226, 52);");
+    ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
+
+}
+
+void DeviceWindow::on_pushButton_stop_clicked()
+{
+    //Stopping gstreamer recording
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
+
+    recordedFileNameDevice = "";
+    camNoFileNameDevice = "";
+
+    ui->label_recordingIcon->setStyleSheet("");
+    ui->label_recording_status->setText("RECORDING STOPPED");
+    ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
+    ui->pushButton_stop->setStyleSheet("background-color: rgb(239, 41, 41);");
+
+}
+
+//Screenshot
+void DeviceWindow::openscreenshotdialog()
+{
+    Screenshot *screenshot = new Screenshot();
+    screenshot->setModal(true);
+    screenshot->setWindowFlag(Qt::FramelessWindowHint);
+    screenshot->exec();
+    timeractive.start();
+}
+
+void DeviceWindow::on_pushButton_screenshot_clicked()
+{
+    openscreenshotdialog();
+    //timer to keep the window active
+    timeractive.start();
 }
 

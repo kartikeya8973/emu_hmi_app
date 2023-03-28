@@ -11,7 +11,7 @@ int success;
 int loginfail;
 
 //Sqlite server for storing password
-QSqlDatabase passdb;
+extern QSqlDatabase passdb;
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -22,8 +22,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     success = 0;
     loginfail = 0;
 
-    //Creating Database
-    passdb = QSqlDatabase::addDatabase("QSQLITE");
+//    //Creating Database
+//    passdb = QSqlDatabase::addDatabase("QSQLITE");
 
     //For HMI
     passdb.setDatabaseName("/home/hmi/HMI/password.db");
@@ -35,7 +35,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     }
     else{
         qDebug() << "Connected to Database";
-        QString query = "CREATE TABLE Password ("
+        QString query = "CREATE TABLE Password2 ("
                         "ID INTEGER PRIMARY KEY,"
                         "Pass INTERGER );";
 
@@ -45,7 +45,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
         }
         else{
             qDebug() << "Table Created";
-            QString pass_default = "INSERT INTO Password (Pass) VALUES (123456);";
+            QString pass_default = "INSERT INTO Password2 (Pass) VALUES (123456);";
             QSqlQuery pass_qry;
             if(!pass_qry.exec(pass_default)){
                 qDebug() << "Failed to Add Default Password in the Table/ Password already exists";
@@ -281,7 +281,7 @@ void LoginDialog::on_pushButton_ok_clicked()
 
     QSqlQuery qry;
     int count = 0;
-    if(qry.exec(("SELECT * FROM Password WHERE Pass='"+password+"'"))){
+    if(qry.exec(("SELECT * FROM Password2 WHERE Pass='"+password+"'"))){
         while(qry.next())
         {
             count++;

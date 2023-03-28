@@ -20,6 +20,7 @@ SOURCES += \
     devicewindow.cpp \
     driverlogin.cpp \
     etbarchivewindow.cpp \
+    etbcallwindow.cpp \
     httpdownloader.cpp \
     infowindow.cpp \
     keyboarddialog.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     devicewindow.h \
     driverlogin.h \
     etbarchivewindow.h \
+    etbcallwindow.h \
     httpdownloader.h \
     infowindow.h \
     keyboarddialog.h \
@@ -64,6 +66,7 @@ FORMS += \
     devicewindow.ui \
     driverlogin.ui \
     etbarchivewindow.ui \
+    etbcallwindow.ui \
     infowindow.ui \
     keyboarddialog.ui \
     logindialog.ui \

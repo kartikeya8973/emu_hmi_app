@@ -21,6 +21,7 @@
 #include "pingthread.h"
 #include "screenshot.h"
 #include "defaults.h"
+#include "etbcallwindow.h"
 
 extern QString filepath;
 
@@ -32,6 +33,8 @@ int buttonpress;
 // timer for keeping in check the active and inactive status on the application
 QElapsedTimer timeractive;
 
+QSqlDatabase passdb;
+QSqlDatabase passdb_driver;
 
 //integer to iterate btw IPCAM for full cam view
 int iFullCam = 0;
@@ -50,6 +53,9 @@ QString recordString = "";
 
 //Name by which recorded stream is saved in VideoArhives
 QString recordedFileName = "";
+
+//Name by which recorded stream is saved when etb call is established
+QString recordedFileNameEtb = "";
 
 //Cam no which is  also part of the name by recorded stream is saved in VideoArhives
 QString camNoFileName = "";
@@ -79,6 +85,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     //return counter set initially to 0
     returncounter_main = 0;
+
+    //Creating Database
+    passdb = QSqlDatabase::addDatabase("QSQLITE", "connection1");
+
+    //Creating Database
+    passdb_driver = QSqlDatabase::addDatabase("QSQLITE", "connection2");
 
     //disable buttons
     ui->pushButton_camView_1->setEnabled(false);
@@ -149,7 +161,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(etbListner,SIGNAL(newConnection()),this,SLOT(etb_connected()));
 
     trainStopLister = new QTcpServer(this);
-    trainStopLister->listen(QHostAddress::Any,3000);
+    trainStopLister->listen(QHostAddress::Any,3333);
     connect(trainStopLister,SIGNAL(newConnection()),this,SLOT(train_stops_connected()));
 
 
@@ -164,6 +176,9 @@ MainWindow::MainWindow(QWidget *parent)
     //Creatting ETBArchives folder for current date
     system("mkdir /home/hmi/ETBArchives/$(date +""%Y.%m.%d"")_recordings");
 
+    //Creatting logs folder for current date
+    system("mkdir /home/hmi/logs/$(date +""%Y.%m.%d"")");
+
     //Initialising thread for pinging devices
     PingThread *pingthread;
     pingthread = new PingThread();
@@ -174,6 +189,8 @@ MainWindow::MainWindow(QWidget *parent)
     //opens default screen
     opendefaultScreen();
 
+    //download logs from NVR on boot for each day
+    downloadLogs();
 
 }
 
@@ -238,6 +255,13 @@ void MainWindow::etb_connected()
     connect(etbLocalConnection, SIGNAL(readyRead()), this, SLOT(etb_ready_read()));
 }
 
+void MainWindow::openetbcallwindow(){
+    etbWindow->setWindowFlag(Qt::FramelessWindowHint);
+    etbWindow->showFullScreen();
+    timeractive.elapsed();
+}
+
+
 void MainWindow::etb_ready_read()
 {
     QByteArray block = etbLocalConnection->readAll();
@@ -273,30 +297,46 @@ void MainWindow::etb_ready_read()
         _isPlaying=true;
 
         //Shifting to CCTV View when ETB call starts
-        ui->stackedWidget_Dynamic->setCurrentIndex(5);
 
-        //Starting respective CCTV feed (Hardcoded for now)
-        const char* url_cctv =  "rtsp://192.168.1.221/video1.sdp";
+        openetbcallwindow();
 
-        _m11 = libvlc_media_new_location(_vlcinstance, url_cctv);
-        libvlc_media_player_set_media (_mp11, _m11);
+//        ui->stackedWidget_Dynamic->setCurrentIndex(5);
 
-        int windid11 = ui->frame_11->winId();
-        libvlc_media_player_set_xwindow (_mp11, windid11);
+//        //Starting respective CCTV feed (Hardcoded for now)
+//        const char* url_cctv =  "rtsp://192.168.1.221/video1.sdp";
 
-        libvlc_media_player_play (_mp11);
-        _isPlaying=true;
+//        _m11 = libvlc_media_new_location(_vlcinstance, url_cctv);
+//        libvlc_media_player_set_media (_mp11, _m11);
+
+//        int windid11 = ui->frame_11->winId();
+//        libvlc_media_player_set_xwindow (_mp11, windid11);
+
+//        libvlc_media_player_play (_mp11);
+//        _isPlaying=true;
+
+        recordedFileNameEtb = date_text_recording + "_" +time_text_recording;
+
+        QString forRecordingStream = "gst-launch-1.0 -ev  rtspsrc location=rtsp://192.168.1.221/video1.sdp ! application/x-rtp, media=video, encoding-name=H264 ! queue ! rtph264depay "
+                                     "! h264parse ! matroskamux ! filesink location=/home/hmi/VidArchives/"+date_text_recording+"_recordings/"+recordedFileNameEtb+"_etb.mp4 &";
+
+        system(qPrintable(forRecordingStream));
     }
 
     else if(block.contains("EN:")) //End of Call to ETB
     {
         //Stops CCTV feed
-        libvlc_media_player_stop (_mp11);
-        _isPlaying=true;
+//        libvlc_media_player_stop (_mp11);
+//        _isPlaying=true;
 
-        //Returns to Default Camera View
-        ui->stackedWidget_Dynamic->setCurrentIndex(2);
+        //Returns to Default Screen
+//        ui->stackedWidget_Dynamic->setCurrentIndex(0);
 
+        //Closing etb call window
+        etbWindow->close();
+
+        system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
+
+        recordedFileNameEtb = "";
         //        libvlc_media_player_play (_mp);
         //        _isPlaying=true;
         //        libvlc_media_player_play (_mp2);
@@ -412,8 +452,8 @@ void MainWindow::train_stops_readyRead()
         libvlc_media_player_stop (_mp16);
         _isPlaying=true;
 
-        //Returns to Default Camera View
-        ui->stackedWidget_Dynamic->setCurrentIndex(2);
+        //Returns to Default Screen
+        opendefaultScreen();
 
         //        libvlc_media_player_play (_mp);
         //        _isPlaying=true;
@@ -427,7 +467,63 @@ void MainWindow::train_stops_readyRead()
         //        _isPlaying=true;
     }
 
+
 }
+
+//Functions for downloading logs from NVR
+
+void MainWindow::downloadLogs()
+{
+    managerLogs = new QNetworkAccessManager(this);
+
+    connect(managerLogs,
+            &QNetworkAccessManager::finished,
+            this,
+            &MainWindow::replyNVR);
+
+    managerLogs->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/webs.cgi?PAGE=SystemLogForm")));
+}
+
+void MainWindow::replyNVR (QNetworkReply *replyStream)
+{
+    if(replyStream->error())
+    {
+        qDebug() << "ERROR!";
+        qDebug() << replyStream->errorString();
+    }
+    else
+    {
+        qDebug() << replyStream->header(QNetworkRequest::ContentTypeHeader).toString();
+        qDebug() << replyStream->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
+        qDebug() << replyStream->header(QNetworkRequest::ContentLengthHeader).toULongLong();
+        qDebug() << replyStream->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        qDebug() << replyStream->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
+
+
+        QDate date = QDate::currentDate();
+        QTime time = QTime::currentTime();
+        QString date_string ="";
+        QString time_string ="";
+        date_string = date.toString("yyyy.MM.dd");
+        time_string = time.toString("hh.mm.ss");
+
+        QString filename = date_string + time_string;
+
+        QFile *file = new QFile("/home/hmi/logs/"+date_string+"/"+date_string+"_logs");
+        //                QFile *file = new QFile("/home/csemi/logs/"+date_string+"/"+date_string+"_logs");
+        if(file->open(QFile::Append))
+        {
+            file->write(replyStream->readAll());
+            file->flush();
+            file->close();
+        }
+        delete file;
+    }
+    replyStream->deleteLater();
+}
+
+
+
 
 //=======================================================================
 
@@ -471,47 +567,19 @@ void MainWindow::on_pushButton_DriverAccess_clicked()
 
 void MainWindow::on_pushButton_MainAccess_clicked()
 {
-    //For the first click on menu button
-    buttonpress++;
-    if (buttonpress == 1){
-        openlogindialog();
-    }
+    openlogindialog();
 
-    /*this opens the login window again(on pressing the menu button)
-    if window remains inactive for a minute or if login window is closed*/
-    else if (loginfail == 1 || timeractive.elapsed() >= 60000){
-        openlogindialog();
-    }
-    else if(success == 1){
-        openMenuPage();
-
-        /*Stop Stream on Different View*/
-        libvlc_media_player_stop (_mp);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp2);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp3);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp4);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp5);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp6);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp7);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp8);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp9);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp10);
-        _isPlaying=true;
-    }
-
-    //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
-    ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
-    ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
-    ui->label_recording_status->setText("");
+    /*Stop Stream on Different View*/
+    libvlc_media_player_stop (_mp);
+    libvlc_media_player_stop (_mp2);
+    libvlc_media_player_stop (_mp3);
+    libvlc_media_player_stop (_mp4);
+    libvlc_media_player_stop (_mp5);
+    libvlc_media_player_stop (_mp6);
+    libvlc_media_player_stop (_mp7);
+    libvlc_media_player_stop (_mp8);
+    libvlc_media_player_stop (_mp9);
+    libvlc_media_player_stop (_mp10);
 }
 
 
@@ -537,40 +605,31 @@ void MainWindow::on_pushButton_Lock_clicked()
 
     opendefaultScreen();
     libvlc_media_player_stop (_mp);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp2);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp3);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp4);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp5);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp6);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp7);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp8);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp9);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp10);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp11);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp12);
-    _isPlaying=true;
     libvlc_media_player_stop (_mp13);
-    _isPlaying=true;
 
-    //opens login dialog if main menu is inactive for a minute
-    if (timeractive.elapsed() >= 60000){
-        openlogindialog();
-    }
-    else{
-        //timer to keep the window active
-        timeractive.start();
-    }
+    timeractive.start();
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
+
+    //    //opens login dialog if main menu is inactive for a minute
+    //    if (timeractive.elapsed() >= 60000){
+    //        openlogindialog();
+    //    }
+    //    else{
+    //        //timer to keep the window active
+    //        timeractive.start();
+    //    }
 }
 
 //Menu Button
@@ -591,32 +650,24 @@ void MainWindow::on_pushButton_Menu_clicked()
         openMenuPage();
 
         /*Stop Stream on Different View*/
-        libvlc_media_player_stop (_mp);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp2);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp3);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp4);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp5);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp6);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp7);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp8);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp9);
-        _isPlaying=true;
-        libvlc_media_player_stop (_mp10);
-        _isPlaying=true;
     }
+    libvlc_media_player_stop (_mp);
+    libvlc_media_player_stop (_mp2);
+    libvlc_media_player_stop (_mp3);
+    libvlc_media_player_stop (_mp4);
+    libvlc_media_player_stop (_mp5);
+    libvlc_media_player_stop (_mp6);
+    libvlc_media_player_stop (_mp7);
+    libvlc_media_player_stop (_mp8);
+    libvlc_media_player_stop (_mp9);
+    libvlc_media_player_stop (_mp10);
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
     ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->label_recording_status->setText("");
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 }
 
 void MainWindow::opendefaultScreen()
@@ -624,7 +675,8 @@ void MainWindow::opendefaultScreen()
     DefaultS *defaultS = new DefaultS(this);
     defaultS->setWindowFlag(Qt::FramelessWindowHint);
     defaultS->showFullScreen();
-    timeractive.elapsed();
+    timeractive.start();
+
 }
 
 
@@ -676,20 +728,21 @@ void MainWindow::openlogindialog(){
 void MainWindow::openMenuPage()
 {
     ui->stackedWidget_Dynamic->setCurrentIndex(1);
-    //    ui->pushButton_camView_1->setEnabled(true);
-    //    ui->pushButton_camView_2->setEnabled(true);
-    //    ui->pushButton_camView_full->setEnabled(true);
-    //    ui->pushButton_return->setEnabled(true);
-    //    ui->pushButton_left_up->setEnabled(true);
-    //    ui->pushButton_right_up->setEnabled(true);
-    //    ui->pushButton_left_down->setEnabled(true);
-    //    ui->pushButton_right_down->setEnabled(true);
-    //    ui->pushButton_frame_1->setEnabled(true);
-    //    ui->pushButton_frame_2->setEnabled(true);
-    //    ui->pushButton_frame_3->setEnabled(true);
-    //    ui->pushButton_frame_4->setEnabled(true);
-    //    ui->pushButton_frame_5->setEnabled(true);
-    //    ui->pushButton_car1->setEnabled(true);
+    ui->pushButton_camView_1->setEnabled(true);
+    ui->pushButton_camView_2->setEnabled(true);
+    ui->pushButton_camView_full->setEnabled(true);
+    ui->pushButton_return->setEnabled(true);
+    ui->pushButton_left_up->setEnabled(true);
+    ui->pushButton_right_up->setEnabled(true);
+    ui->pushButton_left_down->setEnabled(true);
+    ui->pushButton_right_down->setEnabled(true);
+    ui->pushButton_frame_1->setEnabled(true);
+    ui->pushButton_frame_2->setEnabled(true);
+    ui->pushButton_frame_3->setEnabled(true);
+    ui->pushButton_frame_4->setEnabled(true);
+    ui->pushButton_frame_5->setEnabled(true);
+    ui->pushButton_car1->setEnabled(true);
+    ui->pushButton_Menu->setEnabled(true);
 }
 
 //=======================================================================
@@ -1055,22 +1108,24 @@ void MainWindow::on_pushButton_camView_1_clicked()
 
     /*Stop Stream on Different View*/
     libvlc_media_player_stop (_mp6);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp7);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp8);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp9);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp10);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp12);
-    _isPlaying=true;
+
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
     ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->label_recording_status->setText("");
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 }
 
 //For Mosiac View
@@ -1097,24 +1152,26 @@ void MainWindow::on_pushButton_camView_2_clicked()
 
     /*Stop Stream on Different View*/
     libvlc_media_player_stop (_mp);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp2);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp3);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp4);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp5);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp10);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp12);
-    _isPlaying=true;
+
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
     ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->label_recording_status->setText("");
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 
 }
 
@@ -1137,30 +1194,32 @@ void MainWindow::on_pushButton_camView_full_clicked()
 
     /*Stop Stream on Different View*/
     libvlc_media_player_stop (_mp);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp2);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp3);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp4);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp5);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp6);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp7);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp8);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp9);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp12);
-    _isPlaying=true;
+
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
     ui->pushButton_record->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->label_recording_status->setText("");
+
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 
 }
 
@@ -1169,6 +1228,10 @@ void MainWindow::on_pushButton_return_clicked()
 
     if(returncounter_main == 0){
         ui->stackedWidget_Dynamic->setCurrentIndex(0);
+        ui->pushButton_Menu->setEnabled(false);
+        ui->pushButton_camView_1->setEnabled(false);
+        ui->pushButton_camView_2->setEnabled(false);
+        ui->pushButton_camView_full->setEnabled(false);
     }
 
     else if(returncounter_main == 1){
@@ -1186,6 +1249,7 @@ void MainWindow::on_pushButton_return_clicked()
         libvlc_media_player_play (_mp5);
         _isPlaying=true;
 
+
         if (timeractive.elapsed() >= 60000){
             openlogindialog();
         }
@@ -1198,7 +1262,7 @@ void MainWindow::on_pushButton_return_clicked()
     //    qDebug() << player->state();
 
     libvlc_media_player_stop (_mp12);
-    _isPlaying=true;
+
 
 
     //Resetting parameters for recording page (Page 6 of stackedWidget_Dynamic)
@@ -1414,13 +1478,13 @@ void MainWindow::on_pushButton_left_clicked()
 
     //Stopping player
     libvlc_media_player_stop (_mp6);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp7);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp8);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp9);
-    _isPlaying=true;
+
 
     if(iMosiacCam==0){
         iMosiacCam = listSaloonCams.length() - 3; //9
@@ -1438,13 +1502,13 @@ void MainWindow::on_pushButton_right_clicked()
 
     //Stopping player
     libvlc_media_player_stop (_mp6);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp7);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp8);
-    _isPlaying=true;
+
     libvlc_media_player_stop (_mp9);
-    _isPlaying=true;
+
 
     if(iMosiacCam==listSaloonCams.length() - 4) //8
     {
@@ -1488,7 +1552,7 @@ void MainWindow::on_pushButton_left_full_clicked()
 
     //Stopping player
     libvlc_media_player_stop (_mp10);
-    _isPlaying=true;
+
 
     if(iFullCam==0)
     {
@@ -1508,7 +1572,7 @@ void MainWindow::on_pushButton_right_full_clicked()
 
     //Stopping player
     libvlc_media_player_stop (_mp10);
-    _isPlaying=true;
+
 
     if(iFullCam==listAllCams.length() - 1) //9
     {

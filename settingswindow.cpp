@@ -6,6 +6,7 @@
 #include "renamewindow.h"
 
 extern QSqlDatabase passdb;
+extern QSqlDatabase passdb_driver;
 extern QElapsedTimer timeractive;
 
 extern QString new_name;
@@ -47,14 +48,19 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
 
-    //For Adding new password in Settings
+    //For Adding new driver password in Settings
     le = new customle(this);
     le->setStyleSheet("background-color: rgb(114, 159, 207); color: rgb(0, 0, 0); font-size: 22px");
     ui->horizontalLayout_Password->addWidget(le);
 
+    //For Adding new maintenance password in Settings
+    le2 = new customle(this);
+    le2->setStyleSheet("background-color: rgb(114, 159, 207); color: rgb(0, 0, 0); font-size: 22px");
+    ui->horizontalLayout_Password_2->addWidget(le2);
+
     //Path of the root directory
-        QString SourcePath = "/media/hmi/";
-//    QString SourcePath = "/media/csemi";
+    QString SourcePath = "/media/hmi/";
+    //    QString SourcePath = "/media/csemi";
 
     dirmodel = new QFileSystemModel(this);
     //Displays only directories
@@ -77,7 +83,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     model2 = new QFileSystemModel(this);
     ui->treeView_2->setModel(model2);
     ui->treeView_2->setRootIndex(model2->setRootPath("/home/hmi"));
-//    ui->treeView_2->setRootIndex(model2->setRootPath("/home/csemi/"));
+    //    ui->treeView_2->setRootIndex(model2->setRootPath("/home/csemi/"));
     ui->treeView_2->setColumnWidth(0,600);
     ui->treeView_2->setColumnWidth(1,140);
     ui->treeView_2->setColumnWidth(2,100);
@@ -157,11 +163,13 @@ void SettingsWindow::on_pushButton_passwordSettings_clicked()
     returncounter_settings = 1; //signifies we are going to page 2 of stackwidget
 }
 
-
+//update password for driver login window
 void SettingsWindow::on_pushButton_updatePass_clicked()
 {
-    if(!passdb.isOpen()){
+
+    if(!passdb_driver.isOpen()){
         qDebug() << "Failed to Open Database";
+        ui->label_message->setText("Failed to Open Database");
         return;
     }
 
@@ -179,11 +187,14 @@ void SettingsWindow::on_pushButton_updatePass_clicked()
 
         if(!qry.exec(Query)){
             qDebug() << "failed to update data in the table";
+            ui->label_message->setText("Password updation failed");
+
         }
         else{
             qDebug () << "Successfully updated data in table";
+            ui->label_message->setText("Driver Password updated successfully");
         }
-        ui->label_message->setText("Password upgraded successfully");
+        ui->label_message->setText("Driver Password updated successfully");
         ui->label_message->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
         QTimer::singleShot(3000, this, [this] () { ui->label_message->setText(""); });
     }
@@ -194,8 +205,50 @@ void SettingsWindow::on_pushButton_updatePass_clicked()
         ui->label_message->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
         QTimer::singleShot(3000, this, [this] () { ui->label_message->setText(""); });
     }
+
 }
 
+void SettingsWindow::on_pushButton_updatePass_2_clicked()
+{
+    if(!passdb.isOpen()){
+        qDebug() << "Failed to Open Database";
+        ui->label_message_2->setText("Failed to Open Database");
+        return;
+    }
+
+    QString Login_Pass;
+    Login_Pass=le2->text();
+
+    //Change the password
+
+    if(Login_Pass.size()==6)
+    {
+
+        QString Query = "UPDATE Password2 SET Pass='"+Login_Pass+"' WHERE ID=1";
+
+        QSqlQuery qry;
+
+        if(!qry.exec(Query)){
+            qDebug() << "failed to update data in the table";
+            ui->label_message_2->setText("Password updation failed");
+
+        }
+        else{
+            qDebug () << "Successfully updated data in table";
+            ui->label_message_2->setText("Maintenance Password updated successfully");
+        }
+        ui->label_message_2->setText("Maintenance Password updated successfully");
+        ui->label_message_2->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
+        QTimer::singleShot(3000, this, [this] () { ui->label_message->setText(""); });
+    }
+
+    else
+    {
+        ui->label_message_2->setText("Please enter 6 digits as password");
+        ui->label_message_2->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
+        QTimer::singleShot(3000, this, [this] () { ui->label_message->setText(""); });
+    }
+}
 
 void SettingsWindow::on_pushButton_externalStorage_clicked()
 {
@@ -349,6 +402,11 @@ void SettingsWindow::on_pushButton_delete_2_clicked()
     ui->label_status->setText( usbfilename_settings + " deleted ");
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
+
+
+
+
+
 
 
 

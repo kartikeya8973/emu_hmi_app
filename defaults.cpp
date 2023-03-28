@@ -11,6 +11,9 @@ int buttonpress_dri;
 
 int camVariable;
 
+//Duration of camera rotation on default screen
+int rotate =10000;
+
 //When application starts
 int launch_app = 0;
 DefaultS::DefaultS(QWidget *parent) :
@@ -50,7 +53,7 @@ DefaultS::DefaultS(QWidget *parent) :
     }
 
     timer_play = new QTimer(this);
-    timer_play->setInterval(60000); //camera rotate every 60 seconds
+    timer_play->setInterval(rotate); //camera rotate every 60 seconds
     connect(timer_play, SIGNAL(timeout()), this, SLOT(playStream()));
     timer_play->start(); // call playStream() every 60 seconds
 }

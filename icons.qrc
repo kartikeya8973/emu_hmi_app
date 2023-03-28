@@ -79,5 +79,9 @@
         <file>lock.png</file>
         <file>menu_2.png</file>
         <file>menu_disable_2.png</file>
+        <file>driver.png</file>
+        <file>maintenance.png</file>
+        <file>train.png</file>
+        <file>yard.png</file>
     </qresource>
 </RCC>
