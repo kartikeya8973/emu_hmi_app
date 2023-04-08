@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include "logindialog.h"
-#include "driverlogin.h"
+//#include "driverlogin.h"
 #include "infowindow.h"
 #include "devicewindow.h"
 #include "videoarchivewindow.h"
@@ -22,8 +22,17 @@
 #include "screenshot.h"
 #include "defaults.h"
 #include "etbcallwindow.h"
+#include "common.h"
+#include "etbcallprompt.h"
+#include "ipcamsyncthread.h"
 
 extern QString filepath;
+
+extern IpCamSyncThread *ipcamsyncthread;
+extern systemconfig systemconfig;
+extern slave_tasks_t    slave_task;
+extern QList <camera*> hmi_slaves;
+
 
 //return counter for main window
 int returncounter_main;
@@ -63,6 +72,51 @@ QString camNoFileName = "";
 //String for storing date and time for directory and file creating
 QString time_text_recording = "";
 QString date_text_recording = "";
+
+//Creating file for HMI logs
+QDate date_logs = QDate::currentDate();
+QString date_logs_str = date_logs.toString("yyyy.MM.dd");
+QFile file(pathToLogs + date_logs_str + "/"+date_logs_str+"_systemlogs");
+
+/*
+    DDC1                50
+    DDC2                52
+    HMI1                70
+    HMI2                72
+    HCD1                111
+    HCD2                112
+    SS-ICDU1            90
+    SS-ICDU2            x
+    DS-ICDU1            92
+    DS-ICDU2            x
+    CC1                 80, 81
+    CC2                 82, 83
+    ETB1                60
+    ETB2                62
+    NW-SW1              x
+    NW-SW2              x
+    NVR-1               2
+    NVR-2               3
+    VOIP SERVER-1       22
+    VOIP SERVER-2       24
+
+    Cameras
+        Front           221
+        Rear            224
+        Front Left      229
+        Front Right     x   225
+        Rear Left       x   226
+        Read Right      x   227
+        Saloon1         222
+        Saloon2         223
+        Saloon3         x   228
+        Saloon4         231
+        Saloon5         x   232
+        Saloon6         x   233
+        Saloon7         230
+        Saloon8         x   234
+
+ */
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -171,19 +225,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //Creating VidArchives folder for current date
-    system("mkdir /home/hmi/VidArchives/$(date +""%Y.%m.%d"")_recordings");
+    system(qPrintable(createVidArchivesFolder));
 
     //Creatting ETBArchives folder for current date
-    system("mkdir /home/hmi/ETBArchives/$(date +""%Y.%m.%d"")_recordings");
+    system(qPrintable(createEtbArchivesFolder));
 
     //Creatting logs folder for current date
-    system("mkdir /home/hmi/logs/$(date +""%Y.%m.%d"")");
+    system(qPrintable(createLogsArchivesFolder));
 
     //Initialising thread for pinging devices
-    PingThread *pingthread;
-    pingthread = new PingThread();
-    pingthread->setObjectName("first thread");
-    pingthread->start(QThread::HighestPriority);
+//    PingThread *pingthread;
+//    pingthread = new PingThread();
+//    pingthread->setObjectName("first thread");
+//    pingthread->start(QThread::HighestPriority);
 
 
     //opens default screen
@@ -192,6 +246,29 @@ MainWindow::MainWindow(QWidget *parent)
     //download logs from NVR on boot for each day
     downloadLogs();
 
+    //Creating logs for HMI for each day
+    if (!file.exists()) {
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", LOG FILE CREATED & SYSTEM BOOTED\n";
+            file.close();
+        }
+    }
+    else{
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", SYSTEM BOOTED\n";
+            file.close();
+        }
+    }
+
+    ipcamsyncthread = new IpCamSyncThread();
+    ipcamsyncthread->update_config(systemconfig);
+    connect(ipcamsyncthread,SIGNAL(slave_scan_progress_eth(/*int,*/QList<camera*>))
+            ,this,SLOT(&DeviceWindow::slave_ping_update(/*int,*/QList<camera*>)));
+    ipcamsyncthread->start(/*QThread::HighestPriority*/);
 }
 
 
@@ -255,12 +332,24 @@ void MainWindow::etb_connected()
     connect(etbLocalConnection, SIGNAL(readyRead()), this, SLOT(etb_ready_read()));
 }
 
-void MainWindow::openetbcallwindow(){
+void MainWindow::openetbcallwindow()
+{
     etbWindow->setWindowFlag(Qt::FramelessWindowHint);
     etbWindow->showFullScreen();
     timeractive.elapsed();
 }
 
+//Function for opening the driver login dialog
+void MainWindow::openetbcalldialog()
+{
+    etbCallPrompt *etbCallDialog = new etbCallPrompt(this);
+    etbCallDialog->setModal(true);
+    etbCallDialog->setWindowFlag(Qt::FramelessWindowHint);
+    //continuing recording after ETB call terminates
+    QObject::connect(etbCallDialog, SIGNAL(yesbuttonPressed()), this, SLOT(contRecording()));
+    QObject::connect(etbCallDialog, SIGNAL(renameAudio()), this, SLOT(renameEtbAudio()));
+    etbCallDialog->show();
+}
 
 void MainWindow::etb_ready_read()
 {
@@ -300,43 +389,39 @@ void MainWindow::etb_ready_read()
 
         openetbcallwindow();
 
-//        ui->stackedWidget_Dynamic->setCurrentIndex(5);
+        //        ui->stackedWidget_Dynamic->setCurrentIndex(5);
 
-//        //Starting respective CCTV feed (Hardcoded for now)
-//        const char* url_cctv =  "rtsp://192.168.1.221/video1.sdp";
+        //        //Starting respective CCTV feed (Hardcoded for now)
+        //        const char* url_cctv =  "rtsp://192.168.1.221/video1.sdp";
 
-//        _m11 = libvlc_media_new_location(_vlcinstance, url_cctv);
-//        libvlc_media_player_set_media (_mp11, _m11);
+        //        _m11 = libvlc_media_new_location(_vlcinstance, url_cctv);
+        //        libvlc_media_player_set_media (_mp11, _m11);
 
-//        int windid11 = ui->frame_11->winId();
-//        libvlc_media_player_set_xwindow (_mp11, windid11);
+        //        int windid11 = ui->frame_11->winId();
+        //        libvlc_media_player_set_xwindow (_mp11, windid11);
 
-//        libvlc_media_player_play (_mp11);
-//        _isPlaying=true;
+        //        libvlc_media_player_play (_mp11);
+        //        _isPlaying=true;
 
         recordedFileNameEtb = date_text_recording + "_" +time_text_recording;
 
         QString forRecordingStream = "gst-launch-1.0 -ev  rtspsrc location=rtsp://192.168.1.221/video1.sdp ! application/x-rtp, media=video, encoding-name=H264 ! queue ! rtph264depay "
-                                     "! h264parse ! matroskamux ! filesink location=/home/hmi/VidArchives/"+date_text_recording+"_recordings/"+recordedFileNameEtb+"_etb.mp4 &";
+                                     "! h264parse ! matroskamux ! filesink location="+pathToEtbArchives+date_text_recording+"_recordings/"+recordedFileNameEtb+"_etb_video.mp4 &";
 
         system(qPrintable(forRecordingStream));
     }
 
     else if(block.contains("EN:")) //End of Call to ETB
     {
-        //Stops CCTV feed
-//        libvlc_media_player_stop (_mp11);
-//        _isPlaying=true;
-
-        //Returns to Default Screen
-//        ui->stackedWidget_Dynamic->setCurrentIndex(0);
+        //open etb prompt dialog
+        openetbcalldialog();
 
         //Closing etb call window
         etbWindow->close();
 
         system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 
-        recordedFileNameEtb = "";
+        //        recordedFileNameEtb = "";
         //        libvlc_media_player_play (_mp);
         //        _isPlaying=true;
         //        libvlc_media_player_play (_mp2);
@@ -348,7 +433,7 @@ void MainWindow::etb_ready_read()
         //        libvlc_media_player_play (_mp5);
         //        _isPlaying=true;
 
-    }
+   }
 }
 
 //When train stops (Reverse)
@@ -507,10 +592,9 @@ void MainWindow::replyNVR (QNetworkReply *replyStream)
         date_string = date.toString("yyyy.MM.dd");
         time_string = time.toString("hh.mm.ss");
 
-        QString filename = date_string + time_string;
+//        QString filename = date_string + time_string;
 
-        QFile *file = new QFile("/home/hmi/logs/"+date_string+"/"+date_string+"_logs");
-        //                QFile *file = new QFile("/home/csemi/logs/"+date_string+"/"+date_string+"_logs");
+        QFile *file = new QFile(pathToLogs+date_string+"/"+date_string+"_logs");
         if(file->open(QFile::Append))
         {
             file->write(replyStream->readAll());
@@ -522,8 +606,16 @@ void MainWindow::replyNVR (QNetworkReply *replyStream)
     replyStream->deleteLater();
 }
 
+//void MainWindow::slave_ping_update(int pc,QList <camera*> cameras)
+//{
+//    hmi_slaves = cameras;
 
+//    for (int i = 0; i < cameras.size(); i ++)
+//    {
+//        hmi_slaves.at(i)->activeStatus = ACTIVE;
+//    }
 
+//}
 
 //=======================================================================
 
@@ -620,16 +712,16 @@ void MainWindow::on_pushButton_Lock_clicked()
 
     timeractive.start();
 
+    //stopping gstreamer
     system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 
-    //    //opens login dialog if main menu is inactive for a minute
-    //    if (timeractive.elapsed() >= 60000){
-    //        openlogindialog();
-    //    }
-    //    else{
-    //        //timer to keep the window active
-    //        timeractive.start();
-    //    }
+    //Updating HMI Logs
+    if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+        // File was successfully created
+        QTextStream ts(&file);
+        ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", DEVICE LOCKED\n";
+        file.close();
+    }
 }
 
 //Menu Button
@@ -667,6 +759,7 @@ void MainWindow::on_pushButton_Menu_clicked()
     ui->pushButton_stop->setStyleSheet("background-color: rgb(211, 215, 207);");
     ui->label_recording_status->setText("");
 
+    //stopping gstreamer
     system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
 }
 
@@ -676,7 +769,6 @@ void MainWindow::opendefaultScreen()
     defaultS->setWindowFlag(Qt::FramelessWindowHint);
     defaultS->showFullScreen();
     timeractive.start();
-
 }
 
 
@@ -1273,6 +1365,7 @@ void MainWindow::on_pushButton_return_clicked()
 }
 //=======================================================================
 //Function to iterate External IPCAM for 5 cam view (top 3 frames)
+
 void MainWindow::iterateExternalCams()
 {
     _m = libvlc_media_new_location(_vlcinstance, listExternalCams[iExtCam]);
@@ -1302,7 +1395,7 @@ void MainWindow::iterateExternalCams()
     libvlc_media_player_play (_mp3);
     _isPlaying=true;
 
-    //        ui->label_3->setText(QString::number(iMosiacCam));
+    ui->label_3->setText(QString::number(iMosiacCam));
     ui->label_frame_1->setText(listExternalCams[iExtCam]);
     ui->label_frame_2->setText(listExternalCams[iExtCam+1]);
     ui->label_frame_3->setText(listExternalCams[iExtCam+2]);
@@ -1328,6 +1421,7 @@ void MainWindow::on_pushButton_left_up_clicked()
 
     iExtCam --;
 
+
     iterateExternalCams();
 
 }
@@ -1350,6 +1444,7 @@ void MainWindow::on_pushButton_right_up_clicked()
     }
 
     iExtCam ++;
+
 
     iterateExternalCams();
 }
@@ -1385,7 +1480,7 @@ void MainWindow::on_pushButton_left_down_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    //Stopping player
+    //    Stopping player
     libvlc_media_player_stop (_mp4);
     _isPlaying=true;
     libvlc_media_player_stop (_mp5);
@@ -1405,7 +1500,7 @@ void MainWindow::on_pushButton_right_down_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    //Stopping player
+    //    Stopping player
     libvlc_media_player_stop (_mp4);
     _isPlaying=true;
     libvlc_media_player_stop (_mp5);
@@ -1462,7 +1557,6 @@ void MainWindow::iterateMosiacCamView()
     libvlc_media_player_play (_mp9);
     _isPlaying=true;
 
-    //        ui->label_3->setText(QString::number(iMosiacCam));
     ui->label_frame_6->setText(listSaloonCams[iMosiacCam]);
     ui->label_frame_7->setText(listSaloonCams[iMosiacCam+1]);
     ui->label_frame_8->setText(listSaloonCams[iMosiacCam+2]);
@@ -1592,6 +1686,42 @@ void MainWindow::on_pushButton_right_full_clicked()
 //pushButton_frame_1 - pushButton_frame_5 for page_camView_1
 //pushButton_frame_6 - pushButton_frame_9 for page_camViewMosaic
 //pushButton_frame_10 for page_camViewFull
+
+void MainWindow::renameEtbAudio()
+{
+    //Renaming audio recording of etb received from DDC
+    QString renameEtbAudio = "mv "+pathToEtbArchives+"/rec_* "+pathToEtbArchives+recordedFileNameEtb+"_etb_audio.wav";
+    QString mvEtbAudio = "mv "+pathToEtbArchives+recordedFileNameEtb+"_etb_audio.wav " +pathToEtbArchives+date_text_recording+"_recordings/";
+
+    system(qPrintable(renameEtbAudio));
+    system(qPrintable(mvEtbAudio));
+}
+
+void MainWindow::contRecording()
+{
+    ui->stackedWidget_Dynamic->setCurrentIndex(6);
+    returncounter_main = 1;
+
+    const char* url_etb =  "rtsp://192.168.1.221/video1.sdp";
+
+    _m12 = libvlc_media_new_location(_vlcinstance, url_etb);
+    libvlc_media_player_set_media (_mp12, _m12);
+
+    int windid12 = ui->frame_12->winId();
+    libvlc_media_player_set_xwindow (_mp12, windid12 );
+
+    libvlc_media_player_play (_mp12);
+    _isPlaying=true;
+
+    ui->label_cam_no->setText("ETB CAM NO - 1");
+    ui->label_cam_ip->setText(url_etb);
+
+    recordString = url_etb;
+
+    camNoFileName = "ETB_CAM_1";
+
+}
+
 
 void MainWindow::on_pushButton_frame_1_clicked()
 {
@@ -1834,7 +1964,7 @@ void MainWindow::on_pushButton_record_clicked()
     recordedFileName = date_text_recording + "_" +time_text_recording;
 
     QString forRecordingStream = "gst-launch-1.0 -ev  rtspsrc location=" + recordString + " ! application/x-rtp, media=video, encoding-name=H264 ! queue ! rtph264depay "
-                                                                                          "! h264parse ! matroskamux ! filesink location=/home/hmi/VidArchives/"+date_text_recording+"_recordings/"+camNoFileName+"_"+recordedFileName+".mp4 &";
+                                                                                          "! h264parse ! matroskamux ! filesink location="+pathToVidArchives+date_text_recording+"_recordings/"+camNoFileName+"_"+recordedFileName+".mp4 &";
     //    QString forRecordingStream = "cvlc -vvv "+ recordString + " --sout=\"#transcode{vcodec=mp4v,vfilter=canvas{width=800,height=600}}:std{access=file,mux=mp4,dst=/home/hmi/VidArchives/24.02.2023_recordings/123.mp4}\" &";
     system(qPrintable(forRecordingStream));
 

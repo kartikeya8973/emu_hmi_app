@@ -2,13 +2,20 @@
 #include "ui_devicewindow.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDateTime>
 #include "pingthread.h"
 #include "screenshot.h"
+#include "common.h"
+#include "slavesyncthread.h"
+#include "ipcamsyncthread.h"
 
+#include <QDateTime>
+#include <QVector>
 
 extern QElapsedTimer timeractive;
 
+extern QList <camera*> hmi_slaves;
+
+extern QList <QList <camera*>> rake;
 
 //counter for return button for NVR window
 int returncounter_deviceStatus;
@@ -73,11 +80,6 @@ DeviceWindow::DeviceWindow(QWidget *parent) :
 
     // Create a media player playing environement
     _mp_deviceplayer = libvlc_media_player_new (_vlcinstance_deviceplayer);
-
-    PingThread *pingthread;
-    pingthread = new PingThread();
-    pingthread->setObjectName("first thread");
-    pingthread->start(QThread::HighestPriority);
 }
 
 DeviceWindow::~DeviceWindow()
@@ -97,6 +99,145 @@ void DeviceWindow::statusDateTimeDevice()
     time_text_device_recording = time.toString("hh.mm.ss");
     date_text_device_recording = date.toString("yyyy.MM.dd");
 }
+
+
+void DeviceWindow::slave_ping_update(/*int pc,*/QList <camera*> cameras)
+{
+    hmi_slaves = cameras;
+
+    QList <camera*> list;
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 1)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 2)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 3)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 4)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 5)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 6)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 7)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 8)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 9)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 10)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 11)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+
+    list.clear();
+
+    for (int i = 0; i < cameras.size(); i ++)
+    {
+        if(cameras.at(i)->csno == 12)
+        {
+            list.append(cameras.at(i));
+        }
+    }
+    rake.append(list);
+}
+
 
 void DeviceWindow::on_pushButton_home_button_clicked()
 {
@@ -145,7 +286,7 @@ void DeviceWindow::on_pushButton_nvrStatus_clicked()
 
     returncounter_deviceStatus = 1; //signifies we are going to page 2 of stackwidget
 
-    nvrStatus();
+//    nvrStatus();
 }
 
 void DeviceWindow::on_pushButton_camStatus_clicked()
@@ -157,7 +298,9 @@ void DeviceWindow::on_pushButton_camStatus_clicked()
 
     returncounter_deviceStatus = 1; //signifies we are going to page 3 of stackwidget
 
-    camStatus();
+//    camStatus();
+
+    slave_ping_update(hmi_slaves);
 }
 
 void DeviceWindow::nvrStatus()
@@ -425,8 +568,7 @@ void DeviceWindow::on_pushButton_sendDeviceStatus_clicked()
     // convert JSON document to a QByteArray
     QByteArray jsonData = jsonDoc.toJson(QJsonDocument::Indented);
 
-    QFile file("/home/hmi/Downloads/deviceStatus.json");
-    //    QFile file("/home/csemi/Downloads/deviceStatus.json");
+    QFile file(deviceStatusJsonPath);
     file.open(QIODevice::WriteOnly);
     file.write(jsonData);
     file.close();
@@ -517,7 +659,7 @@ void DeviceWindow::on_pushButton_cam3_clicked()
 
     ui->label_heading->setText( " SALOON CAM 2");
 
-    const char* url = "rtsp://192.168.1.2223/video1.sdp";
+    const char* url = "rtsp://192.168.1.223/video1.sdp";
     _m_deviceplayer = libvlc_media_new_location(_vlcinstance_deviceplayer, url);
     libvlc_media_player_set_media (_mp_deviceplayer, _m_deviceplayer);
 
@@ -812,7 +954,7 @@ void DeviceWindow::on_pushButton_record_clicked()
     recordedFileNameDevice = date_text_device_recording + "_" +time_text_device_recording;
 
     QString forRecordingStream = "gst-launch-1.0 -ev  rtspsrc location=" + recordStringDevice + " ! application/x-rtp, media=video, encoding-name=H264 ! queue ! rtph264depay "
-                                                                                                "! h264parse ! matroskamux ! filesink location=/home/hmi/VidArchives/"+date_text_device_recording+"_recordings/"+camNoFileNameDevice+"_"+recordedFileNameDevice+".mp4 &";
+                                                                                                "! h264parse ! matroskamux ! filesink location="+pathToVidArchives+date_text_device_recording+"_recordings/"+camNoFileNameDevice+"_"+recordedFileNameDevice+".mp4 &";
     //    QString forRecordingStream = "cvlc -vvv "+ recordString + " --sout=\"#transcode{vcodec=mp4v,vfilter=canvas{width=800,height=600}}:std{access=file,mux=mp4,dst=/home/hmi/VidArchives/24.02.2023_recordings/123.mp4}\" &";
     system(qPrintable(forRecordingStream));
 

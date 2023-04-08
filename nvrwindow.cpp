@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "qjsontablemodel.h"
+#include "common.h"
 
 extern QElapsedTimer timeractive;
 
@@ -164,8 +165,8 @@ void NVRWindow::on_pushButton_videoList_clicked()
     timeListEnd = selectedTimeEnd.toString("hh:mm:ss");
 
 
-//    ui->label_3->setText(dateListStart+" " +dateListEnd);
-//    ui->label_4->setText(timeListStart+" " +timeListEnd);
+    //    ui->label_3->setText(dateListStart+" " +dateListEnd);
+    //    ui->label_4->setText(timeListStart+" " +timeListEnd);
 
     ui->stackedWidget->setCurrentIndex(3);
 
@@ -190,7 +191,7 @@ void NVRWindow::downloadJson()
 
     QString downloadUrlList = "http://admin:admin@192.168.1.2/recordlist.cgi?starttime="+dateListStart+"T"+timeListStart+"Z&endtime="+dateListEnd+"T"+timeListEnd+"&maxcount=999";
 
-//        managerList->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/recordlist.cgi?starttime=2010-01-01T00:00:00Z&endtime=2010-12-31T23:59:59Z&maxcount=999")));
+    //        managerList->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.3/recordlist.cgi?starttime=2010-01-01T00:00:00Z&endtime=2010-12-31T23:59:59Z&maxcount=999")));
     managerList->get(QNetworkRequest(QUrl(downloadUrlList)));
 
 }
@@ -213,8 +214,7 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         qDebug() << replyList->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << replyList->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
 
-        QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
-        //QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
+        QFile *file = new QFile(streamListJsonPath);
         if(file->open(QFile::Append))
         {
             file->write(replyList->readAll());
@@ -234,9 +234,8 @@ void NVRWindow::on_pushButton_downloadReloadList_clicked()
 {
     //Deleting previous json
     //For HMI
-    system("rm /home/hmi/Downloads/streamList.json");
-    //For Host PC
-    //    system("rm /home/csemi/Downloads/streamList.json");
+    QString delPreviousJson = "rm " + streamListJsonPath;
+    system(qPrintable(delPreviousJson));
 
     // Calling fucntion to download record list from NVR
     downloadJson();
@@ -258,6 +257,9 @@ void NVRWindow::downloadStream()
     QString downloadUrlStream = "";
 
     managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?id=147&starttime=2010-02-13T23:09:06Z&endtime=2010-02-13T23:10:22Z")));
+
+    //For downloading from a specific channel (need to make it dyanmcic)
+    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?channel=2&speed=1&id=268&stime=2010-02-01+05:30:21")));
 }
 
 void NVRWindow::replyStream (QNetworkReply *replyStream)
@@ -288,7 +290,7 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
 
         QString filename = date_string + time_string;
 
-        QFile *file = new QFile("/home/hmi/VidArchives/"+date_string+"_recordings/"+filename+"_NVR.mp4");
+        QFile *file = new QFile(pathToVidArchives+date_string+"_recordings/"+filename+"_NVR.mp4");
         //        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
         if(file->open(QFile::Append))
         {
@@ -322,7 +324,7 @@ void NVRWindow::readJson()
     QFile file;
 
     //for hmi
-    file.setFileName("/home/hmi/Downloads/streamList.json");
+    file.setFileName(streamListJsonPath);
     //for host PC
     //        file.setFileName("/home/csemi/Downloads/streamList.json");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -425,5 +427,29 @@ void NVRWindow::nvrStatus()
 void NVRWindow::on_pushButton_openDownloadedList_clicked()
 {
     openvidArvives();
+}
+
+
+void NVRWindow::on_tableView_streamList_pressed(const QModelIndex &index)
+{
+    QString test = "";
+
+    test = index.data().toString();
+
+    QVariant data = ui->tableView_streamList->model()->data(index);
+
+    // retrieve the row and column indices
+    int rowNo = index.row();
+
+    QString rowData = "";
+    for (int col = 0; col < ui->tableView_streamList->model()->columnCount(); col++)
+    {
+        QModelIndex cellIndex = ui->tableView_streamList->model()->index(rowNo, col);
+        QString cellData = ui->tableView_streamList->model()->data(cellIndex).toString();
+        rowData += cellData + ", ";
+    }
+
+    ui->label_status->setText(rowData);
+    qDebug() << test ;
 }
 

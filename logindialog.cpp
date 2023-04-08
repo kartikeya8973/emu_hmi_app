@@ -2,16 +2,20 @@
 #include "ui_logindialog.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "common.h"
 
 extern QElapsedTimer timeractive;
+
+//Sqlite server for storing password
+extern QSqlDatabase passdb;
+
+//File for HMI logs
+extern QFile file;
 
 //flag for menu button
 int success;
 //flag for reopening login window if the window is closed by user using close button
 int loginfail;
-
-//Sqlite server for storing password
-extern QSqlDatabase passdb;
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -26,9 +30,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 //    passdb = QSqlDatabase::addDatabase("QSQLITE");
 
     //For HMI
-    passdb.setDatabaseName("/home/hmi/HMI/password.db");
-    //For Host PC
-//        passdb.setDatabaseName("/home/csemi/qtworkspace_new/HMItemplate/password.db");
+    passdb.setDatabaseName(pathTopassdb);
 
     if(!passdb.open()){
         qDebug() << "Failed to open Database";
@@ -289,13 +291,20 @@ void LoginDialog::on_pushButton_ok_clicked()
     }
 
     if (count == 1 && accessKey == password && accessKey.size()==6){
-        emit okbuttonPressed();
         close();
-
+        emit okbuttonPressed();
         //timer for keeping window active
         timeractive.start();
         //flag for using menu button for opening menu page after succesful login
         success = 1;
+
+        //Updating HMI Logs
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", MAINTENANCE LOGIN SUCCESSFUL\n";
+            file.close();
+        }
     }
 
     else{
@@ -313,6 +322,13 @@ void LoginDialog::on_pushButton_ok_clicked()
                                               "border-width: 2px;"
                                               "border-color: black; "
                                               "}"); });
+        //Updating HMI Logs
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", MAINTENANCE LOGIN FAILED\n";
+            file.close();
+        }
     }
 }
 

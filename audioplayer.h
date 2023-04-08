@@ -31,9 +31,6 @@ private slots:
     void on_pushButton_pause_clicked();
 
     void on_pushButton_close_clicked();
-
-    void on_label_linkActivated(const QString &link);
-
 private:
     Ui::audioplayer *ui;
     QMediaPlayer *player;

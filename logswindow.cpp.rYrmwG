@@ -11,8 +11,11 @@
 
 extern QElapsedTimer timeractive;
 
-QString date_string_logs="";
-QStringList stringListsyslogs;
+
+
+QString date_string="";
+//QString filepathlog="";
+QStringList stringListfaults;
 QStringList stringListlogs;
 
 //counter for return button for logs window
@@ -97,12 +100,12 @@ void LogsWindow::on_pushButton_home_button_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    //Clearing the listviews after viewing logs
+    //Clearing the listviews after viewing logs / faults
     stringListlogs.clear();
-    stringListsyslogs.clear();
+    stringListfaults.clear();
 
-    //setting heading back to logs
-    ui->label_heading->setText(" LOGS");
+    //setting heading back to logs/faults
+    ui->label_heading->setText(" LOGS/FAULTS");
 
 }
 
@@ -111,8 +114,8 @@ void LogsWindow::selectedDateChanged()
     ui->dateEdit->setDate(ui->calendar->selectedDate());
 
     //Saving selected date in a string
-    date_string_logs = ui->dateEdit->date().toString("yyyy.MM.dd");
-    qDebug("%s", qUtf8Printable(date_string_logs));
+    date_string = ui->dateEdit->date().toString("yyyy.MM.dd");
+    qDebug("%s", qUtf8Printable(date_string));
 }
 
 //Button that opens page in which we can view the logs
@@ -124,7 +127,7 @@ void LogsWindow::on_pushButton_openLogs_clicked()
     //setting page 2 on pushbutton
 
     //logs file source path
-    SourcePath_logs = pathToLogs+ date_string_logs + "/"+date_string_logs+"_logs";
+    SourcePath_logs = createLogsArchivesFolder + "/"+date_string+"_logs";
 
     QFile filelogs(SourcePath_logs);
     if(!filelogs.open(QIODevice::ReadOnly))
@@ -166,30 +169,30 @@ void LogsWindow::on_pushButton_openfaults_clicked()
     //setting page 3 on pushbutton
 
     //system logs file source path
-    QString SourcePath_systemLogs = pathToLogs + date_string_logs + "/"+date_string_logs+"_systemlogs";
+    QString SourcePath_faults = createLogsArchivesFolder + "/"+date_string+"_system.logs";
 
-    QFile fileSystemLogs(SourcePath_systemLogs);
-    if(!fileSystemLogs.open(QIODevice::ReadOnly))
+    QFile filefaults(SourcePath_faults);
+    if(!filefaults.open(QIODevice::ReadOnly))
         qDebug() << "error in opening file";
 
     //Converts file to a stream to show in a text browser
-    QTextStream syslogs(&fileSystemLogs);
+    QTextStream faults(&filefaults);
     while (true)
     {
-        QString line = syslogs.readLine();
+        QString line = faults.readLine();
         if (line.isNull())
             break;
         else
-            stringListsyslogs.append(line); // populate the stringlist
+            stringListfaults.append(line); // populate the stringlist
     }
 
-    filemodelsyslogs = new QStringListModel(this);
+    filemodelfaults = new QStringListModel(this);
 
     // Populate the model
-    filemodelsyslogs->setStringList(stringListsyslogs);
+    filemodelfaults->setStringList(stringListfaults);
 
     // Glue model and view together
-    ui->listView_2->setModel(filemodelsyslogs);
+    ui->listView_2->setModel(filemodelfaults);
 
     //Changing colour of alternate rows
     ui->listView_2->setAlternatingRowColors(true);
@@ -223,12 +226,12 @@ void LogsWindow::on_pushButton_return_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    //Clearing the listviews after viewing logs
+    //Clearing the listviews after viewing logs / faults
     stringListlogs.clear();
-    stringListsyslogs.clear();
+    stringListfaults.clear();
 
-    //setting heading back to logs
-    ui->label_heading->setText(" LOGS");
+    //setting heading back to logs/faults
+    ui->label_heading->setText(" LOGS/FAULTS");
 
 }
 
@@ -272,7 +275,7 @@ void LogsWindow::on_pushButton_copy_clicked()
 
     system(qPrintable(copy_file_to_usb));
 
-    ui->label_status->setText("LOGS for "+date_string_logs+" copied to " + usbpath_logs );
+    ui->label_status->setText("LOGS for "+date_string+" copied to " + usbpath_logs );
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
 

@@ -134,7 +134,8 @@ alternate-background-color: rgb(186, 189, 182);</string>
        </font>
       </property>
       <property name="text">
-       <string> LOGS</string>
+       <string> NVR 
+LOGS</string>
       </property>
       <property name="icon">
        <iconset resource="icons.qrc">
@@ -203,11 +204,12 @@ alternate-background-color: rgb(186, 189, 182);</string>
        </font>
       </property>
       <property name="text">
-       <string> FAULTS</string>
+       <string> HMI 
+LOGS</string>
       </property>
       <property name="icon">
        <iconset resource="icons.qrc">
-        <normaloff>:/new/icons/warning.png</normaloff>:/new/icons/warning.png</iconset>
+        <normaloff>:/new/icons/logs.png</normaloff>:/new/icons/logs.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -473,7 +475,7 @@ USB</string>
      </font>
     </property>
     <property name="text">
-     <string> LOGS / FAULTS</string>
+     <string> LOGS </string>
     </property>
    </widget>
    <widget class="QLabel" name="label_button">

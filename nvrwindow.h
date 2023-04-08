@@ -78,6 +78,8 @@ private slots:
 
     void on_pushButton_openDownloadedList_clicked();
 
+    void on_tableView_streamList_pressed(const QModelIndex &index);
+
 private:
     Ui::NVRWindow *ui;
     QTimer *timer;

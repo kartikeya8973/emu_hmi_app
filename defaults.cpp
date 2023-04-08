@@ -78,13 +78,13 @@ DefaultS::~DefaultS()
 }
 
 //Function for opening the driver login dialog
-
-void DefaultS::opendriverlogindialog(){
+void DefaultS::opendriverlogindialog()
+{
 
     DriverLogin *driverDialog = new DriverLogin(this);
     driverDialog->setModal(true);
     driverDialog->setWindowFlag(Qt::FramelessWindowHint);
-    //This connect logic connects the ok button press (with right password) with the menu page of the stack widget
+    //This connect logic connects the ok button press (with right password) and closes the default screen
     QObject::connect(driverDialog, SIGNAL(okbuttonPressed_driver()), this, SLOT(closeScreen()));
     driverDialog->exec();
     timeractive.elapsed();
@@ -168,9 +168,9 @@ void DefaultS::on_pushButton_driverLogin_4_clicked()
     }
 }
 
-void DefaultS::closeScreen(){
-
-    close();
+void DefaultS::closeScreen()
+{
+    this->close();
 }
 
 

@@ -15,14 +15,17 @@ INCLUDEPATH += /usr/include/gstreamer-1.0/ /usr/include/glib-2.0/ /usr/lib/x86_6
 
 SOURCES += \
     audioplayer.cpp \
+    camera.cpp \
     customle.cpp \
     defaults.cpp \
     devicewindow.cpp \
     driverlogin.cpp \
     etbarchivewindow.cpp \
+    etbcallprompt.cpp \
     etbcallwindow.cpp \
     httpdownloader.cpp \
     infowindow.cpp \
+    ipcamsyncthread.cpp \
     keyboarddialog.cpp \
     logindialog.cpp \
     logswindow.cpp \
@@ -34,19 +37,26 @@ SOURCES += \
     renamewindow.cpp \
     screenshot.cpp \
     settingswindow.cpp \
+    slave.cpp \
+    slavesyncthread.cpp \
+    systemconfig.cpp \
     videoarchivewindow.cpp \
     videoplayer.cpp
 
 HEADERS += \
     audioplayer.h \
+    camera.h \
+    common.h \
     customle.h \
     defaults.h \
     devicewindow.h \
     driverlogin.h \
     etbarchivewindow.h \
+    etbcallprompt.h \
     etbcallwindow.h \
     httpdownloader.h \
     infowindow.h \
+    ipcamsyncthread.h \
     keyboarddialog.h \
     logindialog.h \
     logswindow.h \
@@ -57,6 +67,9 @@ HEADERS += \
     renamewindow.h \
     screenshot.h \
     settingswindow.h \
+    slave.h \
+    slavesyncthread.h \
+    systemconfig.h \
     videoarchivewindow.h \
     videoplayer.h
 
@@ -66,6 +79,7 @@ FORMS += \
     devicewindow.ui \
     driverlogin.ui \
     etbarchivewindow.ui \
+    etbcallprompt.ui \
     etbcallwindow.ui \
     infowindow.ui \
     keyboarddialog.ui \

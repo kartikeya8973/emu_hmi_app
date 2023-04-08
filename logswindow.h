@@ -77,7 +77,7 @@ private:
     QStringListModel *filemodellogs;
 
     //Model for showing faults in listview
-    QStringListModel *filemodelfaults;
+    QStringListModel *filemodelsyslogs;
 
     //For USB copy page
     QFileSystemModel *model2;

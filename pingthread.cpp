@@ -1,4 +1,5 @@
 #include "pingthread.h"
+#include <QVector>
 
 PingThread::PingThread(QObject *parent) : QThread(parent)
 {
@@ -25,26 +26,49 @@ int ping_for_cam14;
 int ping_for_nvr1;
 int ping_for_nvr2;
 
+//QVector<int> pingStatus;
+
 void PingThread::run()
 {
+
+
     // ping devices and update UI code here
+    for(;;)
+    {
+        ping_for_cam1 = system("ping -c 1 192.168.1.221 > /dev/null 2>&1");
+        ping_for_cam2 = system("ping -c 1 192.168.1.222 > /dev/null 2>&1");
+        ping_for_cam3 = system("ping -c 1 192.168.1.223 > /dev/null 2>&1");
+        ping_for_cam4 = system("ping -c 1 192.168.1.224 > /dev/null 2>&1");
+        ping_for_cam5 = system("ping -c 1 192.168.1.225 > /dev/null 2>&1");
+        ping_for_cam6 = system("ping -c 1 192.168.1.226 > /dev/null 2>&1");
+        ping_for_cam7 = system("ping -c 1 192.168.1.227 > /dev/null 2>&1");
+        ping_for_cam8 = system("ping -c 1 192.168.1.228 > /dev/null 2>&1");
+        ping_for_cam9 = system("ping -c 1 192.168.1.229 > /dev/null 2>&1");
+        ping_for_cam10 = system("ping -c 1 192.168.1.230 > /dev/null 2>&1");
+        ping_for_cam11 = system("ping -c 1 192.168.1.231 > /dev/null 2>&1");
+        ping_for_cam12 = system("ping -c 1 192.168.1.232 > /dev/null 2>&1");
+        ping_for_cam13 = system("ping -c 1 192.168.1.233 > /dev/null 2>&1");
+        ping_for_cam14 = system("ping -c 1 192.168.1.234 > /dev/null 2>&1");
 
-    ping_for_cam1 = system("ping -c 1 192.168.1.221 > /dev/null 2>&1");
-    ping_for_cam2 = system("ping -c 1 192.168.1.222 > /dev/null 2>&1");
-    ping_for_cam3 = system("ping -c 1 192.168.1.223 > /dev/null 2>&1");
-    ping_for_cam4 = system("ping -c 1 192.168.1.224 > /dev/null 2>&1");
-    ping_for_cam5 = system("ping -c 1 192.168.1.225 > /dev/null 2>&1");
-    ping_for_cam6 = system("ping -c 1 192.168.1.226 > /dev/null 2>&1");
-    ping_for_cam7 = system("ping -c 1 192.168.1.227 > /dev/null 2>&1");
-    ping_for_cam8 = system("ping -c 1 192.168.1.228 > /dev/null 2>&1");
-    ping_for_cam9 = system("ping -c 1 192.168.1.229 > /dev/null 2>&1");
-    ping_for_cam10 = system("ping -c 1 192.168.1.230 > /dev/null 2>&1");
-    ping_for_cam11 = system("ping -c 1 192.168.1.231 > /dev/null 2>&1");
-    ping_for_cam12 = system("ping -c 1 192.168.1.232 > /dev/null 2>&1");
-    ping_for_cam13 = system("ping -c 1 192.168.1.233 > /dev/null 2>&1");
-    ping_for_cam14 = system("ping -c 1 192.168.1.234 > /dev/null 2>&1");
+        ping_for_nvr1 = system("ping -c 1 192.168.1.2 > /dev/null 2>&1");
+        ping_for_nvr2 = system("ping -c 1 192.168.1.3 > /dev/null 2>&1");
 
-    ping_for_nvr1 = system("ping -c 1 192.168.1.2 > /dev/null 2>&1");
-    ping_for_nvr2 = system("ping -c 1 192.168.1.232 > /dev/null 2>&1");
+//        pingStatus.push_back(ping_for_nvr1);
+//        pingStatus.push_back(ping_for_nvr2);
+//        pingStatus.push_back(ping_for_cam1);
+//        pingStatus.push_back(ping_for_cam2);
+//        pingStatus.push_back(ping_for_cam3);
+//        pingStatus.push_back(ping_for_cam4);
+//        pingStatus.push_back(ping_for_cam5);
+//        pingStatus.push_back(ping_for_cam6);
+//        pingStatus.push_back(ping_for_cam7);
+//        pingStatus.push_back(ping_for_cam8);
+//        pingStatus.push_back(ping_for_cam9);
+//        pingStatus.push_back(ping_for_cam10);
+//        pingStatus.push_back(ping_for_cam11);
+//        pingStatus.push_back(ping_for_cam12);
+//        pingStatus.push_back(ping_for_cam13);
+//        pingStatus.push_back(ping_for_cam14);
 
+    }
 }

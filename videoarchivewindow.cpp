@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include "videoplayer.h"
 #include "renamewindow.h"
+#include "common.h"
 #include <QDateTime>
 #include <QRect>
 #include <QGuiApplication>
@@ -57,7 +58,7 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
     //Path of the root directory
-        QString SourcePath = "/home/hmi/VidArchives/";
+        QString SourcePath = pathToVidArchives;
 //    QString SourcePath = "/home/csemi/VidArchives/";
     dirmodel = new QFileSystemModel(this);
     //Displays only directories
@@ -86,7 +87,7 @@ VideoArchiveWindow::VideoArchiveWindow(QWidget *parent) :
 
     model2 = new QFileSystemModel(this);
     ui->treeView_2->setModel(model2);
-    ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
+    ui->treeView_2->setRootIndex(model2->setRootPath(pathToExternalStorage));
 //    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
     ui->treeView_2->setColumnWidth(0,600);
     ui->treeView_2->setColumnWidth(1,140);
@@ -214,7 +215,7 @@ void VideoArchiveWindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm " + fileabspathmp4;
+    QString delete_file = " rm -r " + fileabspathmp4;
 
     system(qPrintable(delete_file));
 }
@@ -251,7 +252,7 @@ void VideoArchiveWindow::on_pushButton_copy_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString copy_file_to_usb = " cp " + fileabspathmp4 + " " + usbpath;
+    QString copy_file_to_usb = " cp -r " + fileabspathmp4 + " " + usbpath;
 
     qDebug() << copy_file_to_usb;
 
@@ -281,7 +282,7 @@ void VideoArchiveWindow::on_pushButton_delete_2_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file_on_usb = " rm " + usbpath;
+    QString delete_file_on_usb = " rm -r " + usbpath;
 
     qDebug() << delete_file_on_usb;
 

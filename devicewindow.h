@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QThread>
 #include <vlc/vlc.h>
-
+#include "camera.h"
 
 namespace Ui {
 class DeviceWindow;
@@ -50,6 +50,9 @@ public slots:
 
     //open screenshot window
     void openscreenshotdialog();
+
+    void slave_ping_update(/*int pc,*/QList <camera*> cameras);
+
 
 private slots:
     void on_pushButton_home_button_clicked();

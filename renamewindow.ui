@@ -113,6 +113,8 @@ image: url(:/new/icons/close.png);</string>
    <property name="font">
     <font>
      <pointsize>22</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">

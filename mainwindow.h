@@ -119,6 +119,8 @@ signals:
 
     void closeetbcallwindow();
 
+    void etbdialogopen();
+
 
 public slots:
     void statusDateTime();
@@ -143,6 +145,9 @@ public slots:
 
     //For opening etbcallwindow
     void openetbcallwindow();
+
+    //For etb call recording continue dialog
+    void openetbcalldialog();
 
     //open driver login dialog
 //    void opendriverlogindialog();
@@ -171,6 +176,13 @@ public slots:
     //Function to download logs from NVR
     void downloadLogs();
 
+    //for renaming audio file that is received from ddc after every call
+    void renameEtbAudio();
+
+    //Function for open recording page for IPCAM if yes is selected on etbcallprompt dialog
+    void contRecording();
+
+//    void slave_ping_update(int pc,QList <camera*> cameras);
 
 private slots:
     void on_pushButton_Menu_clicked();
@@ -264,6 +276,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    QTimer *lockScreen;
+    QTimer *slaveTimer;
+
     LoginDialog *loginDialog;
     QMediaPlayer *player;
     QVideoWidget *video;

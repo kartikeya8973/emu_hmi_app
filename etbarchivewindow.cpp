@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QRect>
 #include <QGuiApplication>
+#include "common.h"
 
 extern QElapsedTimer timeractive;
 extern QString new_name;
@@ -46,8 +47,8 @@ etbarchivewindow::etbarchivewindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(ui->label_Time);
 
     //Path of the root directory
-    QString SourcePath = "/home/hmi/ETBArchives/";
-//    QString SourcePath = "/home/csemi/EtbArchives/";
+    QString SourcePath = pathToEtbArchives;
+
     dirmodel = new QFileSystemModel(this);
     //Displays only directories
 //    dirmodel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
@@ -74,8 +75,7 @@ etbarchivewindow::etbarchivewindow(QWidget *parent) :
 
     model2 = new QFileSystemModel(this);
     ui->treeView_2->setModel(model2);
-    ui->treeView_2->setRootIndex(model2->setRootPath("/media/hmi/"));
-//    ui->treeView_2->setRootIndex(model2->setRootPath("/media/csemi/"));
+    ui->treeView_2->setRootIndex(model2->setRootPath(pathToExternalStorage));
     ui->treeView_2->setColumnWidth(0,600);
     ui->treeView_2->setColumnWidth(1,140);
     ui->treeView_2->setColumnWidth(2,100);
@@ -201,7 +201,7 @@ void etbarchivewindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm " + fileabspathmp3;
+    QString delete_file = " rm -r " + fileabspathmp3;
 
     system(qPrintable(delete_file));
 }
@@ -234,7 +234,7 @@ void etbarchivewindow::on_pushButton_copy_clicked()
 {
     //timer to keep the window active
     timeractive.start();
-    QString copy_file_to_usb = " cp " + fileabspathmp3 + " " + usbpath_mp3;
+    QString copy_file_to_usb = " cp -r " + fileabspathmp3 + " " + usbpath_mp3;
 
     qDebug() << copy_file_to_usb;
 
@@ -264,7 +264,7 @@ void etbarchivewindow::on_pushButton_delete_2_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file_on_usb = " rm " + usbpath_mp3;
+    QString delete_file_on_usb = " rm -r " + usbpath_mp3;
 
     qDebug() << delete_file_on_usb;
 
@@ -273,7 +273,4 @@ void etbarchivewindow::on_pushButton_delete_2_clicked()
     ui->label_status->setText( usbfilename_mp3 + " deleted ");
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
-
-
-
 

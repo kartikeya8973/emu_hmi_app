@@ -10,8 +10,11 @@ public:
 
     void run();
 
-    signals:
-        void pingResult(QList<int> result);
+signals:
+    void pingResult(QList<int> result);
+
+    void vectorSent(QVector<int>);
+
 };
 
 #endif // PINGTHREAD_H

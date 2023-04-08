@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QDesktopWidget>
 #include <QtWidgets>
+#include "common.h"
 
 extern QString date_text_recording;
 extern QString time_text_recording;
@@ -73,7 +74,7 @@ void Screenshot::saveScreenshot()
     //    if (!fileName.isEmpty())
     //        originalPixmap.save(fileName);
 
-    QString initialPath = "/home/hmi/VidArchives/"+date_text_recording+"_recordings";
+    QString initialPath = pathToVidArchives+date_text_recording+"_recordings";
     QFile file(initialPath + "/Screenshot_" + date_text_recording + "_" + time_text_recording +".png");
     file.open(QIODevice::WriteOnly);
     originalPixmap.save(&file);

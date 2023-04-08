@@ -1,0 +1,1171 @@
+{
+   "slaves":[
+      {
+         "device_type":"DEV_DDC",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.50",
+         "sno":1
+      },
+      {
+         "device_type":"DEV_DDC",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.52",
+         "sno":2
+      },
+      {
+         "device_type":"DEV_HMI",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.70",
+         "sno":3
+      },
+      {
+         "device_type":"DEV_HMI",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.72",
+         "sno":4
+      },
+      {
+         "device_type":"DEV_ETB",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.60",
+         "sno":5
+      },
+      {
+         "device_type":"DEV_ETB",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.62",
+         "sno":6
+      },
+      {
+         "device_type":"DEV_NVR",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.2",
+         "sno":7
+      },
+      {
+         "device_type":"DEV_NVR",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.3",
+         "sno":8
+      },
+      {
+         "device_type":"DEV_SIPS",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.22",
+         "sno":9
+      },
+      {
+         "device_type":"DEV_SIPS",
+         "hw_id":"RT012110001",
+         "installStatus":"INSTALLED",
+         "ip_addr":"192.168.1.24",
+         "sno":10
+      }
+   ],
+
+  "cameras": [
+    {
+      "camera_type": "CAM_CCTV_F",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.221",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_FR",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.229",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_FL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.225",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_CAB",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.235",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 1,
+      "car_type": "CAR_DTC",
+      "bu": 1,
+      "busno": 1,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_R",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.224",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_RR",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.233",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_RL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.234",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_CAB",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.236",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 0
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 12,
+      "car_type": "CAR_DTC",
+      "bu": 4,
+      "busno": 3,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 2,
+      "car_type": "CAR_MC",
+      "bu": 1,
+      "busno": 2,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 3,
+      "car_type": "CAR_TC",
+      "bu": 1,
+      "busno": 3,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 4,
+      "car_type": "CAR_NDTC",
+      "bu": 2,
+      "busno": 1,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 5,
+      "car_type": "CAR_MC",
+      "bu": 2,
+      "busno": 2,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 6,
+      "car_type": "CAR_TC",
+      "bu": 2,
+      "busno": 3,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 1,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 7,
+      "car_type": "CAR_NDTC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 8,
+      "car_type": "CAR_MC",
+      "bu": 3,
+      "busno": 2,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 9,
+      "car_type": "CAR_TC",
+      "bu": 3,
+      "busno": 3,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 10,
+      "car_type": "CAR_TC",
+      "bu": 4,
+      "busno": 1,
+      "sno": 8
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.222",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 1
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.223",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 2
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.228",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 3
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.231",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 4
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.226",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 5
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.227",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 6
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.230",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 7
+    },
+    {
+      "camera_type": "CAM_CCTV_SL",
+      "installStatus": "INSTALLED",
+      "ip_addr": "192.168.1.232",
+      "csno": 11,
+      "car_type": "CAR_MC",
+      "bu": 4,
+      "busno": 2,
+      "sno": 8
+    }
+  ],
+
+   "systemconfig":{
+      "bmu_ftp_ip":"192.168.1.60",
+      "bmu_ftp_path":"/",
+      "bmu_ftp_pswd":"rtvision2552",
+      "bmu_ftp_user":"rtv_ftp",
+      "bmu_ser_ip":"192.168.1.60",
+      "bmu_status":"ACTIVE",
+      "coach_id":"C12345",
+      "coach_no":"k1",
+      "dvi_active":"INACTIVE",
+      "eth_dns":"192.168.1.1",
+      "eth_gateway":"192.168.1.1",
+      "eth_ip_addr":"192.168.1.100",
+      "eth_ip_mode":"STATIC",
+      "eth_net_mask":"255.255.255.0",
+      "gps_port":"/dev/apalis-uart4",
+      "gps_source":"FILE",
+      "gsm_apn":"airtelgprs.com",
+      "gsm_imei":"351756051523999",
+      "gsm_mdisdn":"9889452434",
+      "gsm_status":"ACTIVE",
+      "hw_id":"RT0121000001",
+      "led_pis_speed":2,
+      "mem_ext_ssd1_mnt":"ACTIVE",
+      "mem_ext_ssd2_mnt":"ACTIVE",
+      "mem_int_ssd_mnt":"ACTIVE",
+      "mem_sd_mnt":"ACTIVE",
+      "mem_usb1_mnt":"ACTIVE",
+      "mem_usb2_mnt":"ACTIVE",
+      "mpu_id":"123456aaaa",
+      "pa_vol":"85",
+      "wifi_ap_pswd":"C12345_123",
+      "wifi_ap_ssid":"WIFI_C12345",
+      "wifi_dns":"",
+      "wifi_gateway":"",
+      "wifi_ip_addr":"",
+      "wifi_ip_mode":"DHCP",
+      "wifi_mode":"STATION",
+      "wifi_net_mask":"",
+      "wifi_st_pswd":"rtvision2552",
+      "wifi_st_ssid":"wifi_d03745f32c2f_50415049535f3247_managed_psk",
+      "ws_ftp_url":"192.168.1.60",
+      "ws_ser_url":"",
+      "ws_status":"ACTIVE"
+   },
+   "systemusers":[
+      {
+         "access_level":"ACCESS_LEVEL_2",
+         "activeStatus":"ACTIVE",
+         "name":"admin",
+         "password":"ad12345"
+      }
+   ]
+}

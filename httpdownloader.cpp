@@ -1,4 +1,5 @@
 #include "httpdownloader.h"
+#include "common.h"
 
 HttpDownloader::HttpDownloader(QObject *parent) : QObject(parent)
 {
@@ -35,8 +36,7 @@ void HttpDownloader::replyFinished (QNetworkReply *reply)
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
 
-//        QFile *file = new QFile("/home/hmi/Downloads/streamList.json");
-        QFile *file = new QFile("/home/csemi/Downloads/streamList.json");
+        QFile *file = new QFile(streamListJsonPath);
         if(file->open(QFile::Append))
         {
             file->write(reply->readAll());

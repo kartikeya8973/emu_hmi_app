@@ -2,11 +2,15 @@
 #include "ui_driverlogin.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "common.h"
 
 extern QElapsedTimer timeractive;
 
 //Sqlite server for storing password
 extern QSqlDatabase passdb_driver;
+
+//File for HMI logs
+extern QFile file;
 
 //flag for access button
 int success_driver;
@@ -25,10 +29,8 @@ DriverLogin::DriverLogin(QWidget *parent) :
     //Creating Database
     passdb_driver = QSqlDatabase::addDatabase("QSQLITE");
 
-    //For HMI
-    passdb_driver.setDatabaseName("/home/hmi/HMI/password_driver.db");
-    //For Host PC
-//        passdb_driver.setDatabaseName("/home/csemi/qtworkspace_new/HMItemplate/password_driver.db");
+    //Path of database
+    passdb_driver.setDatabaseName(pathTopassdb_driver);
 
     if(!passdb_driver.open()){
         qDebug() << "Failed to open Database";
@@ -289,14 +291,20 @@ void DriverLogin::on_pushButton_ok_clicked()
     }
 
     if (count == 1 && accessKey == password && accessKey.size()==6){
-        emit okbuttonPressed_driver();
         close();
-
+        emit okbuttonPressed_driver();
         //timer for keeping window active
         timeractive.start();
         //flag for using menu button for opening menu page after succesful login
         success_driver = 1;
 
+        //Updating HMI Logs
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", DRIVER LOGIN SUCCESSFUL\n";
+            file.close();
+        }
     }
 
     else{
@@ -314,6 +322,14 @@ void DriverLogin::on_pushButton_ok_clicked()
                                               "border-width: 2px;"
                                               "border-color: black; "
                                               "}"); });
+
+        //Updating HMI Logs
+        if (file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+            // File was successfully created
+            QTextStream ts(&file);
+            ts<<QDateTime::currentDateTime().toString("dd.MM.yy hh:mm:ss.zzz")<<", DRIVER LOGIN FAILED\n";
+            file.close();
+        }
     }
 }
 

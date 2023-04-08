@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include "renamewindow.h"
+#include "common.h"
 
 extern QSqlDatabase passdb;
 extern QSqlDatabase passdb_driver;
@@ -59,7 +60,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     ui->horizontalLayout_Password_2->addWidget(le2);
 
     //Path of the root directory
-    QString SourcePath = "/media/hmi/";
+    QString SourcePath = pathToExternalStorage;
     //    QString SourcePath = "/media/csemi";
 
     dirmodel = new QFileSystemModel(this);
@@ -82,7 +83,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
 
     model2 = new QFileSystemModel(this);
     ui->treeView_2->setModel(model2);
-    ui->treeView_2->setRootIndex(model2->setRootPath("/home/hmi"));
+    ui->treeView_2->setRootIndex(model2->setRootPath(pathToHome));
     //    ui->treeView_2->setRootIndex(model2->setRootPath("/home/csemi/"));
     ui->treeView_2->setColumnWidth(0,600);
     ui->treeView_2->setColumnWidth(1,140);
@@ -326,7 +327,7 @@ void SettingsWindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm " + fileabspath;
+    QString delete_file = " rm -r " + fileabspath;
 
     system(qPrintable(delete_file));
 }
@@ -361,7 +362,7 @@ void SettingsWindow::on_pushButton_copy_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString copy_file_to_usb = " cp " + fileabspath + " " + usbpath_settings;
+    QString copy_file_to_usb = " cp -r " + fileabspath + " " + usbpath_settings;
 
     qDebug() << copy_file_to_usb;
 
@@ -393,7 +394,7 @@ void SettingsWindow::on_pushButton_delete_2_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file_on_usb = " rm " + usbpath_settings;
+    QString delete_file_on_usb = " rm -r " + usbpath_settings;
 
     qDebug() << delete_file_on_usb;
 
