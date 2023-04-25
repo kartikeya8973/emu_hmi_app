@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #include "defaults.h"
 
+extern QElapsedTimer timeractive;
+
 etbCallPrompt::etbCallPrompt(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::etbCallPrompt)
@@ -20,6 +22,7 @@ void etbCallPrompt::on_pushButton_no_clicked()
     close();
     emit renameAudio();
     opendefaultScreen();
+    timeractive.start();
 }
 
 
@@ -29,6 +32,7 @@ void etbCallPrompt::on_pushButton_yes_clicked()
     emit yesbuttonPressed();
     emit renameAudio();
     opendefaultScreen();
+    timeractive.start();
 }
 
 void etbCallPrompt::opendefaultScreen()

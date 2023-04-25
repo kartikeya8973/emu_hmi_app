@@ -96,7 +96,7 @@ bool w_fault(QString msg);
 void populate_default_config();
 
 //Change device to csemi for native / hmi for target
-static QString device = "csemi";
+static QString device = "hmi";
 
 //Path to directory where device status json is saved
 static QString deviceStatusJsonPath = "/home/"+device+"/Downloads/deviceStatus.json";
@@ -105,8 +105,8 @@ static QString deviceStatusJsonPath = "/home/"+device+"/Downloads/deviceStatus.j
 static QString pathToVidArchives ="/home/"+device+"/VidArchives/";
 
 //Path to driver login database (passdb_driver)
-//static QString pathTopassdb_driver = "/home/"+device+"/HMI/password_driver.db";
-static QString pathTopassdb_driver = "/home/csemi/qtworkspace_new/HMItemplate/password_driver.db";
+static QString pathTopassdb_driver = "/home/"+device+"/HMI/password_driver.db";
+//static QString pathTopassdb_driver = "/home/csemi/qtworkspace_new/HMItemplate/password_driver.db";
 
 //Path to ETB Archives folder
 static QString pathToEtbArchives = "/home/"+device+"/ETBArchives/";
@@ -121,8 +121,8 @@ static QString pathToHome = "/home/"+device+"/";
 static QString streamListJsonPath="/home/"+device+"/Downloads/streamList.json";
 
 //Path to maintaince login database (passdb)
-//static QString pathTopassdb = "/home/"+device+"/HMI/password.db";
-static QString pathTopassdb = "/home/csemi/qtworkspace_new/HMItemplate/password.db";
+static QString pathTopassdb = "/home/"+device+"/HMI/password.db";
+//static QString pathTopassdb = "/home/csemi/qtworkspace_new/HMItemplate/password.db";
 
 //Path to logs directory
 static QString pathToLogs = "/home/"+device+"/logs/";
@@ -137,7 +137,7 @@ static QString createEtbArchivesFolder ="mkdir /home/"+device+"/ETBArchives/$(da
 static QString createLogsArchivesFolder ="mkdir /home/"+device+"/logs/$(date +""%Y.%m.%d"")/";
 
 //Path to base directory
-//static QString base_dir ="/home/"+device+"/HMI/";
-static QString base_dir ="/home/"+device+"/qtworkspace_new/HMItemplate/";
+static QString base_dir ="/home/"+device+"/HMI/";
+//static QString base_dir ="/home/"+device+"/qtworkspace_new/HMItemplate/";
 
 #endif // COMMON_H

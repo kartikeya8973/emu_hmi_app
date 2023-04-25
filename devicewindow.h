@@ -42,17 +42,25 @@ signals:
 public slots:
     void statusDateTimeDevice();
 
-    //Function to get the status of all the IPCAMs
-    void camStatus();
-
-    //Function to get the status of all the NVRs
-    void nvrStatus();
-
     //open screenshot window
     void openscreenshotdialog();
 
-    void slave_ping_update(/*int pc,*/QList <camera*> cameras);
+//    //Getting list of IPCAMS
+//    void slave_ping_update(/*int pc,*/QList <camera*> cameras);
 
+    void nvrStatus();
+
+    //Iterating through list of IPCAM
+    void iterateCams();
+    //Default setting for Coach with only saloon cams
+    void coachWithSaloonCam();
+    //Default setting for Front Coach
+    void frontCoach();
+    //Default setting for Rear Coach
+    void rearCoach();
+
+    //For Video Player in this window
+    void videoPlayerD();
 
 private slots:
     void on_pushButton_home_button_clicked();
@@ -62,8 +70,6 @@ private slots:
     void on_pushButton_camStatus_clicked();
 
     void on_pushButton_nvrStatus_clicked();
-
-    void on_pushButton_sendDeviceStatus_clicked();
 
     void on_pushButton_cam1_clicked();
 
@@ -98,6 +104,14 @@ private slots:
     void on_pushButton_stop_clicked();
 
     void on_pushButton_screenshot_clicked();
+
+    void on_pushButton_iterate_cams_right_clicked();
+
+    void on_pushButton_iterate_cams_left_clicked();
+
+    void on_pushButton_cam15_clicked();
+
+    void on_pushButton_cam16_clicked();
 
 private:
     Ui::DeviceWindow *ui;

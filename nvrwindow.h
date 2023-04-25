@@ -14,6 +14,7 @@
 #include <QTableView>
 #include "qjsontablemodel.h"
 #include <QFileSystemModel>
+#include "customle.h"
 
 
 namespace Ui {
@@ -37,8 +38,17 @@ public:
     //Function to read json of record list and display in tableview
     void readJson();
 
+    //opens local video archives
     void openvidArvives();
 
+    //Fucntion to get status of HDD
+    void getHddStatus();
+
+    //Funtion to set HDD status to labels
+    void setHddStatus();
+
+    //Function to add IPCAM to NVR
+    void addIPCAM();
 
 signals:
     // signal for home button(present in the NVR window) press
@@ -55,6 +65,9 @@ public slots:
 
     // for video stream
     void replyStream (QNetworkReply *replyStream);
+
+    // for hdd status
+    void replyHdd (QNetworkReply *replyHdd);
 
     //Function to get the status of all the NVRs
     void nvrStatus();
@@ -80,6 +93,16 @@ private slots:
 
     void on_tableView_streamList_pressed(const QModelIndex &index);
 
+    void on_pushButton_NVR_IP_clicked();
+
+    void on_pushButton_IPCAM_IP_clicked();
+
+    void on_pushButton_Add_New_IPCAM_clicked();
+
+    void on_pushButton_CHANNEL_NO_clicked();
+
+    void on_pushButton_add_IPCAM_clicked();
+
 private:
     Ui::NVRWindow *ui;
     QTimer *timer;
@@ -90,6 +113,12 @@ private:
     // for video stream
     QNetworkAccessManager *managerStream;
 
+    // for hdd status
+    QNetworkAccessManager *managerHdd;
+
+    // for adding IPCAM to NVR
+    QNetworkAccessManager *managerIpcam;
+
     // for Table View
     QJsonTableModel *streamList;
 
@@ -98,6 +127,15 @@ private:
 
     //For USB copy page
     QFileSystemModel *model2;
+
+    //For adding IP address of NVR
+    customle *le;
+
+    //For adding IP address of IPCAM
+    customle *le2;
+
+    //For adding channel no
+    customle *le3;
 };
 
 #endif // NVRWINDOW_H

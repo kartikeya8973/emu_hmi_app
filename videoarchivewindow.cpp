@@ -215,7 +215,7 @@ void VideoArchiveWindow::on_pushButton_delete_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file = " rm -r " + fileabspathmp4;
+    QString delete_file = " rm " + fileabspathmp4;
 
     system(qPrintable(delete_file));
 }
@@ -252,7 +252,7 @@ void VideoArchiveWindow::on_pushButton_copy_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString copy_file_to_usb = " cp -r " + fileabspathmp4 + " " + usbpath;
+    QString copy_file_to_usb = " cp " + fileabspathmp4 + " " + usbpath;
 
     qDebug() << copy_file_to_usb;
 
@@ -282,7 +282,7 @@ void VideoArchiveWindow::on_pushButton_delete_2_clicked()
     //timer to keep the window active
     timeractive.start();
 
-    QString delete_file_on_usb = " rm -r " + usbpath;
+    QString delete_file_on_usb = " rm " + usbpath;
 
     qDebug() << delete_file_on_usb;
 

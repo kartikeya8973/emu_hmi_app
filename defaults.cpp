@@ -6,13 +6,14 @@
 
 // timer for keeping in check the active and inactive status on the application
 extern QElapsedTimer timeractive;
+extern QStringList listAllCams;
 
 int buttonpress_dri;
 
-int camVariable;
+int camVariable = 0;
 
 //Duration of camera rotation on default screen
-int rotate =10000;
+int rotate = 10000;
 
 //When application starts
 int launch_app = 0;
@@ -174,10 +175,10 @@ void DefaultS::closeScreen()
 }
 
 
-QList<const char*> listAllCamsDefScreen = { "rtsp://192.168.1.221/video1.sdp", "rtsp://192.168.1.222/video1.sdp","rtsp://192.168.1.223/video1.sdp",
-                                            "rtsp://192.168.1.224/video1.sdp","rtsp://192.168.1.225/video1.sdp", "rtsp://192.168.1.226/video1.sdp",
-                                            "rtsp://192.168.1.227/video1.sdp","rtsp://192.168.1.228/video1.sdp", "rtsp://192.168.1.229/video1.sdp",
-                                            "rtsp://192.168.1.230/video1.sdp","rtsp://192.168.1.231/video1.sdp" };
+//QList<const char*> listAllCamsDefScreen = { "rtsp://192.168.1.221/video1.sdp", "rtsp://192.168.1.222/video1.sdp","rtsp://192.168.1.225/video1.sdp",
+//                                            "rtsp://192.168.1.224/video1.sdp","rtsp://192.168.1.223/video1.sdp", "rtsp://192.168.1.226/video1.sdp",
+//                                            "rtsp://192.168.1.227/video1.sdp","rtsp://192.168.1.228/video1.sdp", "rtsp://192.168.1.229/video1.sdp",
+//                                            "rtsp://192.168.1.230/video1.sdp","rtsp://192.168.1.231/video1.sdp" };
 
 void DefaultS::playStream(){
 
@@ -191,21 +192,21 @@ void DefaultS::playStream(){
     _isPlaying_df=true;
 
 
-    _dfSm = libvlc_media_new_location(_vlcinstance, listAllCamsDefScreen[camVariable]);
+    _dfSm = libvlc_media_new_location(_vlcinstance, listAllCams[camVariable].toLocal8Bit());
     libvlc_media_player_set_media (_dfSmp, _dfSm);
 
-    _dfSm2 = libvlc_media_new_location(_vlcinstance, listAllCamsDefScreen[camVariable+1]);
+    _dfSm2 = libvlc_media_new_location(_vlcinstance, listAllCams[camVariable+1].toLocal8Bit());
     libvlc_media_player_set_media (_dfSmp2, _dfSm2);
 
-    _dfSm3 = libvlc_media_new_location(_vlcinstance, listAllCamsDefScreen[camVariable+2]);
+    _dfSm3 = libvlc_media_new_location(_vlcinstance, listAllCams[camVariable+2].toLocal8Bit());
     libvlc_media_player_set_media (_dfSmp3, _dfSm3);
 
-    _dfSm4 = libvlc_media_new_location(_vlcinstance, listAllCamsDefScreen[camVariable+3]);
+    _dfSm4 = libvlc_media_new_location(_vlcinstance, listAllCams[camVariable+3].toLocal8Bit());
     libvlc_media_player_set_media (_dfSmp4, _dfSm4);
 
     camVariable ++ ;
 
-    if(camVariable == 7/*listAllCamsDefScreen.length()-4*/){
+    if(camVariable == listAllCams.length()-4){
         camVariable = 0;
     }
 

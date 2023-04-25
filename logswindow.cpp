@@ -24,8 +24,11 @@ QString usbpath_logs = "";
 //Global variable for filename selected from USB
 QString usbfilename_logs = "";
 
-//absolute path of logs file
+//absolute path of NVR logs file
 QString SourcePath_logs ="";
+
+//absolute path of HMI logs file
+QString SourcePath_systemLogs="";
 
 LogsWindow::LogsWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -71,6 +74,8 @@ LogsWindow::LogsWindow(QWidget *parent) :
     //Disable the buttons except home and return button
 //    ui->pushButton_openfile->setEnabled(false);
 
+    //Saving selected date in a string
+    date_string_logs = ui->dateEdit->date().toString("yyyy.MM.dd");
 }
 
 LogsWindow::~LogsWindow()
@@ -112,7 +117,7 @@ void LogsWindow::selectedDateChanged()
 
     //Saving selected date in a string
     date_string_logs = ui->dateEdit->date().toString("yyyy.MM.dd");
-    qDebug("%s", qUtf8Printable(date_string_logs));
+//    qDebug("%s", qUtf8Printable(date_string_logs));
 }
 
 //Button that opens page in which we can view the logs
@@ -166,7 +171,7 @@ void LogsWindow::on_pushButton_openfaults_clicked()
     //setting page 3 on pushbutton
 
     //system logs file source path
-    QString SourcePath_systemLogs = pathToLogs + date_string_logs + "/"+date_string_logs+"_systemlogs";
+    SourcePath_systemLogs = pathToLogs + date_string_logs + "/"+date_string_logs+"_systemlogs";
 
     QFile fileSystemLogs(SourcePath_systemLogs);
     if(!fileSystemLogs.open(QIODevice::ReadOnly))
@@ -238,7 +243,7 @@ void LogsWindow::on_calendar_clicked(const QDate &date)
     timeractive.start();
 }
 
-
+//For copying NVR logs
 void LogsWindow::on_pushButton_copylogs2USB_clicked()
 {
     //timer to keep the window active
@@ -250,8 +255,27 @@ void LogsWindow::on_pushButton_copylogs2USB_clicked()
 
     ui->label_heading->setText(" USB / External Storage List");
     ui->label_status->setText("Select the USB or Harddisk");
+
+    ui->pushButton_copy->setVisible(true);
+    ui->pushButton_copy_hmi_logs->setVisible(false);
 }
 
+//For copying HMI logs
+void LogsWindow::on_pushButton_copyfault2USB_clicked()
+{
+    //timer to keep the window active
+    timeractive.start();
+
+    //Opens the USB copy and move page
+    ui->stackedWidget->setCurrentIndex(3);
+    returncounter_log = 2;
+
+    ui->label_heading->setText(" USB / External Storage List");
+    ui->label_status->setText("Select the USB or Harddisk");
+
+    ui->pushButton_copy->setVisible(false);
+    ui->pushButton_copy_hmi_logs->setVisible(true);
+}
 
 void LogsWindow::on_treeView_2_pressed(const QModelIndex &index)
 {
@@ -272,7 +296,22 @@ void LogsWindow::on_pushButton_copy_clicked()
 
     system(qPrintable(copy_file_to_usb));
 
-    ui->label_status->setText("LOGS for "+date_string_logs+" copied to " + usbpath_logs );
+    ui->label_status->setText("NVR LOGS for "+date_string_logs+" copied to " + usbpath_logs );
+    QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
+}
+
+void LogsWindow::on_pushButton_copy_hmi_logs_clicked()
+{
+    //timer to keep the window active
+    timeractive.start();
+
+    QString copy_file_to_usb = " cp " + SourcePath_systemLogs + " " + usbpath_logs;
+
+    qDebug() << copy_file_to_usb;
+
+    system(qPrintable(copy_file_to_usb));
+
+    ui->label_status->setText("HMI LOGS for "+date_string_logs+" copied to " + usbpath_logs );
     QTimer::singleShot(5000, this, [this] () { ui->label_status->setText(""); });
 }
 

@@ -68,7 +68,7 @@ private:
     QWaitCondition wc_idle;
 
 private slots:
-    void eth_scan_all(QList <slave*> papis_slaves);
+//    void eth_scan_all(QList <slave*> papis_slaves);
 };
 
 #endif // SLAVESYNCTHREAD_H

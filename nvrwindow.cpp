@@ -18,23 +18,27 @@ int returncounter_nvr=0;
 
 extern int ping_for_nvr1;
 extern int ping_for_nvr2;
-extern int ping_for_cam1;
-extern int ping_for_cam2;
-extern int ping_for_cam3;
-extern int ping_for_cam4;
-extern int ping_for_cam5;
-extern int ping_for_cam6;
-extern int ping_for_cam7;
-extern int ping_for_cam8;
-extern int ping_for_cam9;
-extern int ping_for_cam10;
-extern int ping_for_cam11;
-extern int ping_for_cam12;
 
 QString dateListStart;
 QString timeListStart;
 QString dateListEnd;
 QString timeListEnd;
+
+//Varibles for downloading stream from a particular channel
+QString id_stream;
+QString start_date_time_nvr_stream;
+QString dateTime_NVRStreamStr;
+QString channelNo_stream;
+
+//Variable for adding IPCAM
+QString nvr_ip;
+QString ipcam_ip;
+QString channelNo_ipcam;
+
+int button_press_nvr=0;
+int button_press_ipcam=0;
+int button_press_channel=0;
+
 
 NVRWindow::NVRWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,6 +64,31 @@ NVRWindow::NVRWindow(QWidget *parent) :
     //        ui->label_nvrStatus->setText("NVR OFFLINE");
     //        ui->label_nvrStatus->setStyleSheet("QLabel { color : red; }");
     //    }
+
+    ui->label_status->setWordWrap(true);
+    ui->channelSelect->setRange(1, 16);
+
+    //Save HDD Status for NVR 1 in a file
+    getHddStatus();
+
+    ui->tabWidget->setCurrentIndex(0);
+
+    //For Adding IP address of NVR
+    le = new customle(this);
+    le->setStyleSheet("background-color: rgb(114, 159, 207); color: rgb(0, 0, 0); font-size: 23px");
+    ui->horizontalLayout_NVR_IP->addWidget(le);
+
+    //For Adding IP address of IPCAM
+    le2 = new customle(this);
+    le2->setStyleSheet("background-color: rgb(114, 159, 207); color: rgb(0, 0, 0); font-size: 23px");
+    ui->horizontalLayout_IPCAM_IP->addWidget(le2);
+
+    //For Adding Channel no
+    le3 = new customle(this);
+    le3->setStyleSheet("background-color: rgb(114, 159, 207); color: rgb(0, 0, 0); font-size: 23px");
+    ui->horizontalLayout_CHANNEL_NO->addWidget(le3);
+
+    ui->label_add_ipcam_status->setWordWrap(true);
 }
 
 NVRWindow::~NVRWindow()
@@ -97,6 +126,15 @@ void NVRWindow::on_pushButton_home_button_clicked()
 
     //timer to keep the window active
     timeractive.start();
+
+    //deleting HDD status file
+    QString delete_hdd_file = "rm /home/hmi/HMI/HDD_Status.txt";
+    system(qPrintable(delete_hdd_file));
+
+    //resetting
+    nvr_ip="";
+    ipcam_ip="";
+    channelNo_ipcam="";
 }
 
 void NVRWindow::on_pushButton_return_clicked()
@@ -116,12 +154,23 @@ void NVRWindow::on_pushButton_return_clicked()
         ui->stackedWidget->setCurrentIndex(0);
         ui->label_heading->setText(" NVR INTERFACE");
         returncounter_nvr --;
+
+        //deleting HDD status file
+        QString delete_hdd_file = "rm /home/hmi/HMI/HDD_Status.txt";
+        system(qPrintable(delete_hdd_file));
+
+        //resetting
+        nvr_ip="";
+        ipcam_ip="";
+        channelNo_ipcam="";
+
     }
     //returns to menu page of the Mainwindow
     else if(returncounter_nvr == 0){
         emit returnbuttonPressedNVR();
         close();
     }
+
 }
 
 void NVRWindow::on_pushButton_diagnostics_clicked()
@@ -133,7 +182,11 @@ void NVRWindow::on_pushButton_diagnostics_clicked()
 
     returncounter_nvr = 1; //signifies we are going to page 2 of stackwidget
 
+    //Setting NVR Status
     nvrStatus();
+
+    //Setting HDD status for NVR1 (192.168.1.2)
+    setHddStatus();
 }
 
 void NVRWindow::on_pushButton_streamList_clicked()
@@ -203,7 +256,7 @@ void NVRWindow::replyList (QNetworkReply *replyList)
         qDebug() << "ERROR!";
         qDebug() << replyList->errorString();
 
-        ui->label_status->setText("Error in downloading Video List !!! Can not establish connection to NVR");
+        ui->label_status->setText("Error in downloading video list!!! Can not establish connection to NVR");
         ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
     }
     else
@@ -254,12 +307,14 @@ void NVRWindow::downloadStream()
             this,
             &NVRWindow::replyStream);
 
-    QString downloadUrlStream = "";
+    //    QString downloadUrlStream = "";
 
-    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?id=147&starttime=2010-02-13T23:09:06Z&endtime=2010-02-13T23:10:22Z")));
+    //    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?id=147&starttime=2010-02-13T23:09:06Z&endtime=2010-02-13T23:10:22Z")));
 
     //For downloading from a specific channel (need to make it dyanmcic)
-    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?channel=2&speed=1&id=268&stime=2010-02-01+05:30:21")));
+    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?channel="+channelNo_stream+"&speed=1&id="+id_stream+"&stime="+dateTime_NVRStreamStr+"")));
+
+    ui->label_status->setText("http://admin:admin@192.168.1.2/playback.mp4?channel="+channelNo_stream+"&speed=1&id="+id_stream+"&stime="+dateTime_NVRStreamStr+"");
 }
 
 void NVRWindow::replyStream (QNetworkReply *replyStream)
@@ -288,7 +343,7 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
         date_string = date.toString("yyyy.MM.dd");
         time_string = time.toString("hh.mm.ss");
 
-        QString filename = date_string + time_string;
+        QString filename = date_string +"_"+ time_string;
 
         QFile *file = new QFile(pathToVidArchives+date_string+"_recordings/"+filename+"_NVR.mp4");
         //        QFile *file = new QFile("/home/csemi/VidArchives/"+ date_string +"_recordings/video.mp4");
@@ -307,11 +362,108 @@ void NVRWindow::replyStream (QNetworkReply *replyStream)
     replyStream->deleteLater();
 }
 
+//##########################################################################################
+
+//Http download for NVR Hard Disk Status
+//##########################################################################################
+void NVRWindow::getHddStatus(){
+    managerHdd = new QNetworkAccessManager(this);
+
+    connect(managerHdd,
+            &QNetworkAccessManager::finished,
+            this,
+            &NVRWindow::replyHdd);
+
+    //    QString downloadUrlStream = "";
+
+    //    managerStream->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/playback.mp4?id=147&starttime=2010-02-13T23:09:06Z&endtime=2010-02-13T23:10:22Z")));
+
+    //For downloading from a specific channel (need to make it dyanmcic)
+    managerHdd->get(QNetworkRequest(QUrl("http://admin:admin@192.168.1.2/vb.htm?gethddstatus")));
+}
+
+void NVRWindow::replyHdd(QNetworkReply *replyHdd){
+    if(replyHdd->error())
+    {
+        qDebug() << "ERROR!";
+        qDebug() << replyHdd->errorString();
+        //        ui->label_status->setText("Error in downloading Video stream !!! Can not establish connection to NVR");
+        //        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : red; }");
+    }
+    else
+    {
+        qDebug() << replyHdd->header(QNetworkRequest::ContentTypeHeader).toString();
+        qDebug() << replyHdd->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
+        qDebug() << replyHdd->header(QNetworkRequest::ContentLengthHeader).toULongLong();
+        qDebug() << replyHdd->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        qDebug() << replyHdd->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
+
+
+        QDate date = QDate::currentDate();
+        QTime time = QTime::currentTime();
+        QString date_string ="";
+        QString time_string ="";
+        date_string = date.toString("yyyy.MM.dd");
+        time_string = time.toString("hh.mm.ss");
+
+        QString filename = date_string +"_"+ time_string;
+
+        QFile *file = new QFile("/home/hmi/HMI/HDD_Status.txt");
+        //        QFile *file = new QFile("/home/csemi/Desktop/hddStatus.txt");
+        if(file->open(QFile::Append))
+        {
+            file->write(replyHdd->readAll());
+            file->flush();
+            file->close();
+        }
+        delete file;
+        //        ui->label_status->setText("Video stream downloaded successfully");
+        //        ui->label_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207); color : green; }");
+    }
+    replyHdd->deleteLater();
+}
+
 void NVRWindow::on_pushButton_downloadVideo_clicked()
 {
     // Calling fucntion to download video stream from NVR
     downloadStream();
 }
+
+//##########################################################################################
+
+//Http download for Video Stream
+//##########################################################################################
+void NVRWindow::addIPCAM()
+{
+    // Create a QNetworkAccessManager instance to handle the HTTP request
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    // Create a QNetworkRequest instance with the URL you want to send the request to
+    QUrl url("http://admin:admin@192.168.1."+nvr_ip+"/vb.htm?setchannel="+channelNo_ipcam+"&channelip=192.168.1."+ipcam_ip+"&channelport=80");
+    QNetworkRequest request(url);
+
+    // Send the HTTP POST request
+    QNetworkReply *reply = manager->post(request, QByteArray());
+
+    // Connect the finished signal of the reply object to a slot to handle the response
+    connect(reply, &QNetworkReply::finished, this, [=]() {
+        // Handle the response in the slot
+        if (reply->error() == QNetworkReply::NoError) {
+            // Success
+            qDebug() << "Posted successfully!";
+            ui->label_add_ipcam_status->setText("IPCAM with IP Address - 192.168.1."+ipcam_ip+" added at Channel No. - "+channelNo_ipcam);
+            ui->label_add_ipcam_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207);color : green; }");
+            QTimer::singleShot(5000, this, [this] () { ui->label_add_ipcam_status->setText(""); });
+        } else {
+            // Handle error
+            qDebug() << "Error posting:" << reply->errorString();
+            ui->label_add_ipcam_status->setText("Failed to add IPCAM with IP Address - 192.168.1."+ipcam_ip+" added at Channel No. - "+channelNo_ipcam);
+            ui->label_add_ipcam_status->setStyleSheet("QLabel {background-color: rgb(114, 159, 207);color : red; }");
+            QTimer::singleShot(5000, this, [this] () { ui->label_add_ipcam_status->setText(""); });
+        }
+    });
+}
+
 //##########################################################################################
 
 //Read Json of record list and display in TableView
@@ -447,9 +599,138 @@ void NVRWindow::on_tableView_streamList_pressed(const QModelIndex &index)
         QModelIndex cellIndex = ui->tableView_streamList->model()->index(rowNo, col);
         QString cellData = ui->tableView_streamList->model()->data(cellIndex).toString();
         rowData += cellData + ", ";
+        if(col == 0){
+            id_stream = cellData;
+        }
+        else if(col == 1){
+            start_date_time_nvr_stream = cellData;
+            QDateTime dateTime_NVRStream = QDateTime::fromString(start_date_time_nvr_stream, "yyyy-MM-ddThh:mm:ssZ");
+            dateTime_NVRStreamStr = dateTime_NVRStream.toString("yyyy-MM-dd+hh:mm:ss");
+        }
     }
 
-    ui->label_status->setText(rowData);
+    channelNo_stream = QString::number(ui->channelSelect->value());
+
+    ui->label_status->setText("ID Selected = "+id_stream+" Start Date and Time Selected = "+dateTime_NVRStreamStr+" Channel Selected = "+channelNo_stream);
     qDebug() << test ;
+}
+
+//Function to set HDD status in labels
+void NVRWindow::setHddStatus()
+{
+    // Open the file for reading
+    QFile file("/home/hmi/HMI/HDD_Status.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    // Read the first character from the file
+    QTextStream in(&file);
+    in.seek(29);
+    QString hdd1_status = in.read(1);
+    in.seek(31);
+    QString hdd2_status = in.read(1);
+    in.seek(33);
+    QString hdd3_status = in.read(1);
+    in.seek(35);
+    QString hdd4_status = in.read(1);
+
+    //    Update the label based on the character value
+    if (hdd1_status == "0") {
+        ui->label_Statushdd1->setText("HDD 1 not installed");
+        ui->label_Statushdd1->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconhdd1->setStyleSheet("image: url(:/new/icons/hdd_red.png);");
+    } else if (hdd1_status == "1") {
+        ui->label_Statushdd1->setText("HDD 1 is installed");
+        ui->label_Statushdd1->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconhdd1->setStyleSheet("image: url(:/new/icons/hdd_green.png);");
+    }
+
+    if (hdd2_status == "0") {
+        ui->label_Statushdd2->setText("HDD 2 not installed");
+        ui->label_Statushdd2->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconhdd2->setStyleSheet("image: url(:/new/icons/hdd_red.png);");
+    } else if (hdd2_status == "1") {
+        ui->label_Statushdd2->setText("HDD 2 is installed");
+        ui->label_Statushdd2->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconhdd2->setStyleSheet("image: url(:/new/icons/hdd_green.png);");
+    }
+
+    if (hdd3_status == "0") {
+        ui->label_Statushdd3->setText("HDD 3 not installed");
+        ui->label_Statushdd3->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconhdd3->setStyleSheet("image: url(:/new/icons/hdd_red.png);");
+    } else if (hdd3_status == "1") {
+        ui->label_Statushdd3->setText("HDD 3 is installed");
+        ui->label_Statushdd3->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconhdd3->setStyleSheet("image: url(:/new/icons/hdd_green.png);");
+    }
+
+    if (hdd4_status == "0") {
+        ui->label_Statushdd4->setText("HDD 4 not installed");
+        ui->label_Statushdd4->setStyleSheet("QLabel { color : red; }");
+        ui->label_StatusIconhdd4->setStyleSheet("image: url(:/new/icons/hdd_red.png);");
+    } else if (hdd4_status == "1") {
+        ui->label_Statushdd4->setText("HDD 4 is installed");
+        ui->label_Statushdd4->setStyleSheet("QLabel { color : green; }");
+        ui->label_StatusIconhdd4->setStyleSheet("image: url(:/new/icons/hdd_green.png);");
+    }
+
+    file.close();
+}
+
+void NVRWindow::on_pushButton_Add_New_IPCAM_clicked()
+{
+    //Switch to the fifth page
+    ui->stackedWidget->setCurrentIndex(4);
+
+    ui->label_heading->setText(" ADD NEW IPCAM");
+
+    returncounter_nvr = 1;
+}
+
+
+void NVRWindow::on_pushButton_NVR_IP_clicked()
+{
+    QString NVR_IP;
+    NVR_IP=le->text();
+
+    nvr_ip=le->text();
+
+    ui->label_NVR_status->setText("NVR IP ADDRESS = 192.168.1."+NVR_IP);
+    QTimer::singleShot(5000, this, [this] () { ui->label_NVR_status->setText(""); });
+
+}
+
+
+void NVRWindow::on_pushButton_IPCAM_IP_clicked()
+{
+    QString IPCAM_IP;
+    IPCAM_IP=le2->text();
+
+    ipcam_ip=le2->text();
+
+    ui->label_IPCAM_status->setText("IPCAM IP ADDRESS = 192.168.1."+IPCAM_IP);
+    QTimer::singleShot(5000, this, [this] () { ui->label_IPCAM_status->setText(""); });
+
+}
+
+void NVRWindow::on_pushButton_CHANNEL_NO_clicked()
+{
+    QString C_NO;
+    C_NO=le3->text();
+
+    channelNo_ipcam=le3->text();
+
+    ui->label_CHANNEL_NO_status->setText("CHANNEL NUMBER = "+C_NO);
+    QTimer::singleShot(5000, this, [this] () { ui->label_CHANNEL_NO_status->setText(""); });
+
+}
+
+void NVRWindow::on_pushButton_add_IPCAM_clicked()
+{
+    addIPCAM();
+    le->clear();
+    le2->clear();
+    le3->clear();
 }
 

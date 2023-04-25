@@ -124,10 +124,10 @@ void SlaveSyncThread::run()
 {
     forever
     {
-        switch(slave_task)
-        {
-        case SLAVE_NO_TASK:
-        {
+//        switch(slave_task)
+//        {
+//        case SLAVE_NO_TASK:
+//        {
 //#ifndef LAPTOP
 
 //            gpio.gpio_get_value(POW_LO_SENSE,&pow_lo_val);
@@ -170,74 +170,74 @@ void SlaveSyncThread::run()
 ////                gpio.gpio_set_value(MIC_SWITCH,OP_OFF);
 ////            }
 //#endif
-            eth_ctr++;
-            if(eth_ctr==5)
-            {
-                 eth_ctr=0;
-                if(has_eth)
-                {
-                    if(ni_eth.IsRunning)
-                    {
-                        emit eth_con();
-                    }
-                    else
-                    {
-                        emit eth_dis();
+//            eth_ctr++;
+//            if(eth_ctr==5)
+//            {
+//                 eth_ctr=0;
+//                if(has_eth)
+//                {
+//                    if(ni_eth.IsRunning)
+//                    {
+//                        emit eth_con();
+//                    }
+//                    else
+//                    {
+//                        emit eth_dis();
 
-                        if(ni_eth.IsUp)
-                        {
-                            emit eth_up();
-                        }
-                        else
-                        {
-                            emit eth_down();
-                        }
-                    }
-                }
-                else
-                {
-                    eth_setup();
-                }
-            }
-            this->msleep(1000);
-        }
-            break;
-        case SLAVE_INIT:
-        {
-                //ddc doesnt support connmanctl
-//            eth_setup();
+//                        if(ni_eth.IsUp)
+//                        {
+//                            emit eth_up();
+//                        }
+//                        else
+//                        {
+//                            emit eth_down();
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    eth_setup();
+//                }
+//            }
+//            this->msleep(1000);
+//        }
+//            break;
+//        case SLAVE_INIT:
+//        {
+//                //ddc doesnt support connmanctl
+////            eth_setup();
 
-//            QString ping_req ="ping -w 1 "+sysconfig.eth_ip_addr;
-//            while(system(ping_req.toLocal8Bit())){this->msleep(2000);}
-            emit init_done();
-            slave_task=SLAVE_NO_TASK;
-        }
-            break;
-        case SLAVE_SCAN_IP:
-        {
-            int pctr;
-            if(papis_slaves.at(sIdx)->installStatus==INSTALLED)
-            {
-                pctr=0;
-                QString ping_req ="ping -w 1 "+papis_slaves.at(sIdx)->ip_addr;
-                while(system(ping_req.toLocal8Bit()))
-                {
-                    pctr++;
-                    emit slave_scan_progress_eth(100/pctr,papis_slaves);
-                    if(pctr==4)
-                    {
-                        inactive++;
+////            QString ping_req ="ping -w 1 "+sysconfig.eth_ip_addr;
+////            while(system(ping_req.toLocal8Bit())){this->msleep(2000);}
+//            emit init_done();
+//            slave_task=SLAVE_NO_TASK;
+//        }
+//            break;
+//        case SLAVE_SCAN_IP:
+//        {
+//            int pctr;
+//            if(papis_slaves.at(sIdx)->installStatus==INSTALLED)
+//            {
+//                pctr=0;
+//                QString ping_req ="ping -w 1 "+papis_slaves.at(sIdx)->ip_addr;
+//                while(system(ping_req.toLocal8Bit()))
+//                {
+//                    pctr++;
+//                    emit slave_scan_progress_eth(100/pctr,papis_slaves);
+//                    if(pctr==4)
+//                    {
+//                        inactive++;
 
-                        papis_slaves.at(sIdx)->activeStatus = INACTIVE;
-                        break;
-                    }
-                }
-                emit slave_scan_progress_eth(100,papis_slaves);
-            }
-        }
-        break;
-        case SLAVE_SCAN_ALL:
-        {
+//                        papis_slaves.at(sIdx)->activeStatus = INACTIVE;
+//                        break;
+//                    }
+//                }
+//                emit slave_scan_progress_eth(100,papis_slaves);
+//            }
+//        }
+//        break;
+//        case SLAVE_SCAN_ALL:
+//        {
             int idx;
             int pctr;
             inactive=0;
@@ -265,16 +265,16 @@ void SlaveSyncThread::run()
             emit slave_scan_progress_eth(100,papis_slaves);
             slave_task = SLAVE_NO_TASK;
         }
-            break;
-        default:
-            break;
+//            break;
+//        default:
+//            break;
 
-        }
-    }
+//        }
+//    }
 }
 
-void SlaveSyncThread::eth_scan_all(QList <slave*> slaves)
-{
-    papis_slaves=slaves;
-    slave_task = SLAVE_SCAN_ALL;
-}
+//void SlaveSyncThread::eth_scan_all(QList <slave*> slaves)
+//{
+//    papis_slaves=slaves;
+//    slave_task = SLAVE_SCAN_ALL;
+//}

@@ -68,6 +68,10 @@ private slots:
 
     void on_pushButton_copylogs2USB_clicked();
 
+    void on_pushButton_copyfault2USB_clicked();
+
+    void on_pushButton_copy_hmi_logs_clicked();
+
 private:
     Ui::LogsWindow *ui;
     QTimer *timer;

@@ -259,9 +259,9 @@ void camera::read(const QJsonObject &json)
                     car_type=CAR_TC;
                 }
                 else
-                    if(dt=="CAR_TC")
+                    if(dt=="CAR_NDTC")
                     {
-                        car_type=CAR_TC;
+                        car_type=CAR_NDTC;
                     }
 
     }

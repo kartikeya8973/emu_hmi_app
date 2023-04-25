@@ -86,7 +86,7 @@
     {
       "camera_type": "CAM_CCTV_FR",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.229",
+      "ip_addr": "192.168.1.221",
       "csno": 1,
       "car_type": "CAR_DTC",
       "bu": 1,
@@ -96,7 +96,7 @@
     {
       "camera_type": "CAM_CCTV_FL",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.225",
+      "ip_addr": "192.168.1.221",
       "csno": 1,
       "car_type": "CAR_DTC",
       "bu": 1,
@@ -106,7 +106,7 @@
     {
       "camera_type": "CAM_CCTV_CAB",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.235",
+      "ip_addr": "192.168.1.231",
       "csno": 1,
       "car_type": "CAR_DTC",
       "bu": 1,
@@ -196,7 +196,7 @@
     {
       "camera_type": "CAM_CCTV_R",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.224",
+      "ip_addr": "192.168.1.221",
       "csno": 12,
       "car_type": "CAR_DTC",
       "bu": 4,
@@ -206,7 +206,7 @@
     {
       "camera_type": "CAM_CCTV_RR",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.233",
+      "ip_addr": "192.168.1.221",
       "csno": 12,
       "car_type": "CAR_DTC",
       "bu": 4,
@@ -216,7 +216,7 @@
     {
       "camera_type": "CAM_CCTV_RL",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.234",
+      "ip_addr": "192.168.1.221",
       "csno": 12,
       "car_type": "CAR_DTC",
       "bu": 4,
@@ -226,7 +226,7 @@
     {
       "camera_type": "CAM_CCTV_CAB",
       "installStatus": "INSTALLED",
-      "ip_addr": "192.168.1.236",
+      "ip_addr": "192.168.1.221",
       "csno": 12,
       "car_type": "CAR_DTC",
       "bu": 4,

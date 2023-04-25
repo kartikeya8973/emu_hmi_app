@@ -26,6 +26,8 @@ EtbCallWindow::EtbCallWindow(QWidget *parent) :
     _mplayer_etb = libvlc_media_player_new (_vlcinstance);
 
     playEtbStream();
+
+    ui->pushButton_close->setVisible(true);
 }
 
 EtbCallWindow::~EtbCallWindow()
@@ -41,7 +43,7 @@ EtbCallWindow::~EtbCallWindow()
 
 void EtbCallWindow::playEtbStream(){
     //Starting respective CCTV feed (Hardcoded for now)
-    const char* url_etb =  "rtsp://192.168.1.221/video1.sdp";
+    const char* url_etb =  "rtsp://192.168.1.223/video1.sdp";
 
     _m_etb = libvlc_media_new_location(_vlcinstance, url_etb);
     libvlc_media_player_set_media (_mplayer_etb, _m_etb);
@@ -52,3 +54,10 @@ void EtbCallWindow::playEtbStream(){
     libvlc_media_player_play (_mplayer_etb);
     _isPlaying=true;
 }
+
+void EtbCallWindow::on_pushButton_close_clicked()
+{
+    system("ps -A | grep gst | awk '{ printf $1 }' | xargs kill -2 $1");
+    close();
+}
+

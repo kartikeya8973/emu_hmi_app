@@ -11,11 +11,10 @@
 
 systemconfig systemconfig;
 QList <camera*> hmi_slaves;
-
 QList <QList <camera*>> rake;
 
-
 QList <slave*> papis_slaves;
+QList <QList <slave*>> rake_devices;
 slave_tasks_t   slave_task;
 SlaveSyncThread *slaveSyncThread;
 IpCamSyncThread *ipcamsyncthread;

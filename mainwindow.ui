@@ -149,7 +149,7 @@ image: url(:/new/icons/train.png);
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>520</x>
+        <x>510</x>
         <y>10</y>
         <width>492</width>
         <height>636</height>
@@ -880,9 +880,9 @@ image: url(:/new/icons/no-video.png);</string>
      <widget class="QPushButton" name="pushButton_car1">
       <property name="geometry">
        <rect>
-        <x>25</x>
+        <x>40</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
       </property>
@@ -897,132 +897,224 @@ color: rgb(0, 0, 0);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car2">
+     <widget class="QPushButton" name="pushButton_car2">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>115</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 2</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car3">
+     <widget class="QPushButton" name="pushButton_car4">
       <property name="geometry">
        <rect>
-        <x>235</x>
+        <x>280</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
       </property>
-      <property name="text">
-       <string>CAR 3</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car4">
-      <property name="geometry">
-       <rect>
-        <x>365</x>
-        <y>588</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 4</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car5">
+     <widget class="QPushButton" name="pushButton_car3">
       <property name="geometry">
        <rect>
-        <x>470</x>
+        <x>190</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 3</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_car5">
+      <property name="geometry">
+       <rect>
+        <x>355</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 5</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car6">
+     <widget class="QPushButton" name="pushButton_car6">
       <property name="geometry">
        <rect>
-        <x>575</x>
+        <x>430</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 6</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car7">
+     <widget class="QPushButton" name="pushButton_car10">
       <property name="geometry">
        <rect>
-        <x>701</x>
-        <y>588</y>
-        <width>90</width>
+        <x>764</x>
+        <y>587</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
-       <string>CAR 7</string>
+       <string>CAR 10</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car8">
+     <widget class="QPushButton" name="pushButton_car12">
       <property name="geometry">
        <rect>
-        <x>805</x>
-        <y>588</y>
-        <width>90</width>
+        <x>914</x>
+        <y>587</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 12</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_car8">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 8</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car9">
+     <widget class="QPushButton" name="pushButton_car9">
       <property name="geometry">
        <rect>
-        <x>909</x>
+        <x>675</x>
         <y>588</y>
-        <width>90</width>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 9</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_car11">
+      <property name="geometry">
+       <rect>
+        <x>839</x>
+        <y>587</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 11</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_car7">
+      <property name="geometry">
+       <rect>
+        <x>525</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 7</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -1290,60 +1382,212 @@ image: url(:/new/icons/no-video.png);</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car4_Mosiac">
+     <widget class="QPushButton" name="pushButton_carM4">
       <property name="geometry">
        <rect>
-        <x>365</x>
-        <y>590</y>
-        <width>90</width>
+        <x>280</x>
+        <y>588</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 4</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car2_Mosiac">
+     <widget class="QPushButton" name="pushButton_carM11">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>590</y>
-        <width>90</width>
+        <x>839</x>
+        <y>587</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
-       <string>CAR 2</string>
+       <string>CAR 11</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car7_Mosiac">
+     <widget class="QPushButton" name="pushButton_carM6">
       <property name="geometry">
        <rect>
-        <x>701</x>
-        <y>590</y>
-        <width>90</width>
+        <x>430</x>
+        <y>588</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 6</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM10">
+      <property name="geometry">
+       <rect>
+        <x>764</x>
+        <y>587</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 10</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM7">
+      <property name="geometry">
+       <rect>
+        <x>525</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 7</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_car1_Mosiac">
+     <widget class="QPushButton" name="pushButton_carM2">
       <property name="geometry">
        <rect>
-        <x>25</x>
-        <y>590</y>
-        <width>90</width>
+        <x>115</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 2</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM3">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 3</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM12">
+      <property name="geometry">
+       <rect>
+        <x>914</x>
+        <y>587</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 12</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM5">
+      <property name="geometry">
+       <rect>
+        <x>355</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 5</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM9">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 9</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carM1">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>588</y>
+        <width>70</width>
         <height>50</height>
        </rect>
       </property>
@@ -1358,84 +1602,24 @@ color: rgb(0, 0, 0);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car5_Mosiac">
+     <widget class="QPushButton" name="pushButton_carM8">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>590</y>
-        <width>90</width>
+        <x>600</x>
+        <y>588</y>
+        <width>70</width>
         <height>50</height>
        </rect>
       </property>
-      <property name="text">
-       <string>CAR 5</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car9_Mosiac">
-      <property name="geometry">
-       <rect>
-        <x>909</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 9</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car8_Mosiac">
-      <property name="geometry">
-       <rect>
-        <x>805</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 8</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car3_Mosiac">
-      <property name="geometry">
-       <rect>
-        <x>235</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 3</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car6_Mosiac">
-      <property name="geometry">
-       <rect>
-        <x>575</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 6</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -1546,9 +1730,9 @@ image: url(:/new/icons/no-video.png);</string>
      <widget class="QLabel" name="label_cam_no_2">
       <property name="geometry">
        <rect>
-        <x>800</x>
+        <x>730</x>
         <y>2</y>
-        <width>131</width>
+        <width>200</width>
         <height>17</height>
        </rect>
       </property>
@@ -1556,124 +1740,12 @@ image: url(:/new/icons/no-video.png);</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car5_Full">
+     <widget class="QPushButton" name="pushButton_carF1">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 5</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car9_Full">
-      <property name="geometry">
-       <rect>
-        <x>909</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 9</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car3_Full">
-      <property name="geometry">
-       <rect>
-        <x>235</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 3</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car7_Full">
-      <property name="geometry">
-       <rect>
-        <x>701</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 7</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car4_Full">
-      <property name="geometry">
-       <rect>
-        <x>365</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 4</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car2_Full">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 2</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_car6_Full">
-      <property name="geometry">
-       <rect>
-        <x>575</x>
-        <y>590</y>
-        <width>90</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CAR 6</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_car1_Full">
-      <property name="geometry">
-       <rect>
-        <x>25</x>
-        <y>590</y>
-        <width>90</width>
+        <x>40</x>
+        <y>589</y>
+        <width>70</width>
         <height>50</height>
        </rect>
       </property>
@@ -1688,20 +1760,224 @@ color: rgb(0, 0, 0);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_car8_Full">
+     <widget class="QPushButton" name="pushButton_carF2">
       <property name="geometry">
        <rect>
-        <x>805</x>
-        <y>590</y>
-        <width>90</width>
+        <x>115</x>
+        <y>589</y>
+        <width>70</width>
         <height>50</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 2</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF3">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 3</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF8">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>CAR 8</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF5">
+      <property name="geometry">
+       <rect>
+        <x>355</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 5</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF10">
+      <property name="geometry">
+       <rect>
+        <x>764</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 10</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF9">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 9</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF6">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 6</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF11">
+      <property name="geometry">
+       <rect>
+        <x>839</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 11</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF7">
+      <property name="geometry">
+       <rect>
+        <x>525</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 7</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF12">
+      <property name="geometry">
+       <rect>
+        <x>914</x>
+        <y>588</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 12</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_carF4">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>589</y>
+        <width>70</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(114, 159, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>CAR 4</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -1743,33 +2019,36 @@ color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="label_cam_no">
       <property name="geometry">
        <rect>
-        <x>3</x>
-        <y>620</y>
-        <width>181</width>
-        <height>20</height>
+        <x>10</x>
+        <y>604</y>
+        <width>352</width>
+        <height>50</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>13</pointsize>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="text">
        <string/>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
      </widget>
      <widget class="QLabel" name="label_cam_ip">
       <property name="geometry">
        <rect>
-        <x>781</x>
+        <x>916</x>
         <y>620</y>
-        <width>240</width>
-        <height>20</height>
+        <width>101</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>13</pointsize>
+        <pointsize>6</pointsize>
        </font>
       </property>
       <property name="text">
@@ -1779,7 +2058,7 @@ color: rgb(0, 0, 0);</string>
      <widget class="QPushButton" name="pushButton_stop">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>470</x>
         <y>611</y>
         <width>85</width>
         <height>40</height>
@@ -1800,7 +2079,7 @@ color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="label_recording_status">
       <property name="geometry">
        <rect>
-        <x>567</x>
+        <x>740</x>
         <y>616</y>
         <width>151</width>
         <height>30</height>
@@ -1816,7 +2095,7 @@ color: rgb(0, 0, 0);</string>
      <widget class="QPushButton" name="pushButton_record">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>370</x>
         <y>611</y>
         <width>85</width>
         <height>40</height>
@@ -1837,7 +2116,7 @@ color: rgb(0, 0, 0);</string>
      <widget class="QLabel" name="label_recordingIcon">
       <property name="geometry">
        <rect>
-        <x>497</x>
+        <x>680</x>
         <y>616</y>
         <width>30</width>
         <height>30</height>
@@ -1850,7 +2129,7 @@ color: rgb(0, 0, 0);</string>
      <widget class="QPushButton" name="pushButton_screenshot">
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>570</x>
         <y>611</y>
         <width>85</width>
         <height>40</height>
@@ -1874,6 +2153,7 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_2"/>
     <widget class="QWidget" name="page_trainReverse">
      <widget class="QFrame" name="frame_13">
       <property name="geometry">
@@ -2064,164 +2344,12 @@ image: url(:/new/prefix1/menu_icon2.png);</string>
      </size>
     </property>
    </widget>
-   <widget class="QLabel" name="label_lan">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/lan.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_camera">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/cctv.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_ssd">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/nvr_database.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_voip">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/voip.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_wifi">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/wifi2.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4g">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/4g.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_datasync">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/sync.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_gps">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/icons/gps.png);
-border-style: solid;
-border-width:1px;
-border-color: rgb(186, 189, 182);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_cam_buttons">
     <property name="geometry">
      <rect>
       <x>715</x>
       <y>0</y>
-      <width>309</width>
+      <width>310</width>
       <height>85</height>
      </rect>
     </property>
@@ -2371,6 +2499,7 @@ border-color: rgb(186, 189, 182);</string>
     </property>
     <property name="font">
      <font>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2393,6 +2522,7 @@ border-color: rgb(186, 189, 182);</string>
     </property>
     <property name="font">
      <font>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2404,6 +2534,282 @@ border-color: rgb(186, 189, 182);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_wifi">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">;border-style: solid;
+image: url(:/new/icons/wifi-signal.png);
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4g">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/icons/4g.png);
+border-style: solid;
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_gps">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/icons/gps.png);
+border-style: solid;
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_datasync">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/icons/sync.png);
+border-style: solid;
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_voip">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/icons/voip.png);
+border-style: solid;
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_lan">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/icons/lan.png);
+border-style: solid;
+border-width:1px;
+border-color: rgb(186, 189, 182);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>LAN</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>VoIP</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>4G</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>WiFi</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>LOCATION</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>75</y>
+      <width>64</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>DATA SYNC</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>label_Date</zorder>
+   <zorder>label_Time</zorder>
+   <zorder>stackedWidget_Dynamic</zorder>
+   <zorder>label_cam_buttons</zorder>
+   <zorder>pushButton_camView_1</zorder>
+   <zorder>pushButton_camView_full</zorder>
+   <zorder>pushButton_camView_2</zorder>
+   <zorder>pushButton_return</zorder>
+   <zorder>pushButton_Lock</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>pushButton_Menu</zorder>
+   <zorder>label_wifi</zorder>
+   <zorder>label_4g</zorder>
+   <zorder>label_gps</zorder>
+   <zorder>label_datasync</zorder>
+   <zorder>label_voip</zorder>
+   <zorder>label_lan</zorder>
+   <zorder>label_9</zorder>
+   <zorder>label_10</zorder>
+   <zorder>label_11</zorder>
+   <zorder>label_12</zorder>
+   <zorder>label_13</zorder>
+   <zorder>label_14</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

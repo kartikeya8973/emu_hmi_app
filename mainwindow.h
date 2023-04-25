@@ -12,6 +12,7 @@
 #include "settingswindow.h"
 #include "logswindow.h"
 #include "etbcallwindow.h"
+#include "slave.h"
 
 #include <QMediaPlayer>
 #include <QVideoWidget>
@@ -95,7 +96,7 @@ public:
 
     // For IPCAM view on pushing frame's button
     libvlc_media_player_t *_mp12;
-    libvlc_media_t *_m12;    
+    libvlc_media_t *_m12;
 
     // When train stops REAR CAM
     libvlc_media_player_t *_mp13;
@@ -126,7 +127,7 @@ public slots:
     void statusDateTime();
 
     //opens 5 frame Cam View
-//    void openDefaultCam();
+    //    void openDefaultCam();
 
     //opens the menu page present in stackWidget_Dynamic via login window
     void openMenuPage();
@@ -150,13 +151,37 @@ public slots:
     void openetbcalldialog();
 
     //open driver login dialog
-//    void opendriverlogindialog();
+    //    void opendriverlogindialog();
 
     //open the default screen
     void opendefaultScreen();
 
     //Iterate Full Cam view
     void iterateFullCamView();
+
+    //player frame 4 (_mp4)
+    void playerFrame4();
+
+    //player frame 5 (_mp5)
+    void playerFrame5();
+
+    //player frame 6 (_mp6)
+    void playerMosiac1();
+
+    //player frame 7 (_mp7)
+    void playerMosiac2();
+
+    //player frame 8 (_mp8)
+    void playerMosiac3();
+
+    //player frame 9 (_mp9)
+    void playerMosiac4();
+
+    //player frame 10 (_mp10)
+    void playerFullCam();
+
+    //player frame 12 (_mp12)
+    void recPlayer();
 
     //Iterate Mosiac Cam view
     void iterateMosiacCamView();
@@ -166,6 +191,7 @@ public slots:
 
     //Iterate the saloon cameras on the first view
     void iterateSaloonCams();
+
 
     //open screenshot window
     void openscreenshotdialog();
@@ -182,7 +208,35 @@ public slots:
     //Function for open recording page for IPCAM if yes is selected on etbcallprompt dialog
     void contRecording();
 
-//    void slave_ping_update(int pc,QList <camera*> cameras);
+    //Getting list of relevant devices of network
+    void slave_ping_update(/*int pc,*/QList <slave*> slaves);
+
+    //Getting list of IPCAMS
+    void camera_ping_update(/*int pc,*/QList <camera*> cameras);
+
+    //function to check LAN connectivity of HMI
+    void self_ping_lan_icon();
+
+    //function to check LAN connectivity of SIPSERVER
+    void ping_voip_icon();
+
+    //function to check wifi connectivity of HMI
+    void wifi_status();
+
+    //function to check 4G connectivity of HMI
+    void ppp_status();
+
+    //stop view 1 cams
+    void stop_view_1_cam();
+
+    //stop Mosiac view cams
+    void stop_view_Mosiac_cam();
+
+    //stop all cameras
+    void stop_all_cam();
+
+    //getting logs got IPCAMS
+    void iterateCamLogs();
 
 private slots:
     void on_pushButton_Menu_clicked();
@@ -261,9 +315,27 @@ private slots:
 
     void on_pushButton_car1_clicked();
 
-    void on_pushButton_car1_Full_clicked();
+    void on_pushButton_car2_clicked();
 
-    void on_pushButton_car1_Mosiac_clicked();
+    void on_pushButton_car3_clicked();
+
+    void on_pushButton_car12_clicked();
+
+    void on_pushButton_car4_clicked();
+
+    void on_pushButton_car5_clicked();
+
+    void on_pushButton_car6_clicked();
+
+    void on_pushButton_car7_clicked();
+
+    void on_pushButton_car8_clicked();
+
+    void on_pushButton_car9_clicked();
+
+    void on_pushButton_car10_clicked();
+
+    void on_pushButton_car11_clicked();
 
     void on_pushButton_screenshot_clicked();
 
@@ -272,6 +344,54 @@ private slots:
     void on_pushButton_DriverAccess_clicked();
 
     void on_pushButton_MainAccess_clicked();
+
+    void on_pushButton_carM1_clicked();
+
+    void on_pushButton_carM2_clicked();
+
+    void on_pushButton_carM3_clicked();
+
+    void on_pushButton_carM4_clicked();
+
+    void on_pushButton_carM5_clicked();
+
+    void on_pushButton_carM6_clicked();
+
+    void on_pushButton_carM7_clicked();
+
+    void on_pushButton_carM8_clicked();
+
+    void on_pushButton_carM9_clicked();
+
+    void on_pushButton_carM10_clicked();
+
+    void on_pushButton_carM11_clicked();
+
+    void on_pushButton_carM12_clicked();
+
+    void on_pushButton_carF1_clicked();
+
+    void on_pushButton_carF2_clicked();
+
+    void on_pushButton_carF3_clicked();
+
+    void on_pushButton_carF4_clicked();
+
+    void on_pushButton_carF5_clicked();
+
+    void on_pushButton_carF6_clicked();
+
+    void on_pushButton_carF7_clicked();
+
+    void on_pushButton_carF8_clicked();
+
+    void on_pushButton_carF9_clicked();
+
+    void on_pushButton_carF10_clicked();
+
+    void on_pushButton_carF11_clicked();
+
+    void on_pushButton_carF12_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -304,6 +424,8 @@ private:
     QNetworkAccessManager *managerLogs;
 
     EtbCallWindow *etbWindow = new EtbCallWindow(this);
+
+    int statusCnt=0;
 
 
     //    QTimer *timeractive;

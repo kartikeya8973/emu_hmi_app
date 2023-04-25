@@ -34,6 +34,9 @@ public slots:
     //For getting rtsp streams
     void playEtbStream();
 
+private slots:
+    void on_pushButton_close_clicked();
+
 private:
     Ui::EtbCallWindow *ui;
 };

@@ -381,7 +381,7 @@ USB</string>
        <rect>
         <x>37</x>
         <y>527</y>
-        <width>371</width>
+        <width>581</width>
         <height>81</height>
        </rect>
       </property>
@@ -415,6 +415,37 @@ USB</string>
      <widget class="QPushButton" name="pushButton_copy">
       <property name="geometry">
        <rect>
+        <x>670</x>
+        <y>530</y>
+        <width>141</width>
+        <height>90</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>17</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>COPY 
+NVR LOGS</string>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/new/icons/copy.png</normaloff>:/new/icons/copy.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_copy_hmi_logs">
+      <property name="geometry">
+       <rect>
         <x>840</x>
         <y>530</y>
         <width>141</width>
@@ -423,13 +454,14 @@ USB</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>20</pointsize>
+        <pointsize>17</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
       </property>
       <property name="text">
-       <string>COPY</string>
+       <string>COPY 
+HMI LOGS</string>
       </property>
       <property name="icon">
        <iconset resource="icons.qrc">

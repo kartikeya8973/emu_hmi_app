@@ -51,7 +51,7 @@ void PingThread::run()
         ping_for_cam14 = system("ping -c 1 192.168.1.234 > /dev/null 2>&1");
 
         ping_for_nvr1 = system("ping -c 1 192.168.1.2 > /dev/null 2>&1");
-        ping_for_nvr2 = system("ping -c 1 192.168.1.3 > /dev/null 2>&1");
+        ping_for_nvr2 = system("ping -c 1 192.168.1.234 > /dev/null 2>&1");
 
 //        pingStatus.push_back(ping_for_nvr1);
 //        pingStatus.push_back(ping_for_nvr2);
