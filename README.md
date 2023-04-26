@@ -34,3 +34,34 @@ $ export LD_LIBRARY_PATH=/opt/qt515/lib/
 $ cd /home/hmi/HMI
 
 $ ./HMItemplate
+
+##################################
+To run NATIVELY set the following in common.h
+
+//Change device to csemi for native / hmi for target
+static QString device = "csemi";
+
+//Path to driver login database (passdb_driver)
+static QString pathTopassdb_driver = "/home/csemi/qtworkspace_new/HMItemplate/password_driver.db";
+
+//Path to maintaince login database (passdb)
+static QString pathTopassdb = "/home/csemi/qtworkspace_new/HMItemplate/password.db";
+
+//Path to base directory
+static QString base_dir ="/home/"+device+"/qtworkspace_new/HMItemplate/";
+
+
+To run on HMI set the following in common.h
+//Change device to csemi for native / hmi for target
+static QString device = "hmi";
+
+//Path to driver login database (passdb_driver)
+static QString pathTopassdb_driver = "/home/"+device+"/HMI/password_driver.db";
+
+
+//Path to maintaince login database (passdb)
+static QString pathTopassdb = "/home/"+device+"/HMI/password.db";
+
+//Path to base directory
+static QString base_dir ="/home/"+device+"/HMI/";
+
