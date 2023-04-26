@@ -35,7 +35,8 @@ $ cd /home/hmi/HMI
 
 $ ./HMItemplate
 
-##################################
+
+
 To run NATIVELY set the following in common.h
 
 //Change device to csemi for native / hmi for target
@@ -51,7 +52,9 @@ static QString pathTopassdb = "/home/csemi/qtworkspace_new/HMItemplate/password.
 static QString base_dir ="/home/"+device+"/qtworkspace_new/HMItemplate/";
 
 
+
 To run on HMI set the following in common.h
+
 //Change device to csemi for native / hmi for target
 static QString device = "hmi";
 
